@@ -34,7 +34,7 @@ html_clav = function(
   config$post_processor = function(metadata, input, output, clean, verbose) {
     if (is.function(post)) output = post(metadata, input, output, clean, verbose)
     x = read_utf8(output)
-    x = bookdown::clean_html_tags(x)
+    x = bookdown:::clean_html_tags(x)
     x = bookdown::restore_appendix_html(x, remove = FALSE)
     x = bookdown::restore_part_html(x, remove = FALSE)
     x = resolve_new_theorems(x, global = !number_sections, new_theorems, number_by)
@@ -58,7 +58,7 @@ split_chapters = function(output, build = build_chapter, number_sections, split_
   if (!(split_level %in% 0:2)) stop('split_level must be 0, 1, or 2')
 
   x = read_utf8(output)
-  x = bookdown::clean_html_tags(x)
+  x = bookdown:::clean_html_tags(x)
 
   i1 = find_token(x, '<!--bookdown:title:start-->')
   i2 = find_token(x, '<!--bookdown:title:end-->')
