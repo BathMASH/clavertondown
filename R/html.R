@@ -7,7 +7,7 @@ html_chapters = function(
   config = get_base_format(base_format, list(
     toc = toc, number_sections = number_sections, fig_caption = fig_caption,
     self_contained = FALSE, lib_dir = lib_dir,
-    template = template, pandoc_args = bookdown::pandoc_args2(pandoc_args), ...
+    template = template, pandoc_args = bookdown:::pandoc_args2(pandoc_args), ...
   ))
   split_by = match.arg(split_by)
   post = config$post_processor  # in case a post processor have been defined
@@ -28,15 +28,15 @@ html_clav = function(
   ..., number_sections = TRUE, pandoc_args = NULL, base_format = rmarkdown::html_document, new_theorems=list(), number_by=list()
 ) {
   config = get_base_format(base_format, list(
-    ..., number_sections = number_sections, pandoc_args = bookdown::pandoc_args2(pandoc_args)
+    ..., number_sections = number_sections, pandoc_args = bookdown:::pandoc_args2(pandoc_args)
   ))
   post = config$post_processor  # in case a post processor have been defined
   config$post_processor = function(metadata, input, output, clean, verbose) {
     if (is.function(post)) output = post(metadata, input, output, clean, verbose)
     x = read_utf8(output)
     x = bookdown:::clean_html_tags(x)
-    x = bookdown::restore_appendix_html(x, remove = FALSE)
-    x = bookdown::restore_part_html(x, remove = FALSE)
+    x = bookdown:::restore_appendix_html(x, remove = FALSE)
+    x = bookdown:::restore_part_html(x, remove = FALSE)
     x = resolve_new_theorems(x, global = !number_sections, new_theorems, number_by)
     x = resolve_refs_html(x, global = !number_sections, new_theorems, number_by)
     write_utf8(x, output)
@@ -259,7 +259,7 @@ resolve_new_theorems = function(content, global = FALSE, new_theorems, number_by
 }
 
 resolve_refs_html = function(content, global = FALSE, new_theorems, number_by) {
-  content = bookdown::resolve_ref_links_html(content)
+  content = bookdown:::resolve_ref_links_html(content)
 
   res = parse_fig_labels(content, global, new_theorems, number_by)
   content = res$content
