@@ -25,7 +25,7 @@ gitbook_clav = function(
   post = config$post_processor  # in case a post processor have been defined
   config$post_processor = function(metadata, input, output, clean, verbose) {
     if (is.function(post)) output = post(metadata, input, output, clean, verbose)
-    on.exit(write_search_data(), add = TRUE)
+    on.exit(bookdown:::write_search_data(), add = TRUE)
 
     # a hack to remove Pandoc's margin for code blocks since gitbook has already
     # defined margin on <pre> (there would be too much bottom margin)
