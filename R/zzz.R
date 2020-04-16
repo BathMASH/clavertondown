@@ -4,5 +4,6 @@ NULL
 .onLoad = function(lib, pkg) {
   #For user created theorems we cannot register them by name as in the above
   #The below uses an engine based on block2
+  library(bookdown)
   register_eng_math('newtheorem', eng_newtheorem)
 }
