@@ -108,7 +108,7 @@ restore_block2 = function(x, global = FALSE, new_theorems, new_theorem_abbr, new
   #Recall: number_by at this point is from the user and defines counter shares, it is prepended so that the entry 'overrides' the default
   number_by = c(number_by,list('thm'='thm','lem'='lem','cor'='cor','prp'='prp','cnj'='cnj','def' = 'def','exm'='exm','exr'='exr'),new_number_by)
 
-  new_label_prefix = function(type, dict = new_label_names) i18n('label', type, dict)
+  new_label_prefix = function(type, dict = new_label_names) bookdown:::i18n('label', type, dict)
 
   i = grep('^\\\\begin\\{document\\}', x)[1]
   if (is.na(i)) return(x)
