@@ -1,3 +1,11 @@
+register_eng_math = function(envs, engine) {
+  knitr::knit_engines$set(setNames(lapply(envs, function(env) {
+    function(options) {
+      options$type = env
+      engine(options)
+    }
+  }), envs))
+}
 
 # collapse by \n
 # this is stolen from knitr as the below stolen thing needs it this way too
