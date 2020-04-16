@@ -63,7 +63,7 @@ process_markdown = function(input_file, from, pandoc_args, global, new_theorems,
   content = read_utf8(input_file)
   content = resolve_new_theorems(content, global = !number_sections, new_theorems, number_by)
   i = xfun::prose_index(content)
-  content[i] = bookdown:::resolve_refs_md(content[i], c(figs$ref_table, parse_section_labels(x)), to_md)
+  content[i] = bookdown:::resolve_refs_md(content[i], c(figs$ref_table, bookdown:::parse_section_labels(x)), to_md)
   if (to_md) content = gsub(
     '^\\\\BeginKnitrBlock\\{[^}]+\\}|\\\\EndKnitrBlock\\{[^}]+\\}$', '', content
   )
