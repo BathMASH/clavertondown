@@ -11,9 +11,9 @@ gitbook_clav = function(
   }
   gb_config = config
   if (identical(template, 'default')) {
-    template = bookdown_file('templates', 'gitbook.html')
+    template = clavertondown_file('templates', 'gitbook.html')
   }
-  mathjax_header = bookdown_file('templates','mathjax-setup.html')
+  mathjax_header = clavertondown_file('templates','mathjax-setup.html')
   includes$in_header = c(includes$in_header, mathjax_header)
 
   config = html_clav(

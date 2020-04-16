@@ -1,3 +1,17 @@
+get_base_format = function(format, options = list()) {
+  if (is.character(format)) format = eval(parse(text = format))
+  if (!is.function(format)) stop('The output format must be a function')
+  # make sure named elements in `options` have corresponding named arguments in
+  # the format function, unless the function has the ... argument
+  nms = names(formals(format))
+  if (!('...' %in% nms)) options = options[names(options) %in% c(nms, '')]
+  do.call(format, options)
+}
+
+clavertondown_file = function(...) {
+  system.file(..., package = 'clavertondown', mustWork = TRUE)
+}
+
 register_eng_math = function(envs, engine) {
   knitr::knit_engines$set(setNames(lapply(envs, function(env) {
     function(options) {

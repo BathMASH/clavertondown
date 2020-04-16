@@ -1,6 +1,6 @@
 html_chapters = function(
   toc = TRUE, number_sections = TRUE, fig_caption = TRUE, lib_dir = 'libs',
-  template = bookdown_file('templates/default.html'), pandoc_args = NULL, ...,
+  template = clavertondown_file('templates/default.html'), pandoc_args = NULL, ...,
   base_format = rmarkdown::html_document, split_bib = TRUE, page_builder = build_chapter,
   split_by = c('section+number', 'section', 'chapter+number', 'chapter', 'rmd', 'none'), new_theorems=list(), number_by = list()
 ) {
