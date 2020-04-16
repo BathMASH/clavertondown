@@ -188,7 +188,7 @@ theorem_style = function(env) {
 }
 
 revise_latex_alts = function(x,pointsize) {
-  clearfile = bookdown_file('templates','Clear.tex')
+  clearfile = clavertondown_file('templates','Clear.tex')
   clearstring = paste(read_utf8(clearfile), collapse = "\n")
   clearstring = gsub('\\\\', '\\\\\\\\', clearstring)
   x = gsub('\\{article\\}','\\{extarticle\\}', x)
