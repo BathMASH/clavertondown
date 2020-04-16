@@ -81,6 +81,9 @@ set_opts_knit = function(config) {
 }
 
 pandoc2.0 = function() rmarkdown::pandoc_available('2.0')
+
 output_md = function() getOption('bookdown.output.markdown', FALSE)
+
 `%n%` = knitr:::`%n%`
+
 str_trim = function(x) gsub('^\\s+|\\s+$', '', x)
