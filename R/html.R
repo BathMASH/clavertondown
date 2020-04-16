@@ -276,7 +276,7 @@ resolve_refs_html = function(content, global = FALSE, new_theorems, number_by) {
     # the numbers may contain double quotes, e.g. <img alt="<a
     # href="#foo">1.2</a>"" width=...
     ref = bookdown:::ref_to_number(refs[[i]], ref_table, FALSE)
-    if (is_img_line(content[i])) ref = strip_html(ref)
+    if (bookdown:::is_img_line(content[i])) ref = bookdown:::strip_html(ref)
     refs[[i]] = ref
   }
   regmatches(content, m) = refs
