@@ -69,3 +69,13 @@ eng_newtheorem = function(options) {
   )
 
 }
+
+# set some internal knitr options
+set_opts_knit = function(config) {
+  # use labels of the form (\#label) in knitr
+  config$knitr$opts_knit$bookdown.internal.label = TRUE
+  # when the output is LaTeX, force LaTeX tables instead of default Pandoc tables
+  # http://tex.stackexchange.com/q/276699/9128
+  config$knitr$opts_knit$kable.force.latex = TRUE
+  config
+}
