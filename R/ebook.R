@@ -55,7 +55,7 @@ process_markdown = function(input_file, from, pandoc_args, global, new_theorems,
     c(pandoc_args, '--section-divs', '--mathjax', '--number-sections')
   )
   x = read_utf8(intermediate_html)
-  x = clean_html_tags(x)
+  x = bookdown:::clean_html_tags(x)
   #Need to do the next thing or the newtheorems will not be picked up in the label list
   x = resolve_new_theorems(x, global = !number_sections, new_theorems, number_by)
   figs = parse_fig_labels(x, global, new_theorems, number_by)
@@ -63,19 +63,19 @@ process_markdown = function(input_file, from, pandoc_args, global, new_theorems,
   content = read_utf8(input_file)
   content = resolve_new_theorems(content, global = !number_sections, new_theorems, number_by)
   i = xfun::prose_index(content)
-  content[i] = resolve_refs_md(content[i], c(figs$ref_table, parse_section_labels(x)), to_md)
+  content[i] = bookdown:::resolve_refs_md(content[i], c(figs$ref_table, parse_section_labels(x)), to_md)
   if (to_md) content = gsub(
     '^\\\\BeginKnitrBlock\\{[^}]+\\}|\\\\EndKnitrBlock\\{[^}]+\\}$', '', content
   )
-  content = resolve_ref_links_epub(
-    content, parse_ref_links(x, '^<p>%s (.+)</p>$'), to_md
+  content = bookdown:::resolve_ref_links_epub(
+    content, bookdown:::parse_ref_links(x, '^<p>%s (.+)</p>$'), to_md
   )
   if (!to_md) {
     i = xfun::prose_index(content)
     s = content[i]
-    s = restore_part_epub(s)
-    s = restore_appendix_epub(s)
-    s = protect_math_env(s)
+    s = bookdown:::restore_part_epub(s)
+    s = bookdown:::restore_appendix_epub(s)
+    s = bookdown:::protect_math_env(s)
     content[i] = s
   }
   write_utf8(content, input_file)
