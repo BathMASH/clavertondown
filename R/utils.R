@@ -87,3 +87,6 @@ output_md = function() getOption('bookdown.output.markdown', FALSE)
 `%n%` = knitr:::`%n%`
 
 str_trim = function(x) gsub('^\\s+|\\s+$', '', x)
+
+# manipulate internal options
+opts = knitr:::new_defaults(list(config = list()))
