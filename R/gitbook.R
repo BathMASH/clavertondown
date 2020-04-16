@@ -19,7 +19,7 @@ gitbook_clav = function(
   config = html_clav(
     toc = TRUE, number_sections = number_sections, fig_caption = fig_caption,
     self_contained = self_contained, lib_dir = lib_dir, theme = NULL,
-    template = template, pandoc_args = pandoc_args2(pandoc_args), includes = includes, ...
+    template = template, pandoc_args = bookdown:::pandoc_args2(pandoc_args), includes = includes, ...
   )
   split_by = match.arg(split_by)
   post = config$post_processor  # in case a post processor have been defined
@@ -33,12 +33,12 @@ gitbook_clav = function(
     x = x[x != 'div.sourceCode { margin: 1em 0; }']
     write_utf8(x, output)
 
-    move_files_html(output, lib_dir)
-    output2 = split_chapters(
+    bookdown:::move_files_html(output, lib_dir)
+    output2 = split_chapters_clav(
       output, gitbook_page, number_sections, split_by, split_bib, new_theorems, number_by, gb_config, split_by
     )
     if (file.exists(output) && !same_path(output, output2)) file.remove(output)
-    move_files_html(output2, lib_dir)
+    bookdown:::move_files_html(output2, lib_dir)
     output2
   }
   config$bookdown_output_format = 'html'
