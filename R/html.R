@@ -7,7 +7,7 @@ html_chapters = function(
   config = get_base_format(base_format, list(
     toc = toc, number_sections = number_sections, fig_caption = fig_caption,
     self_contained = FALSE, lib_dir = lib_dir,
-    template = template, pandoc_args = pandoc_args2(pandoc_args), ...
+    template = template, pandoc_args = bookdown::pandoc_args2(pandoc_args), ...
   ))
   split_by = match.arg(split_by)
   post = config$post_processor  # in case a post processor have been defined
@@ -28,15 +28,15 @@ html_clav = function(
   ..., number_sections = TRUE, pandoc_args = NULL, base_format = rmarkdown::html_document, new_theorems=list(), number_by=list()
 ) {
   config = get_base_format(base_format, list(
-    ..., number_sections = number_sections, pandoc_args = pandoc_args2(pandoc_args)
+    ..., number_sections = number_sections, pandoc_args = bookdown::pandoc_args2(pandoc_args)
   ))
   post = config$post_processor  # in case a post processor have been defined
   config$post_processor = function(metadata, input, output, clean, verbose) {
     if (is.function(post)) output = post(metadata, input, output, clean, verbose)
     x = read_utf8(output)
-    x = clean_html_tags(x)
-    x = restore_appendix_html(x, remove = FALSE)
-    x = restore_part_html(x, remove = FALSE)
+    x = bookdown::clean_html_tags(x)
+    x = bookdown::restore_appendix_html(x, remove = FALSE)
+    x = bookdown::restore_part_html(x, remove = FALSE)
     x = resolve_new_theorems(x, global = !number_sections, new_theorems, number_by)
     x = resolve_refs_html(x, global = !number_sections, new_theorems, number_by)
     write_utf8(x, output)
@@ -58,7 +58,7 @@ split_chapters = function(output, build = build_chapter, number_sections, split_
   if (!(split_level %in% 0:2)) stop('split_level must be 0, 1, or 2')
 
   x = read_utf8(output)
-  x = clean_html_tags(x)
+  x = bookdown::clean_html_tags(x)
 
   i1 = find_token(x, '<!--bookdown:title:start-->')
   i2 = find_token(x, '<!--bookdown:title:end-->')
@@ -247,20 +247,6 @@ split_chapters = function(output, build = build_chapter, number_sections, split_
   nms[j]
 }
 
-# clean HTML tags inside <meta>, which can be introduced by certain YAML
-# metadata, such as an improper description that contains Markdown syntax, e.g.,
-# <meta name="description" content="A <i>description</i>.">
-clean_meta_tags = function(x) {
-  r = '^(\\s*<meta )(.+<.+>.+)(/?>\\s*)$'
-  if (length(i <- grep(r, x)) == 0) return(x)
-  x1 = sub(r, '\\1', x[i])
-  x2 = sub(r, '\\2', x[i])
-  x3 = sub(r, '\\3', x[i])
-  x2 = gsub('<[^>]+>', '', x2)
-  x[i] = paste0(x1, x2, x3)
-  x
-}
-
 
 #' Resolve newtheorems introduced by the user which are using a renderer which does not know the label, only the env name
 resolve_new_theorems = function(content, global = FALSE, new_theorems, number_by){
@@ -273,7 +259,7 @@ resolve_new_theorems = function(content, global = FALSE, new_theorems, number_by
 }
 
 resolve_refs_html = function(content, global = FALSE, new_theorems, number_by) {
-  content = resolve_ref_links_html(content)
+  content = bookdown::resolve_ref_links_html(content)
 
   res = parse_fig_labels(content, global, new_theorems, number_by)
   content = res$content
@@ -398,13 +384,6 @@ new_theorems = list(), number_by = list()
   content = gsub('"\\(\\\\#(fig:[-/[:alnum:]]+)\\)', '"', content)
 
   list(content = content, ref_table = arry)
-}
-
-
-# add --wrap=preserve to pandoc args for pandoc 2.0:
-# https://github.com/rstudio/bookdown/issues/504
-pandoc_args2 = function(args) {
-  if (pandoc2.0() && !length(grep('--wrap', args))) c('--wrap', 'preserve', args) else args
 }
 
 
