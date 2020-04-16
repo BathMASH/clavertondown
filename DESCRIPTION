@@ -9,6 +9,11 @@ Description: Output formats and utilities for authoring accessible maths lecture
 License: GPL-3
 Imports:
     bookdown (>= 0.17.1),
+    htmltools (>= 0.3.6),
+    knitr (>= 1.22),
+    rmarkdown (>= 1.12),
+    xfun (>= 0.6),
+    tinytex (>= 0.12)
 URL: https://github.com/rstudio/bookdown
 BugReports: https://github.com/rstudio/bookdown/issues
 SystemRequirements: Pandoc (>= 2.3)
