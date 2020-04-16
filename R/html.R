@@ -326,7 +326,7 @@ new_theorems = list(), number_by = list()
   arry = character()  # an array of the form c(label = number, ...)
   if (global) chaps = '0'  # Chapter 0 (could be an arbitrary number)
 
-  content = restore_math_labels(content)
+  content = bookdown:::restore_math_labels(content)
 
   # See "prefixes for theorem environments" above - we need to update these with the new labels etc. that the user has provided
   # There is probably a better way of doing this. The first job is to confirm that this will work at all. 
@@ -349,7 +349,7 @@ new_theorems = list(), number_by = list()
   m = gregexpr(sprintf('\\(#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), content)
   labs = regmatches(content, m)
   #cntr = new_counters(label_types, chaps)  # chapter counters
-  cntr = new_counters(new_label_types, chaps)  # chapter counters
+  cntr = bookdown:::new_counters(new_label_types, chaps)  # chapter counters
   figs = grep('^<div class="figure', content)
   eqns = grep('<span class="math display">', content)
 
