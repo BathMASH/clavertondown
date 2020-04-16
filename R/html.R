@@ -385,13 +385,13 @@ new_theorems = list(), number_by = list()
         labs[[i]] = character(length(lab))
         next
       }
-      labs[[i]] = paste0(label_prefix(type), num, ': ')
+      labs[[i]] = paste0(bookdown:::label_prefix(type), num, ': ')
       k = max(figs[figs <= i])
       content[k] = paste(c(content[k], sprintf('<span id="%s"></span>', lab)), collapse = '')
     }, tab = {
       if (length(grep('^<caption', content[i - 0:1])) == 0) next
       labs[[i]] = sprintf(
-        '<span id="%s">%s</span>', lab, paste0(label_prefix(type), num, ': ')
+        '<span id="%s">%s</span>', lab, paste0(bookdown:::label_prefix(type), num, ': ')
       )
     }, eq = {
       labs[[i]] = sprintf('\\tag{%s}', num)
@@ -400,7 +400,7 @@ new_theorems = list(), number_by = list()
         '(<span class="math display")', sprintf('\\1 id="%s"', lab), content[k]
       )
     }, {
-      labs[[i]] = paste0(label_prefix(type), num, ': ')
+      labs[[i]] = paste0(bookdown:::label_prefix(type), num, ': ')
     })
   }
 
