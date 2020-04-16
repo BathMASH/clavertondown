@@ -5,7 +5,7 @@ pdf_clav = function(
 ) {
   config = get_base_format(base_format, list(
     toc = toc, number_sections = number_sections, fig_caption = fig_caption,
-    pandoc_args = pandoc_args2(pandoc_args), ...
+    pandoc_args = bookdown:::pandoc_args2(pandoc_args), ...
   ))
   config$pandoc$ext = '.tex'
   post = config$post_processor  # in case a post processor have been defined
@@ -20,19 +20,19 @@ pdf_clav = function(
     new_reg_label_types = paste(new_reg_label_types, 'ex', sep = '|')
     x = resolve_new_theorems(read_utf8(f), global = !number_sections, new_theorems, number_by)
     #x = resolve_refs_latex(read_utf8(f), new_reg_label_types)
-    x = resolve_refs_latex(x, new_reg_label_types)
+    x = bookdown:::resolve_refs_latex(x, new_reg_label_types)
     #x = resolve_ref_links_latex(x)
-    x = restore_part_latex(x)
-    x = restore_appendix_latex(x, toc_appendix)
-    if (!toc_unnumbered) x = remove_toc_items(x)
-    if (toc_bib) x = add_toc_bib(x)
+    x = bookdown:::restore_part_latex(x)
+    x = bookdown:::restore_appendix_latex(x, toc_appendix)
+    if (!toc_unnumbered) x = bookdown:::remove_toc_items(x)
+    if (toc_bib) x = bookdown:::add_toc_bib(x)
     x = restore_block2(x, !number_sections, new_theorems, new_theorem_abbr, new_label_names, number_by)
     if (!is.null(quote_footer)) {
       if (length(quote_footer) != 2 || !is.character(quote_footer)) warning(
         "The 'quote_footer' argument should be a character vector of length 2"
-      ) else x = process_quote_latex(x, quote_footer)
+      ) else x = bookdown:::process_quote_latex(x, quote_footer)
     }
-    if (highlight_bw) x = highlight_grayscale_latex(x)
+    if (highlight_bw) x = bookdown:::highlight_grayscale_latex(x)
     post = getOption('bookdown.post.latex')
     if (is.function(post)) x = post(x)
 
@@ -102,40 +102,6 @@ pdf_clav = function(
   config
 }
 
-
-resolve_refs_latex = function(x, new_reg_label_types) {
-  # equation references \eqref{}
-  x = gsub(
-    '(?<!\\\\textbackslash{})@ref\\((eq:[-/:[:alnum:]]+)\\)', '\\\\eqref{\\1}', x,
-    perl = TRUE
-  )
-  # normal references \ref{}
-  x = gsub(
-    '(?<!\\\\textbackslash{})@ref\\(([-/:[:alnum:]]+)\\)', '\\\\ref{\\1}', x,
-    perl = TRUE
-  )
-  #print(new_reg_label_types)
-  x = gsub(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), '\\\\label{\\1}', x)
-  x
-}
-
-
-revise_latex_alts = function(x,pointsize) {
-  clearfile = clavertondown_file('templates','Clear.tex')
-  clearstring = paste(read_utf8(clearfile), collapse = "\n")
-  clearstring = gsub('\\\\', '\\\\\\\\', clearstring)
-  x = gsub('\\{article\\}','\\{extarticle\\}', x)
-  x = gsub('\\{report\\}','\\{extreport\\}', x)
-  x = gsub('\\\\begin\\{document\\}', sprintf('\n\n%s\n\n\\\\begin\\{document\\}', clearstring), x)
-  x = gsub('\\\\documentclass\\[\\d+pt',sprintf('\\\\documentclass\\[%spt',pointsize),x)
-  x
-}
-
-remove_toc_items = function(x) {
-  r = '^\\\\addcontentsline\\{toc\\}\\{(part|chapter|section|subsection|subsubsection)\\}\\{.+\\}$'
-  x[grep(r, x)] = ''
-  x
-}
 
 restore_block2 = function(x, global = FALSE, new_theorems, new_theorem_abbr, new_label_names, number_by) {
   new_number_by = setNames(unlist(new_theorems, use.name=FALSE), unlist(new_theorems, use.names=FALSE))
@@ -221,3 +187,13 @@ theorem_style = function(env) {
   styles
 }
 
+revise_latex_alts = function(x,pointsize) {
+  clearfile = bookdown_file('templates','Clear.tex')
+  clearstring = paste(read_utf8(clearfile), collapse = "\n")
+  clearstring = gsub('\\\\', '\\\\\\\\', clearstring)
+  x = gsub('\\{article\\}','\\{extarticle\\}', x)
+  x = gsub('\\{report\\}','\\{extreport\\}', x)
+  x = gsub('\\\\begin\\{document\\}', sprintf('\n\n%s\n\n\\\\begin\\{document\\}', clearstring), x)
+  x = gsub('\\\\documentclass\\[\\d+pt',sprintf('\\\\documentclass\\[%spt',pointsize),x)
+  x
+}
