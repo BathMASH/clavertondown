@@ -263,7 +263,7 @@ resolve_refs_html = function(content, global = FALSE, new_theorems, number_by) {
 
   res = parse_fig_labels(content, global, new_theorems, number_by)
   content = res$content
-  ref_table = c(res$ref_table, parse_section_labels(content))
+  ref_table = c(res$ref_table, bookdown:::parse_section_labels(content))
 
   # look for @ref(label) and resolve to actual figure/table/section numbers
   m = gregexpr('(?<!\\\\)@ref\\(([-:[:alnum:]]+)\\)', content, perl = TRUE)
