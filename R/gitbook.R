@@ -6,7 +6,7 @@ gitbook_clav = function(
 ) {
   html_clav = function(..., extra_dependencies = list()) {
     rmarkdown::html_document(
-      ..., extra_dependencies = c(extra_dependencies, gitbook_dependency(table_css))
+      ..., extra_dependencies = c(extra_dependencies, bookdown:::gitbook_dependency(table_css))
     )
   }
   gb_config = config
