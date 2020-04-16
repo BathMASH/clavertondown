@@ -4,7 +4,7 @@ gitbook_clav = function(
   split_by = c('chapter', 'chapter+number', 'section', 'section+number', 'rmd', 'none'),
   split_bib = TRUE, new_theorems=list(), number_by = list(), config = list(), includes = list(), table_css = TRUE
 ) {
-  html_document2 = function(..., extra_dependencies = list()) {
+  html_clav = function(..., extra_dependencies = list()) {
     rmarkdown::html_document(
       ..., extra_dependencies = c(extra_dependencies, gitbook_dependency(table_css))
     )
@@ -16,7 +16,7 @@ gitbook_clav = function(
   mathjax_header = bookdown_file('templates','mathjax-setup.html')
   includes$in_header = c(includes$in_header, mathjax_header)
 
-  config = html_document2(
+  config = html_clav(
     toc = TRUE, number_sections = number_sections, fig_caption = fig_caption,
     self_contained = self_contained, lib_dir = lib_dir, theme = NULL,
     template = template, pandoc_args = pandoc_args2(pandoc_args), includes = includes, ...
