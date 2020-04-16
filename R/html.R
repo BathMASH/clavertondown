@@ -38,7 +38,9 @@ html_clav = function(
     x = bookdown:::restore_appendix_html(x, remove = FALSE)
     x = bookdown:::restore_part_html(x, remove = FALSE)
     x = resolve_new_theorems(x, global = !number_sections, new_theorems, number_by)
+    print("Resolved new theorems")
     x = resolve_refs_html(x, global = !number_sections, new_theorems, number_by)
+    print("Resolved references")
     write_utf8(x, output)
     output
   }
