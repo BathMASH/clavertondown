@@ -1,7 +1,7 @@
-html_chapters = function(
+html_chapters_clav = function(
   toc = TRUE, number_sections = TRUE, fig_caption = TRUE, lib_dir = 'libs',
   template = clavertondown_file('templates/default.html'), pandoc_args = NULL, ...,
-  base_format = rmarkdown::html_document, split_bib = TRUE, page_builder = build_chapter,
+  base_format = rmarkdown::html_document, split_bib = TRUE, page_builder = bookdown:::build_chapter,
   split_by = c('section+number', 'section', 'chapter+number', 'chapter', 'rmd', 'none'), new_theorems=list(), number_by = list()
 ) {
   config = get_base_format(base_format, list(
@@ -13,15 +13,23 @@ html_chapters = function(
   post = config$post_processor  # in case a post processor have been defined
   config$post_processor = function(metadata, input, output, clean, verbose) {
     if (is.function(post)) output = post(metadata, input, output, clean, verbose)
-    move_files_html(output, lib_dir)
-    output2 = split_chapters(output, page_builder, number_sections, split_by, split_bib, new_theorems, number_by)
+    bookdown:::move_files_html(output, lib_dir)
+    output2 = split_chapters_clav(output, page_builder, number_sections, split_by, split_bib, new_theorems, number_by)
     if (file.exists(output) && !same_path(output, output2)) file.remove(output)
-    move_files_html(output2, lib_dir)
+    bookdown:::move_files_html(output2, lib_dir)
     output2
   }
   config$bookdown_output_format = 'html'
   config = set_opts_knit(config)
   config
+}
+
+html_book_clav = function(...) {
+  html_chapters_clav(..., base_format = rmarkdown::html_document)
+}
+
+tufte_html_book_clav = function(...) {
+  html_chapters_clav(..., base_format = tufte::tufte_html)
 }
 
 html_clav = function(
@@ -49,7 +57,44 @@ html_clav = function(
   config
 }
 
-split_chapters = function(output, build = build_chapter, number_sections, split_by, split_bib, new_theorems, number_by, ...) {
+html_fragment2_clav = function(..., number_sections = FALSE) {
+  html_clav(
+    ..., number_sections = number_sections, base_format = rmarkdown::html_fragment
+  )
+}
+
+html_notebook2_clav = function(..., number_sections = FALSE) {
+  html_clav(
+    ..., number_sections = number_sections, base_format = rmarkdown::html_notebook
+  )
+}
+
+html_vignette2_clav = function(..., number_sections = FALSE) {
+  html_clav(
+    ..., number_sections = number_sections, base_format = rmarkdown::html_vignette
+  )
+}
+
+ioslides_presentation2_clav = function(..., number_sections = FALSE) {
+  html_clav(
+    ..., number_sections = number_sections, base_format = rmarkdown::ioslides_presentation
+  )
+}
+
+slidy_presentation2_clav = function(..., number_sections = FALSE) {
+  html_clav(
+    ..., number_sections = number_sections, base_format = rmarkdown::slidy_presentation
+  )
+}
+
+tufte_clav = function(..., number_sections = FALSE) {
+  html_clav(
+    ..., number_sections = number_sections, base_format = tufte::tufte_html
+  )
+}
+
+
+split_chapters_clav = function(output, build = bookdown:::build_chapter, number_sections, split_by, split_bib, new_theorems, number_by, ...) {
 
   use_rmd_names = split_by == 'rmd'
   split_level = switch(
@@ -62,12 +107,12 @@ split_chapters = function(output, build = build_chapter, number_sections, split_
   x = read_utf8(output)
   x = bookdown:::clean_html_tags(x)
 
-  i1 = find_token(x, '<!--bookdown:title:start-->')
-  i2 = find_token(x, '<!--bookdown:title:end-->')
-  i3 = find_token(x, '<!--bookdown:toc:start-->')
-  i4 = find_token(x, '<!--bookdown:toc:end-->')
-  i5 = find_token(x, '<!--bookdown:body:start-->')
-  i6 = find_token(x, '<!--bookdown:body:end-->')
+  i1 = bookdown:::find_token(x, '<!--bookdown:title:start-->')
+  i2 = bookdown:::find_token(x, '<!--bookdown:title:end-->')
+  i3 = bookdown:::find_token(x, '<!--bookdown:toc:start-->')
+  i4 = bookdown:::find_token(x, '<!--bookdown:toc:end-->')
+  i5 = bookdown:::find_token(x, '<!--bookdown:body:start-->')
+  i6 = bookdown:::find_token(x, '<!--bookdown:body:end-->')
 
   r_chap = '^<!--chapter:end:(.+)-->$'
   n = length(grep(r_chap, x))
@@ -115,15 +160,15 @@ split_chapters = function(output, build = build_chapter, number_sections, split_
     }
   }
 
-  x = add_section_ids(x)
-  x = restore_part_html(x)
-  x = restore_appendix_html(x)
+  x = bookdown:::add_section_ids(x)
+  x = bookdown:::restore_part_html(x)
+  x = bookdown:::restore_appendix_html(x)
 
   # no (or not enough) tokens found in the template
   if (any(c(i1, i2, i3, i4, i5, i6) == 0)) {
     x = resolve_new_theorems(x, global = !number_sections, new_theorems, number_by)
     x = resolve_refs_html(x, !number_sections, new_theorems, number_by)
-    x = add_chapter_prefix(x)
+    x = bookdown:::add_chapter_prefix(x)
     write_utf8(x, output)
     return(output)
   }
@@ -134,7 +179,7 @@ split_chapters = function(output, build = build_chapter, number_sections, split_
   html_body  = x[(i5 + 1):(i6 - 1)]  # body
   html_foot  = x[(i6 + 1):length(x)]  # HTML footer
 
-  html_toc = add_toc_ids(html_toc)
+  html_toc = bookdown:::add_toc_ids(html_toc)
 
   idx = grep(r_chap, html_body)
   nms = gsub(r_chap, '\\1', html_body[idx])  # to be used in HTML filenames
@@ -154,16 +199,16 @@ split_chapters = function(output, build = build_chapter, number_sections, split_
     write_utf8(build(
       html_head, html_toc, c(html_title, html_body), NULL, NULL, NULL, output, html_foot, ...
     ), output)
-    return(move_to_output_dir(output))
+    return(bookdown:::move_to_output_dir(output))
   }
 
   if (split_bib) {
     # parse and remove the references chapter
-    res = parse_references(html_body)
+    res = bookdown:::parse_references(html_body)
     refs = res$refs; html_body = res$html; ref_title = res$title
   }
   # parse and remove footnotes (will reassign them to relevant pages later)
-  res = parse_footnotes(html_body)
+  res = bookdown:::parse_footnotes(html_body)
   fnts = res$items
   if (length(fnts)) html_body[res$range] = ''
 
@@ -212,8 +257,8 @@ split_chapters = function(output, build = build_chapter, number_sections, split_
 
   nms = basename(with_ext(nms, '.html'))  # the HTML filenames to be generated
   input = opts$get('input_rmd')
-  html_body = add_chapter_prefix(html_body)
-  html_toc = restore_links(html_toc, html_body, idx, nms)
+  html_body = bookdown:::add_chapter_prefix(html_body)
+  html_toc = bookdown:::restore_links(html_toc, html_body, idx, nms)
   for (i in seq_len(n)) {
     # skip writing the chapter.html if the current Rmd name is not in the vector
     # of Rmd names passed to render_book() (only this vector of Rmd's should be
@@ -225,14 +270,14 @@ split_chapters = function(output, build = build_chapter, number_sections, split_
     i1 = idx[i]
     i2 = if (i == n) length(html_body) else idx[i + 1] - 1
     html = c(if (i == 1) html_title, html_body[i1:i2])
-    a_targets = parse_a_targets(html)
+    a_targets = bookdown:::parse_a_targets(html)
     if (split_bib) {
-      html = relocate_references(html, refs, ref_title, a_targets)
+      html = bookdown:::relocate_references(html, refs, ref_title, a_targets)
     }
-    html = relocate_footnotes(html, fnts, a_targets)
-    html = restore_links(html, html_body, idx, nms)
+    html = bookdown:::relocate_footnotes(html, fnts, a_targets)
+    html = bookdown:::restore_links(html, html_body, idx, nms)
     html = build(
-      prepend_chapter_title(html_head, html), html_toc, html,
+      bookdown:::prepend_chapter_title(html_head, html), html_toc, html,
       if (i > 1) nms[i - 1],
       if (i < n) nms[i + 1],
       if (length(nms_chaps)) nms_chaps[i],
@@ -240,7 +285,7 @@ split_chapters = function(output, build = build_chapter, number_sections, split_
     )
     write_utf8(html, nms[i])
   }
-  nms = move_to_output_dir(nms)
+  nms = bookdown:::move_to_output_dir(nms)
 
   # find the HTML output file corresponding to the Rmd file passed to render_book()
   if (is.null(input) || length(nms_chaps) == 0) j = 1 else {
