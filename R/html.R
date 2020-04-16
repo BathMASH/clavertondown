@@ -407,27 +407,4 @@ pandoc_args2 = function(args) {
   if (pandoc2.0() && !length(grep('--wrap', args))) c('--wrap', 'preserve', args) else args
 }
 
-# remove extra attributes on headers (Pandoc 2.9+):
-# https://github.com/rstudio/bookdown/issues/832
-clean_header_tags = function(x) {
-  r1 = '^<div [^>]*?class="section level[1-6][^"]*"[^>]*>$'
-  r2 = '^(<h[1-6])([^>]+)(>.+</h[1-6]>.*)$'
-  i = grep(r2, x)
-  i = i[grep(r1, x[i - 1])]  # the line above <h1> should be <div>
-  x[i] = gsub(r2, '\\1\\3', x[i])  # remove attributes on <h1>
-  x
-}
 
-clean_html_tags = function(x) {
-  x = clean_meta_tags(x)
-  x = clean_header_tags(x)
-  x
-}
-
-# move files to output dir if specified
-move_to_output_dir = function(files) {
-  files2 = output_path(files)
-  i = file.exists(files) & (files != files2)
-  file.rename(files[i], files2[i])
-  files2
-}
