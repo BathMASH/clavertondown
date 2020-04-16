@@ -35,7 +35,7 @@ gitbook_clav = function(
 
     bookdown:::move_files_html(output, lib_dir)
     output2 = split_chapters_clav(
-      output, gitbook_page, number_sections, split_by, split_bib, new_theorems, number_by, gb_config, split_by
+      output, bookdown:::gitbook_page, number_sections, split_by, split_bib, new_theorems, number_by, gb_config, split_by
     )
     if (file.exists(output) && !same_path(output, output2)) file.remove(output)
     bookdown:::move_files_html(output2, lib_dir)
