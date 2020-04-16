@@ -20,7 +20,7 @@ pdf_clav = function(
     new_reg_label_types = paste(new_reg_label_types, 'ex', sep = '|')
     x = resolve_new_theorems(read_utf8(f), global = !number_sections, new_theorems, number_by)
     #x = resolve_refs_latex(read_utf8(f), new_reg_label_types)
-    x = bookdown:::resolve_refs_latex(x, new_reg_label_types)
+    x = resolve_refs_latex(x, new_reg_label_types)
     #x = resolve_ref_links_latex(x)
     x = bookdown:::restore_part_latex(x)
     x = bookdown:::restore_appendix_latex(x, toc_appendix)
@@ -195,5 +195,21 @@ revise_latex_alts = function(x,pointsize) {
   x = gsub('\\{report\\}','\\{extreport\\}', x)
   x = gsub('\\\\begin\\{document\\}', sprintf('\n\n%s\n\n\\\\begin\\{document\\}', clearstring), x)
   x = gsub('\\\\documentclass\\[\\d+pt',sprintf('\\\\documentclass\\[%spt',pointsize),x)
+  x
+}
+
+resolve_refs_latex = function(x, new_reg_label_types) {
+  # equation references \eqref{}
+  x = gsub(
+    '(?<!\\\\textbackslash{})@ref\\((eq:[-/:[:alnum:]]+)\\)', '\\\\eqref{\\1}', x,
+    perl = TRUE
+  )
+  # normal references \ref{}
+  x = gsub(
+    '(?<!\\\\textbackslash{})@ref\\(([-/:[:alnum:]]+)\\)', '\\\\ref{\\1}', x,
+    perl = TRUE
+  )
+  #print(new_reg_label_types)
+  x = gsub(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), '\\\\label{\\1}', x)
   x
 }
