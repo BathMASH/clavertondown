@@ -79,3 +79,6 @@ set_opts_knit = function(config) {
   config$knitr$opts_knit$kable.force.latex = TRUE
   config
 }
+
+pandoc2.0 = function() rmarkdown::pandoc_available('2.0')
+output_md = function() getOption('bookdown.output.markdown', FALSE)
