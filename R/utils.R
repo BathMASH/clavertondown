@@ -90,3 +90,4 @@ str_trim = function(x) gsub('^\\s+|\\s+$', '', x)
 
 # manipulate internal options
 opts = knitr:::new_defaults(list(config = list()))
+

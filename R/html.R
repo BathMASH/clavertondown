@@ -49,6 +49,7 @@ html_clav = function(
     print("Resolved new theorems")
     x = resolve_refs_html(x, global = !number_sections, new_theorems, number_by)
     print("Resolved references")
+    print(knitr:::opts_knit$get('header.title'))
     write_utf8(x, output)
     output
   }
