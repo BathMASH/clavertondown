@@ -25,8 +25,57 @@ register_eng_math = function(envs, engine) {
 # this is stolen from knitr as the below stolen thing needs it this way too
 one_string = function(x, ...) paste(x, ..., collapse = '\n')
 
-#Most of this is stolen from block2 implementation in knitr
 #Theorem environments in **bookdown** fail to work with Pandoc >= 2.7.3 because of an issue in the `block2` engine of **knitr** (rstudio/bookdown#883).
+#Actually, this seems to be a wider problem and so I need to fix it locally by removing reliance on block2
+eng_theorem = function(options) {
+  if (isFALSE(options$echo)) return()
+
+  code = one_string(options$code);
+  type = options$type %n% 'theorem'
+  if (is.null(type)) return(code)
+  label = paste(theorem_abbr[type], options$label, sep = ':')
+  html.before2 = sprintf('(\\#%s) ', label)
+  name = options$name;
+  to_md = output_md()
+
+  if(length(name) == 1) {
+    if (to_md) {
+      html.before2 = paste(html.before2, sprintf('(%s) ', name))
+    } else {
+      options$latex.options = sprintf('[%s]', name)
+      html.before2 = paste(html.before2, sprintf('\\iffalse (%s) \\fi{} ', name))
+    }
+  }
+
+  l1 = options$latex.options
+  if (is.null(l1)) l1 = ''
+  # protect environment options because Pandoc may escape the characters like
+  # {}; when encoded in integers, they won't be escaped, but will need to
+  # restore them later; see bookdown:::restore_block2
+  if (l1 != '') l1 = paste(
+    c('\\iffalse{', utf8ToInt(enc2utf8(l1)), '}\\fi{}'), collapse = '-'
+  )
+  h2 = options$html.tag %n% 'div'
+  h3 = options$html.before %n% ''
+  h4 = options$html.after %n% ''
+  #h5 = options$html.before2 %n% ''
+  h6 = options$html.after2 %n% ''
+  if (knitr::is_latex_output()) {
+    h7 = h8 = '\n'
+  } else {
+    h7 = sprintf('<%s class="%s">', h2, type)
+    h8 = sprintf('</%s>', h2)
+  }
+
+  sprintf(
+    '\\BeginKnitrBlock{%s}%s%s%s<strong>%s</strong>%s%s%s%s\\EndKnitrBlock{%s}',
+    type, l1, h3, h7, html.before2, code, h6, h8, h4, type
+  )
+}
+
+
+#Most of this is stolen from block2 implementation in knitr
+#Theorem environments in **bookdown** fail to work with Pandoc >= 2.7.3 because of an issue in the `block2` engine (rstudio/bookdown#883)
 eng_newtheorem = function(options) {
   if (isFALSE(options$echo)) return()
 
@@ -65,7 +114,7 @@ eng_newtheorem = function(options) {
   h6 = options$html.after2 %n% ''
 
   #Added this because of the issue in the block2 engine of knitr
-  if(knitr::is_latex_output() && rmarkdown::pandoc_available('2.7.3')){
+  if(knitr::is_latex_output()){
     h7 = h8 = '\n'
   }else{
     h7 = sprintf('<%s class="%s">', h1, type)
