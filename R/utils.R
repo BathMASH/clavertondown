@@ -26,6 +26,7 @@ register_eng_math = function(envs, engine) {
 one_string = function(x, ...) paste(x, ..., collapse = '\n')
 
 #Most of this is stolen from block2 implementation in knitr
+#Theorem environments in **bookdown** fail to work with Pandoc >= 2.7.3 because of an issue in the `block2` engine of **knitr** (rstudio/bookdown#883).
 eng_newtheorem = function(options) {
   if (isFALSE(options$echo)) return()
 
@@ -63,10 +64,24 @@ eng_newtheorem = function(options) {
   #h5 = options$html.before2 %n% ''
   h6 = options$html.after2 %n% ''
 
+  #Added this because of the issue in the block2 engine of knitr
+  if(is_latex_output() && rmarkdown::pandoc_available('2.7.3')){
+    h7 = h8 = '\n'
+  }else{
+    h7 = sprintf('<%s class="%s">', h1, type)
+    h8 = sprintf('</%s>', h1)
+  }
+
   sprintf(
     '\\BeginKnitrBlock{%s}%s%s<%s class="%s"><%s class="%s" id="%s"><strong>%s</strong></%s>%s%s</%s>%s\\EndKnitrBlock{%s}',
-    env, l1, h3, h1, type, h2, env, label, html.before2, h2, code, h6, h1, h4, env
+    env, l1, h3, h7, h2, env, label, html.before2, h2, code, h6, h8, h4, env
   )
+
+#Code before the issue with the block2 engine in knitr
+#  sprintf(
+#    '\\BeginKnitrBlock{%s}%s%s<%s class="%s"><%s class="%s" id="%s"><strong>%s</strong></%s>%s%s</%s>%s\\EndKnitrBlock{%s}',
+#    env, l1, h3, h1, type, h2, env, label, html.before2, h2, code, h6, h1, h4, env
+#  )
 
 }
 
