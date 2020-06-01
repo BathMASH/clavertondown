@@ -65,7 +65,7 @@ eng_newtheorem = function(options) {
   h6 = options$html.after2 %n% ''
 
   #Added this because of the issue in the block2 engine of knitr
-  if(is_latex_output() && rmarkdown::pandoc_available('2.7.3')){
+  if(knitr::is_latex_output() && rmarkdown::pandoc_available('2.7.3')){
     h7 = h8 = '\n'
   }else{
     h7 = sprintf('<%s class="%s">', h1, type)
