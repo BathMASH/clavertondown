@@ -197,7 +197,7 @@ revise_latex_alts = function(x,pointsize) {
   x = gsub('\\{article\\}','\\{extarticle\\}', x)
   x = gsub('\\{report\\}','\\{extreport\\}', x)
   x = gsub('\\\\begin\\{document\\}', sprintf('\n\n%s\n\n\\\\begin\\{document\\}', clearstring), x)
-  x = gsub('\\\\documentclass\\[\\d+pt',sprintf('\\\\documentclass\\[%spt',pointsize),x)
+  x = gsub('\\d+pt,',sprintf('%spt,',pointsize),x)
   x
 }
 
