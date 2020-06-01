@@ -73,7 +73,7 @@ eng_newtheorem = function(options) {
   }
 
   sprintf(
-    '\\BeginKnitrBlock{%s}%s%s<%s class="%s"><%s class="%s" id="%s"><strong>%s</strong></%s>%s%s</%s>%s\\EndKnitrBlock{%s}',
+    '\\BeginKnitrBlock{%s}%s%s%s<%s class="%s" id="%s"><strong>%s</strong></%s>%s%s%s%s\\EndKnitrBlock{%s}',
     env, l1, h3, h7, h2, env, label, html.before2, h2, code, h6, h8, h4, env
   )
 
