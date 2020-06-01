@@ -3,9 +3,11 @@ epub_clav = function(
   number_sections = TRUE, toc = FALSE, toc_depth = 3, stylesheet = NULL,
   cover_image = NULL, metadata = NULL, chapter_level = 1,
   epub_version = c('epub3', 'epub'), md_extensions = NULL, pandoc_args = NULL,
-  template = 'default', new_theorems=list(), number_by = list(), ...
+  template = 'default', ...
 ) {
   epub_version = match.arg(epub_version)
+  new_theorems = load_config()[['new_theorems']]
+  number_by = load_config()[['number_by']]
   args = c(
     pandoc_args,
     if (number_sections) '--number-sections',
@@ -41,8 +43,9 @@ epub_clav = function(
 }
 
 move_output = function(output) {
-  if (is.null(opts$get('output_dir'))) return(output)
-  output2 = output_path(output)
+  o = load_config()[['output_dir']]
+  if (is.null(o)) return(output)
+  output2 = file.path(o,output)
   file.rename(output, output2)
   output2
 }

@@ -1,6 +1,6 @@
 markdown_clav = function(
   fig_caption = TRUE, number_sections = TRUE, md_extensions = NULL, pandoc_args = NULL, ...,
-  base_format = rmarkdown::md_document, new_theorems=list(), number_by = list()
+  base_format = rmarkdown::md_document
 ) {
   from = rmarkdown::from_rmarkdown(fig_caption, md_extensions)
 
@@ -11,6 +11,8 @@ markdown_clav = function(
   config$pre_processor = function(metadata, input_file, ...) {
     # Pandoc does not support numbered sections for Word, so figures/tables have
     # to be numbered globally from 1 to n
+    new_theorems = load_config()[['new_theorems']]
+    number_by = load_config()[['number_by']]
     process_markdown(input_file, from, pandoc_args, !number_sections, new_theorems, number_by)
     if (is.function(pre)) pre(metadata, input_file, ...)
   }
@@ -26,11 +28,11 @@ markdown_clav = function(
 
 word_clav = function(..., reference_docx = NULL) {
 
-  #EHC is HERE
+  #Check that what is going on here is what you think is going on here...
   reference_docx_ref = clavertondown_file('templates', 'bookdownReference.docx')
   print(reference_docx)
   print(reference_docx_ref)
   if(is.null(reference_docx)) reference_docx = reference_docx_ref
-  print("HERE")
+  #print("HERE")
   markdown_clav(..., base_format = rmarkdown::word_document, reference_docx = reference_docx)
 }

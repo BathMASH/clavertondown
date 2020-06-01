@@ -1,7 +1,7 @@
 pdf_clav = function(
   toc = TRUE, number_sections = TRUE, fig_caption = TRUE, pandoc_args = NULL, ...,
   base_format = rmarkdown::pdf_document, toc_unnumbered = TRUE,
-  toc_appendix = FALSE, toc_bib = FALSE, quote_footer = NULL, highlight_bw = FALSE, new_theorems=list(), number_by = list()
+  toc_appendix = FALSE, toc_bib = FALSE, quote_footer = NULL, highlight_bw = FALSE
 ) {
   config = get_base_format(base_format, list(
     toc = toc, number_sections = number_sections, fig_caption = fig_caption,
@@ -12,6 +12,8 @@ pdf_clav = function(
   config$post_processor = function(metadata, input, output, clean, verbose) {
     if (is.function(post)) output = post(metadata, input, output, clean, verbose)
     f = with_ext(output, '.tex')
+    new_theorems = load_config()[['new_theorems']]
+    number_by = load_config()[['number_by']]
     new_theorem_abbr = c(theorem_abbr, new_theorems)
     new_label_names_math = c(label_names_math, setNames(names(new_theorems), unlist(new_theorems, use.names=FALSE)))
     new_label_names = c(list(fig = 'Figure ', tab = 'Table ', eq = 'Equation '), new_label_names_math)
@@ -67,7 +69,8 @@ pdf_clav = function(
     outputClear = with_ext(paste(sans_ext(output), 'Clear', sep=''), '.pdf')
     outputLarge = with_ext(paste(sans_ext(output), 'Large', sep=''), '.pdf')
     
-    o = opts$get('output_dir')
+    o = load_config()[['output_dir']]
+    print(o)
     keep_tex = isTRUE(config$pandoc$keep_tex)
     if (!keep_tex) {
        file.remove(f)

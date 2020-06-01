@@ -2,7 +2,7 @@ html_chapters_clav = function(
   toc = TRUE, number_sections = TRUE, fig_caption = TRUE, lib_dir = 'libs',
   template = clavertondown_file('templates/default.html'), pandoc_args = NULL, ...,
   base_format = rmarkdown::html_document, split_bib = TRUE, page_builder = bookdown:::build_chapter,
-  split_by = c('section+number', 'section', 'chapter+number', 'chapter', 'rmd', 'none'), new_theorems=list(), number_by = list()
+  split_by = c('section+number', 'section', 'chapter+number', 'chapter', 'rmd', 'none')
 ) {
   config = get_base_format(base_format, list(
     toc = toc, number_sections = number_sections, fig_caption = fig_caption,
@@ -13,6 +13,8 @@ html_chapters_clav = function(
   post = config$post_processor  # in case a post processor have been defined
   config$post_processor = function(metadata, input, output, clean, verbose) {
     if (is.function(post)) output = post(metadata, input, output, clean, verbose)
+    new_theorems = load_config()[['new_theorems']]
+    number_by = load_config()[['number_by']]
     bookdown:::move_files_html(output, lib_dir)
     output2 = split_chapters_clav(output, page_builder, number_sections, split_by, split_bib, new_theorems, number_by)
     if (file.exists(output) && !same_path(output, output2)) file.remove(output)
@@ -33,7 +35,7 @@ tufte_html_book_clav = function(...) {
 }
 
 html_clav = function(
-  ..., number_sections = TRUE, pandoc_args = NULL, base_format = rmarkdown::html_document, new_theorems=list(), number_by=list()
+  ..., number_sections = TRUE, pandoc_args = NULL, base_format = rmarkdown::html_document
 ) {
   config = get_base_format(base_format, list(
     ..., number_sections = number_sections, pandoc_args = bookdown:::pandoc_args2(pandoc_args)
@@ -41,6 +43,8 @@ html_clav = function(
   post = config$post_processor  # in case a post processor have been defined
   config$post_processor = function(metadata, input, output, clean, verbose) {
     if (is.function(post)) output = post(metadata, input, output, clean, verbose)
+    new_theorems = load_config()[['new_theorems']]
+    number_by = load_config()[['number_by']]
     x = read_utf8(output)
     x = bookdown:::clean_html_tags(x)
     x = bookdown:::restore_appendix_html(x, remove = FALSE)

@@ -1,3 +1,11 @@
+load_config = function() {
+  if (length(opts$get('config')) == 0 && file.exists('_bookdown.yml')) {
+    # store the book config
+    opts$set(config = rmarkdown:::yaml_load_file('_bookdown.yml'))
+  }
+  opts$get('config')
+}
+
 get_base_format = function(format, options = list()) {
   if (is.character(format)) format = eval(parse(text = format))
   if (!is.function(format)) stop('The output format must be a function')
@@ -63,7 +71,7 @@ eng_theorem = function(options) {
   if (knitr::is_latex_output()) {
     h7 = h8 = '\n'
   } else {
-    h7 = sprintf('<%s class="%s">', h2, type)
+    h7 = sprintf('<%s class="bookdown-%s" id="%s">', h2, type, label)
     h8 = sprintf('</%s>', h2)
   }
 

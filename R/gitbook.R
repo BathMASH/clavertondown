@@ -2,7 +2,7 @@ gitbook_clav = function(
   fig_caption = TRUE, number_sections = TRUE, self_contained = FALSE,
   lib_dir = 'libs', pandoc_args = NULL, ..., template = 'default',
   split_by = c('chapter', 'chapter+number', 'section', 'section+number', 'rmd', 'none'),
-  split_bib = TRUE, new_theorems=list(), number_by = list(), config = list(), includes = list(), table_css = TRUE
+  split_bib = TRUE, config = list(), includes = list(), table_css = TRUE
 ) {
   html_clav = function(..., extra_dependencies = list()) {
     rmarkdown::html_document(
@@ -25,6 +25,8 @@ gitbook_clav = function(
   post = config$post_processor  # in case a post processor have been defined
   config$post_processor = function(metadata, input, output, clean, verbose) {
     if (is.function(post)) output = post(metadata, input, output, clean, verbose)
+    new_theorems = load_config()[['new_theorems']]
+    number_by = load_config()[['number_by']]
     on.exit(bookdown:::write_search_data(), add = TRUE)
 
     # a hack to remove Pandoc's margin for code blocks since gitbook has already
