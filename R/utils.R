@@ -142,6 +142,63 @@ eng_newtheorem = function(options) {
 
 }
 
+eng_proof = function(options) {
+  if (isFALSE(options$echo)) return()
+    code = one_string(options$code);
+    type = options$type %n% 'proof'
+    if(is.null(type)) return(code)
+    label = bookdown:::label_prefix(type, label_names_math2)
+    html.before2 = sprintf('(\\#%s) ', label)
+    name = options$name;
+    to_md = output_md()
+
+    if (length(name) == 1) {
+       if (!to_md)
+       	  options$latex.options = sprintf('[%s]', sub('[.]\\s*$', '', name))
+       r = '^(.+?)([[:punct:][:space:]]+)$'  # "Remark. " -> "Remark (Name). "
+       if (grepl(r, label)) {
+       	  label1 = gsub(r, '\\1', label)
+       	  label2 = paste0(' (', name, ')', gsub(r, '\\2', label))
+       } else {
+       	 label1 = label; label2 = ''
+       }
+       label = sprintf('<em>%s</em>%s', label1, label2)
+    } else {
+       label = sprintf('<em>%s</em>', label)
+    }
+    html.before2 = sprintf(
+    '<span class="%s">%s</span> ', type, label
+    )
+    if (!to_md)
+      html.before2 = paste('\\iffalse{}', html.before2, '\\fi{}')
+
+    l1 = options$latex.options
+    if (is.null(l1)) l1 = ''
+    # protect environment options because Pandoc may escape the characters like
+    # {}; when encoded in integers, they won't be escaped, but will need to
+    # restore them later; see bookdown:::restore_block2
+    if (l1 != '') l1 = paste(
+    c('\\iffalse{', utf8ToInt(enc2utf8(l1)), '}\\fi{}'), collapse = '-'
+    )
+    h2 = options$html.tag %n% 'div'
+    h3 = options$html.before %n% ''
+    h4 = options$html.after %n% ''
+    #h5 = options$html.before2 %n% ''
+    h6 = options$html.after2 %n% ''
+    if (knitr::is_latex_output()) {
+    h7 = h8 = '\n'
+    } else {
+    h7 = sprintf('<%s class="bookdown-%s" id="%s">', h2, type, label)
+    h8 = sprintf('</%s>', h2)
+    }
+
+    sprintf(
+	'\\BeginKnitrBlock{%s}%s%s%s%s%s%s%s%s\\EndKnitrBlock{%s}',
+    	type, l1, h3, h7, html.before2, code, h6, h8, h4, type
+  	)
+}
+
+
 # set some internal knitr options
 set_opts_knit = function(config) {
   # use labels of the form (\#label) in knitr
