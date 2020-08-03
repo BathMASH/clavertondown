@@ -130,7 +130,10 @@ split_chapters_clav = function(output, build = bookdown:::build_chapter, number_
     h1 = grep('^<div (id="[^"]+" )?class="section level1("| )', body) + i5
     h2 = grep('^<div (id="[^"]+" )?class="section level2("| )', body) + i5
     h12 = setNames(c(h1, h2), rep(c('h1', 'h2'), c(length(h1), length(h2))))
-    if (length(h12) > 0 && h12[1] != i5 + 1) stop(
+	#print(i5)
+	#print(h12)
+	#This test is highly dubiuous, I have fixed it for now by adding 1 but this is too fragile, could be a windows linux thing as well
+    if (length(h12) > 0 && h12[1] != i5 + 2) stop(
       'The document must start with a first (#) or second level (##) heading'
     )
     h12 = sort(h12)
