@@ -366,7 +366,7 @@ parse_fig_labels = function(content, global = FALSE,
 new_theorems = list(), number_by = list()
 ) {
   new_number_by = setNames(unlist(new_theorems, use.names=FALSE),unlist(new_theorems, use.names=FALSE))
-  number_by = c(number_by,list('thm'='thm','lem'='lem','cor'='cor','prp'='prp','cnj'='cnj','def' = 'def','exm'='exm','exr'='exr'),new_number_by)
+  number_by = c(number_by,list('fig' = 'fig', 'tab' = 'tab', 'eq' = 'eq', 'thm'='thm','lem'='lem','cor'='cor','prp'='prp','cnj'='cnj','def' = 'def','exm'='exm','exr'='exr'),new_number_by)
   #print(c('new_theorems: ', new_theorems), quote=FALSE)  
   #print(c('new_number_by: ', new_number_by), quote=FALSE)
   #print(c('number_by: ', number_by), quote=FALSE)
@@ -422,9 +422,8 @@ new_theorems = list(), number_by = list()
     )
     type = type[1]
     numtype=getElement(number_by,type)
-#    numtype = is.list(number_by)
-#    stop('numtype, names, elements ',paste(numtype), paste(names(number_by)), paste(number_by$lem))
-#    if (numtype == 'emm') numtype = 'thm'
+    #numtype = is.list(number_by)
+    #stop('numtype, names, elements ',paste(numtype), paste(names(number_by)), paste(number_by$lem))
     num = arry[lab]
     for (k in which(is.na(num))) {
       num[k] = cntr$inc(numtype, j)  # increment number only if the label has not been used
