@@ -89,13 +89,13 @@ $endfor$
 <!--bookdown:title:start-->
 $if(title)$
 <div id="$idprefix$header">
-<h1 class="title">$title$</h1>
+<h1 class="title"><span style="font-size:150%; margin-bottom:0">$title$</span></h1>
 $if(subtitle)$
 <h2 class="subtitle"><em>$subtitle$</em></h2>
 $endif$
 $for(author)$
 $if(author.name)$
-<p class="author"><em>$author.name$</em></p>
+<p class="author" style="font-size:120%; margin-bottom:0"><em>$author.name$</em></p>
 $if(author.affiliation)$
 <address class="author_afil">
 $author.affiliation$<br>$endif$
@@ -104,11 +104,11 @@ $if(author.email)$
 </address>
 $endif$
 $else$
-<p class="author"><em>$author$</em></p>
+<p class="author" style="font-size:120%; margin-bottom:0"><em>$author$</em></p>
 $endif$
 $endfor$
 $if(date)$
-<p class="date"><em>$date$</em></p>
+<p class="date" style="font-size:120%; margin-bottom:0"><em>$date$</em></p>
 $endif$
 $if(abstract)$
 <div class="abstract">
