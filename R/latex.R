@@ -70,7 +70,7 @@ pdf_clav = function(
     outputLarge = with_ext(paste(sans_ext(output), 'Large', sep=''), '.pdf')
     
     o = load_config()[['output_dir']]
-    print(o)
+    #print(c("The output directory is: ",o))
     keep_tex = isTRUE(config$pandoc$keep_tex)
     if (!keep_tex) {
        file.remove(f)
@@ -117,8 +117,10 @@ restore_block2 = function(x, global = FALSE, new_theorems, new_theorem_abbr, new
   if (is.na(i)) return(x)
   if (length(grep('\\\\(Begin|End)KnitrBlock', tail(x, -i))))
     x = append(x, '\\let\\BeginKnitrBlock\\begin \\let\\EndKnitrBlock\\end', i - 1)
-  if (length(grep(sprintf('^\\\\BeginKnitrBlock\\{(%s)\\}', paste(all_math_env, collapse = '|')), x)) &&
+  new_all_math_env = c(names(new_theorem_abbr), names(label_names_math2))
+  if (length(grep(sprintf('^\\\\BeginKnitrBlock\\{(%s)\\}', paste(new_all_math_env, collapse = '|')), x)) &&
       length(grep('^\\s*\\\\newtheorem\\{theorem\\}', head(x, i))) == 0) {
+      print("Writing out the newtheorem statements")
       #This array aligns to theorem_abbr but has those sharing a counter replaced by the env they share the counter with
       #You can't use aligned_abbr = theorem_abbr[match(number_by[match(theorem_abbr,number_by)],theorem_abbr)] when there are matches in the counter shares
       aligned_abbr = new_theorem_abbr[match(unlist(number_by[match(unlist(new_theorem_abbr,use.names = FALSE),names(number_by))],use.names = FALSE),new_theorem_abbr)]
@@ -161,7 +163,7 @@ restore_block2 = function(x, global = FALSE, new_theorems, new_theorem_abbr, new
         '%s\\newtheorem*{%s}{%s}', theorem_style(proof_envs), proof_envs,
       	gsub('^\\s+|[.]\\s*$', '', vapply(proof_envs, new_label_prefix, character(1), label_names_math2))
     	)
-    	x = append(x, c('\\usepackage{amsthm}', theorem_counters_defs, theorem_counted_defs, theorem_rest_defs, proof_defs), i - 1)
+      x = append(x, c('\\usepackage{amsthm}', theorem_counters_defs, theorem_counted_defs, theorem_rest_defs, proof_defs), i - 1)
   }
   # remove the empty lines around the block2 environments
   i3 = if (length(i1 <- grep('^\\\\BeginKnitrBlock\\{', x))) (i1 + 1)[x[i1 + 1] == '']
