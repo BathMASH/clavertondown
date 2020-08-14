@@ -55,7 +55,7 @@ html_clav = function(
     print("Resolved references")
     print(knitr:::opts_knit$get('header.title'))
     write_utf8(x, output)
-    output
+    move_output(output)
   }
   config$bookdown_output_format = 'html'
   config = set_opts_knit(config)
