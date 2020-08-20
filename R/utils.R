@@ -50,7 +50,8 @@ eng_theorem = function(options) {
     if (to_md) {
       html.before2 = paste(html.before2, sprintf('(%s) ', name))
     } else {
-      options$latex.options = sprintf('[%s]', name)
+      resolvedname = resolve_name_refs_latex(name)
+      options$latex.options = sprintf('[%s]', resolvedname)
       html.before2 = paste(html.before2, sprintf('\\iffalse (%s) \\fi{} ', name))
     }
   }
@@ -100,19 +101,30 @@ eng_newtheorem = function(options) {
   if (knitr::is_latex_output()) {
      html.before2 = paste(html.before2, sprintf('(\\#%s) ', label))
   } else {
-     html.before2 = paste(html.before2, sprintf('%s (\\#%s) ', env, label))
+    if(startsWith(options$label,"unnamed-chunk-"))
+	html.before2 = paste(html.before2, sprintf('%s: ', env))
+    else
+	html.before2 = paste(html.before2, sprintf('%s (\\#%s) ', env, label))
   }
 
-  name = options$name; to_md = output_md()
+  name = options$name;
+  #to_md = output_md()
   l1 = ''
   if (length(name) == 1) {
-    if (to_md) {
-      html.before2 = paste(html.before2, sprintf('(%s) ', name))
+    if (knitr::is_latex_output()) {
+       resolvedname = resolve_name_refs_latex(name)
+       #print("HERE")
+       #print(resolvedname)
+       l1 = sprintf('[%s]', resolvedname)
     } else {
-      l1 = sprintf('[%s]', name)
-      html.before2 = paste(html.before2, sprintf('\\iffalse (%s) \\fi{} ', name))
+      html.before2 = paste(html.before2, sprintf('(%s) ', name))
     }
   }
+  if (l1 != '') l1 = paste(
+    c('\\iffalse{', utf8ToInt(enc2utf8(l1)), '}\\fi{}'), collapse = '-'
+  )
+  if (knitr::is_latex_output())
+     html.before2 = paste('\\iffalse{}', html.before2, '\\fi{}')
    
   h1 = options$html.tag %n% 'div'
   h2 = options$html.tag %n% 'span'
@@ -153,8 +165,12 @@ eng_proof = function(options) {
     to_md = output_md()
 
     if (length(name) == 1) {
-       if (!to_md)
-       	  options$latex.options = sprintf('[%s]', sub('[.]\\s*$', '', name))
+       if (!to_md){
+          resolvedname = resolve_name_refs_latex(name)
+       	  options$latex.options = sprintf('[%s]', sub('[.]\\s*$', '', resolvedname))
+	  }else{
+	  html.before2 = paste(html.before2, sprintf('(%s) ', name))
+	}
        r = '^(.+?)([[:punct:][:space:]]+)$'  # "Remark. " -> "Remark (Name). "
        if (grepl(r, label)) {
        	  label1 = gsub(r, '\\1', label)

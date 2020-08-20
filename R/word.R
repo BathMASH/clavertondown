@@ -30,9 +30,8 @@ word_clav = function(..., reference_docx = NULL) {
 
   #Check that what is going on here is what you think is going on here...
   reference_docx_ref = clavertondown_file('templates', 'bookdownReference.docx')
-  print(reference_docx)
-  print(reference_docx_ref)
+  #print(reference_docx)
+  #print(reference_docx_ref)
   if(is.null(reference_docx)) reference_docx = reference_docx_ref
-  #print("HERE")
   markdown_clav(..., base_format = rmarkdown::word_document, reference_docx = reference_docx)
 }

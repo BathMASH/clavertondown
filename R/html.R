@@ -306,9 +306,16 @@ split_chapters_clav = function(output, build = bookdown:::build_chapter, number_
 #' Resolve newtheorems introduced by the user which are using a renderer which does not know the label, only the env name
 resolve_new_theorems = function(content, global = FALSE, new_theorems, number_by){
   for(i in 1:length(new_theorems)){
-    content = gsub(sprintf('id="%s:', names(new_theorems[i])), sprintf('id="%s:', new_theorems[[i]]), content)
-    content = gsub(sprintf('\\(#%s:', names(new_theorems[i])), sprintf('\\(#%s:', new_theorems[[i]]), content)
-    content = gsub(sprintf('#%s:', names(new_theorems[i])), sprintf('#%s:', new_theorems[[i]]), content)
+    if(new_theorems[[i]] == "---"){
+      # Resolve the unnumbered (and HENCE unnamed theorems - since names come from labels and unnumbered SHOULD NOT HAVE labels!) in html:
+      content = gsub(sprintf('id="%s:unnamed-chunk-[-/[:alnum:]]+"', names(new_theorems[i])), sprintf('', new_theorems[[i]]), content)
+      content = gsub(sprintf(' \\(#%s:unnamed-chunk-[-/[:alnum:]]+\\)', names(new_theorems[i])), sprintf(':'), content)
+      content = gsub(sprintf('#%s:unnamed-chunk-[-/[:alnum:]]+', names(new_theorems[i])), sprintf(''), content)
+    }else{
+      content = gsub(sprintf('id="%s:', names(new_theorems[i])), sprintf('id="%s:', new_theorems[[i]]), content)
+      content = gsub(sprintf('\\(#%s:', names(new_theorems[i])), sprintf('\\(#%s:', new_theorems[[i]]), content)
+      content = gsub(sprintf('#%s:', names(new_theorems[i])), sprintf('#%s:', new_theorems[[i]]), content)
+    }
   }
   content
 }

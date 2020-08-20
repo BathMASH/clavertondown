@@ -14,21 +14,31 @@ pdf_clav = function(
     f = with_ext(output, '.tex')
     new_theorems = load_config()[['new_theorems']]
     number_by = load_config()[['number_by']]
-    new_theorem_abbr = c(theorem_abbr, new_theorems)
-    new_label_names_math = c(label_names_math, setNames(names(new_theorems), unlist(new_theorems, use.names=FALSE)))
+    style_with = load_config()[['style_with']]
+    new_theorems_unnumbered = new_theorems[new_theorems == "---"]
+    #print("Unnumbered:")
+    #print(new_theorems_unnumbered)
+    new_theorems_numbered = new_theorems[new_theorems != "---"]
+    #print("Numbered:")
+    #print(new_theorems_numbered)
+
+    new_theorem_abbr = c(theorem_abbr, new_theorems_numbered)
+    new_label_names_math = c(label_names_math, setNames(names(new_theorems_numbered), unlist(new_theorems_numbered, use.names=FALSE)))
     new_label_names = c(list(fig = 'Figure ', tab = 'Table ', eq = 'Equation '), new_label_names_math)
     new_label_types = names(new_label_names)
     new_reg_label_types = paste(new_label_types, collapse = '|')
     new_reg_label_types = paste(new_reg_label_types, 'ex', sep = '|')
+    #This should be the numbered and the unnumbered new_theorems together in this as this function is from html.R
     x = resolve_new_theorems(read_utf8(f), global = !number_sections, new_theorems, number_by)
     #x = resolve_refs_latex(read_utf8(f), new_reg_label_types)
+    #This should now only involve those theorems which are numbered
     x = resolve_refs_latex(x, new_reg_label_types)
     #x = resolve_ref_links_latex(x)
     x = bookdown:::restore_part_latex(x)
     x = bookdown:::restore_appendix_latex(x, toc_appendix)
     if (!toc_unnumbered) x = bookdown:::remove_toc_items(x)
     if (toc_bib) x = bookdown:::add_toc_bib(x)
-    x = restore_block2(x, !number_sections, new_theorems, new_theorem_abbr, new_label_names, number_by)
+    x = restore_block2(x, !number_sections, new_theorems_numbered, new_theorems_unnumbered, new_theorem_abbr, new_label_names, number_by, style_with)
     if (!is.null(quote_footer)) {
       if (length(quote_footer) != 2 || !is.character(quote_footer)) warning(
         "The 'quote_footer' argument should be a character vector of length 2"
@@ -106,8 +116,9 @@ pdf_clav = function(
 }
 
 
-restore_block2 = function(x, global = FALSE, new_theorems, new_theorem_abbr, new_label_names, number_by) {
-  new_number_by = setNames(unlist(new_theorems, use.name=FALSE), unlist(new_theorems, use.names=FALSE))
+restore_block2 = function(x, global = FALSE, new_theorems_numbered, new_theorems_unnumbered, new_theorem_abbr, new_label_names, number_by, style_with) {
+  #print(new_theorems)
+  new_number_by = setNames(unlist(new_theorems_numbered, use.name=FALSE), unlist(new_theorems_numbered, use.names=FALSE))
   #Recall: number_by at this point is from the user and defines counter shares, it is prepended so that the entry 'overrides' the default
   number_by = c(number_by,list('thm'='thm','lem'='lem','cor'='cor','prp'='prp','cnj'='cnj','def' = 'def','exm'='exm','exr'='exr'),new_number_by)
 
@@ -135,7 +146,7 @@ restore_block2 = function(x, global = FALSE, new_theorems, new_theorem_abbr, new
 
       #The envs which are going to share their counter
       theorem_counters_defs = sprintf(
-        '%s\\newtheorem{%s}{%s}%s', theorem_style(names(aligned_abbr[counters_abbrLoc])), names(aligned_abbr[counters_abbrLoc]),
+        '%s\\newtheorem{%s}{%s}%s', theorem_style(names(aligned_abbr[counters_abbrLoc]),style_with), names(aligned_abbr[counters_abbrLoc]),
       	str_trim(vapply(aligned_abbr[counters_abbrLoc], new_label_prefix, character(1), USE.NAMES = FALSE)),
       	if (global) '' else {
            if (length(grep('^\\\\chapter[*]?', x))) '[chapter]' else '[section]'
@@ -144,24 +155,27 @@ restore_block2 = function(x, global = FALSE, new_theorems, new_theorem_abbr, new
 
       #The envs which share a counter, these pick up their names from the original theorem_abbr using the aligned locations
       theorem_counted_defs = sprintf(
-        '%s\\newtheorem{%s}[%s]{%s}', theorem_style(names(aligned_abbr[duplicated_abbrLoc])), names(new_theorem_abbr[duplicated_abbrLoc]), names(aligned_abbr[duplicated_abbrLoc]),
+        '%s\\newtheorem{%s}[%s]{%s}', theorem_style(names(new_theorem_abbr[duplicated_abbrLoc]),style_with), names(new_theorem_abbr[duplicated_abbrLoc]), names(aligned_abbr[duplicated_abbrLoc]),
       	str_trim(vapply(new_theorem_abbr[duplicated_abbrLoc], new_label_prefix, character(1), USE.NAMES = FALSE))
       )
 
       #The envs which use their own counter and do not share it
       theorem_rest_defs = sprintf(
-        '%s\\newtheorem{%s}{%s}%s', theorem_style(names(aligned_abbr[noncounters_abbrLoc])), names(aligned_abbr[noncounters_abbrLoc]),
+        '%s\\newtheorem{%s}{%s}%s', theorem_style(names(aligned_abbr[noncounters_abbrLoc]),style_with), names(aligned_abbr[noncounters_abbrLoc]),
       	str_trim(vapply(aligned_abbr[noncounters_abbrLoc], new_label_prefix, character(1), USE.NAMES = FALSE)),
 	if (global) '' else {
 	   if (length(grep('^\\\\chapter[*]?', x))) '[chapter]' else '[section]'
 	}
       )
 
+      #Unnumbered environments
       # the proof environment has already been defined by amsthm
-      proof_envs = setdiff(names(label_names_math2), 'proof')
+      new_label_names_math2 = c(label_names_math2,setNames(names(new_theorems_unnumbered),names(new_theorems_unnumbered)))
+      #print(new_label_names_math2)
+      proof_envs = setdiff(names(new_label_names_math2), 'proof')
       proof_defs = sprintf(
-        '%s\\newtheorem*{%s}{%s}', theorem_style(proof_envs), proof_envs,
-      	gsub('^\\s+|[.]\\s*$', '', vapply(proof_envs, new_label_prefix, character(1), label_names_math2))
+        '%s\\newtheorem*{%s}{%s}', theorem_style(proof_envs,style_with), proof_envs,
+      	gsub('^\\s+|[.]\\s*$', '', vapply(proof_envs, new_label_prefix, character(1), new_label_names_math2))
     	)
       x = append(x, c('\\usepackage{amsthm}', theorem_counters_defs, theorem_counted_defs, theorem_rest_defs, proof_defs), i - 1)
   }
@@ -184,11 +198,18 @@ style_plain = c('theorem', 'lemma', 'corollary', 'proposition', 'conjecture')
 style_definition = c('definition', 'example', 'exercise')
 style_remark = c('remark')
 # which styles of theorem environments to use
-theorem_style = function(env) {
+theorem_style = function(env,style_with) {
   styles = character(length(env))
+  print(style_with["definition"])
+  print(env)
   styles[env %in% style_plain] = '\\theoremstyle{plain}\n'
+  styles[env %in% style_with["plain"]] = '\\theoremstyle{plain}\n'
   styles[env %in% style_definition] = '\\theoremstyle{definition}\n'
+  styles[env %in% style_with["definition"]] = '\\theoremstyle{definition}\n'
   styles[env %in% style_remark] = '\\theoremstyle{remark}\n'
+  styles[env %in% style_with["remark"]] = '\\theoremstyle{remark}\n'
+  print("Styles:")
+  print(styles)
   styles
 }
 
@@ -203,7 +224,13 @@ revise_latex_alts = function(x,pointsize) {
   x
 }
 
-resolve_refs_latex = function(x, new_reg_label_types) {
+resolve_name_refs_latex = function(x){
+  x = gsub('\\\\@ref\\((eq:[-/:[:alnum:]]+)\\)', '\\\\eqref{\\1}', x)
+  x = gsub('\\\\@ref\\(([-/:[:alnum:]]+)\\)', '\\\\ref{\\1}', x)
+  x
+}
+
+resolve_basic_refs_latex = function(x){
   # equation references \eqref{}
   x = gsub(
     '(?<!\\\\textbackslash{})@ref\\((eq:[-/:[:alnum:]]+)\\)', '\\\\eqref{\\1}', x,
@@ -214,6 +241,11 @@ resolve_refs_latex = function(x, new_reg_label_types) {
     '(?<!\\\\textbackslash{})@ref\\(([-/:[:alnum:]]+)\\)', '\\\\ref{\\1}', x,
     perl = TRUE
   )
+  x
+}
+
+resolve_refs_latex = function(x, new_reg_label_types) {
+  x = resolve_basic_refs_latex(x)
   #print(new_reg_label_types)
   x = gsub(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), '\\\\label{\\1}', x)
   x

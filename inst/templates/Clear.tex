@@ -1,4 +1,5 @@
 %\usepackage[english,shorthands=off]{babel}
+\usepackage{etoolbox}
 \usepackage{spverbatim}
 \renewcommand{\familydefault}{phv}
 \fontfamily{phv}\selectfont
@@ -16,6 +17,8 @@
 \newtheoremstyle{plain}{20pt}{3pt}{}{}{\bfseries}{.\newline\nobreak}{1.0em\nobreak}{}
 \newtheoremstyle{definition}{20pt}{3pt}{}{}{\bfseries}{.\newline\nobreak}{1.0em\nobreak}{}
 \newtheoremstyle{remark}{20pt}{3pt}{}{}{\bfseries}{.\newline\nobreak}{1.0em\nobreak}{}
+\csundef{Proof}
+\csundef{endProof}
 \newenvironment{Proof}
   {\noindent{\bf Proof.}\hspace*{1em}}% Begin
   {\qed\par}% End
