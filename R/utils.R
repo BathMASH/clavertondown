@@ -204,7 +204,8 @@ eng_proof = function(options) {
     if (knitr::is_latex_output()) {
     h7 = h8 = '\n'
     } else {
-    h7 = sprintf('<%s class="bookdown-%s" id="%s">', h2, type, label)
+    #A proof can't have a label so it doesn't need an id. The id that was here was working in html, in, one browser, but not in epub as it was being set to a label that could contain all kinds of things which, unlike eng_theorem's label, is not appropriate
+    h7 = sprintf('<%s class="bookdown-%s">', h2, type)
     h8 = sprintf('</%s>', h2)
     }
 

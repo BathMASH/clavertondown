@@ -13,7 +13,11 @@ output:
     toc: true
     number_sections: true
     keep_md: true
-  clavertondown::html_clav:
+  clavertondown::pdf_clav:
+    latex_engine: pdflatex
+    dev: pdf
+    keep_tex: true
+    fig_caption: false
     toc: true
   clavertondown::gitbook_clav:
     split_by: section
@@ -22,11 +26,7 @@ output:
       sharing: no
   clavertondown::epub_clav:
     toc: true
-  clavertondown::pdf_clav:
-    latex_engine: pdflatex
-    dev: pdf
-    keep_tex: true
-    fig_caption: false
+  clavertondown::html_clav:
     toc: true
 ---
 
@@ -80,7 +80,7 @@ It isn't possible to create accessible PDFs using LaTeX. Even if a PDF is access
 
 \BeginKnitrBlock{Proof}<div class="newtheorem"><span class="Proof" id="Proof:unnamed-chunk-1"><strong> Proof:  (Of theorem \@ref(thm:thm1)) </strong></span>Here is a proof</div>\EndKnitrBlock{Proof}
 
-\BeginKnitrBlock{proof}\iffalse{-91-80-114-111-111-102-32-111-102-32-116-104-101-111-114-101-109-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proof" id="<em>Proof</em> (Proof of theorem \@ref(thm:thm1)). ">\iffalse{} <span class="proof"><em>Proof</em> (Proof of theorem \@ref(thm:thm1)). </span>  \fi{}Here is a proof</div>\EndKnitrBlock{proof}
+\BeginKnitrBlock{proof}\iffalse{-91-80-114-111-111-102-32-111-102-32-116-104-101-111-114-101-109-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proof">\iffalse{} <span class="proof"><em>Proof</em> (Proof of theorem \@ref(thm:thm1)). </span>  \fi{}Here is a proof</div>\EndKnitrBlock{proof}
 
 \BeginKnitrBlock{proposition}<div class="bookdown-proposition" id="prp:prp2"><strong>(\#prp:prp2) </strong>Bookdown is needed for things like theorems and internal references</div>\EndKnitrBlock{proposition}
 
@@ -94,7 +94,7 @@ Now go to \@ref(thm:thm1).
 
 \BeginKnitrBlock{Solution}<div class="newtheorem"><span class="Solution" id="Solution:sol1"><strong> Solution (\#Solution:sol1) </strong></span>You can create new theorem types</div>\EndKnitrBlock{Solution}
 
-\BeginKnitrBlock{solution}<div class="bookdown-solution" id="<em>Solution. </em>">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}Test</div>\EndKnitrBlock{solution}
+\BeginKnitrBlock{solution}<div class="bookdown-solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}Test</div>\EndKnitrBlock{solution}
 
 <!--chapter:end:index.Rmd-->
 
