@@ -1,0 +1,244 @@
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[10pt,english,a4paper]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provides euro and other symbols
+\else % if luatex or xelatex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage[]{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\usepackage{hyperref}
+\hypersetup{
+            pdftitle={ClavertonDown Example},
+            pdfauthor={Emma Cliffe, Skills Centre: MASH, University of Bath},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{longtable,booktabs}
+% Fix footnotes in tables (requires footnote package)
+\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+% set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[shorthands=off,main=english]{babel}
+\else
+  % load polyglossia as late as possible as it *could* call bidi if RTL lang (e.g. Hebrew or Arabic)
+  \usepackage{polyglossia}
+  \setmainlanguage[]{english}
+\fi
+
+\title{ClavertonDown Example}
+\author{Emma Cliffe, Skills Centre: MASH, University of Bath}
+\date{August 2020}
+
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{Thought}{Thought}[section]
+\theoremstyle{plain}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{Nugget}[Thought]{Nugget}
+\theoremstyle{plain}
+\newtheorem{lemma}{Lemma}[section]
+\theoremstyle{plain}
+\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{plain}
+\newtheorem{conjecture}{Conjecture}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{definition}
+\newtheorem{example}{Example}[section]
+\theoremstyle{definition}
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{Solution}{Solution}[section]
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{solution}{Solution}
+\newtheorem*{Wonder}{Wonder}
+\theoremstyle{remark}
+\newtheorem*{Proof}{Proof}
+\let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\newpage
+\pagenumbering{arabic}
+
+\hypertarget{introduction}{%
+\section*{Introduction}\label{introduction}}
+\addcontentsline{toc}{section}{Introduction}
+
+ClavertonDown is aimed at staff at the University of Bath which is located on Claverton Down. It uses knitr, RMarkdown and Bookdown and aims to produce a system for creating sets of lecture notes in a variety of formats, including those which are technically accessible and those which are often preferred by disabled students. We aim for the system to be usable in both pure and applied mathematical settings. Requests to adapt the system or the outputs of the system to meet these goals will be considered by MASH. The main contact email address is \href{mailto:mash-access@bath.ac.uk}{\nolinkurl{mash-access@bath.ac.uk}} but you should use the Team set up by the Centre for Learning and Teaching for support in the first instance.
+
+This document is \textbf{also} a work in progress. Like everything right now!
+
+\hypertarget{what-formats-do-i-need-to-produce-and-why}{%
+\section{What formats do I need to produce and why?}\label{what-formats-do-i-need-to-produce-and-why}}
+
+ClavertonDown can produce:
+
+\begin{itemize}
+\tightlist
+\item
+  HTML book
+\item
+  HTML page
+\item
+  Standard, clear and large print PDF
+\item
+  Word document
+\item
+  EPub book
+\end{itemize}
+
+From a technical point of view only three of these formats of mathematical text are accessible:
+
+\begin{itemize}
+\tightlist
+\item
+  HTML using MathJax to render all mathematical text (HTML book and page)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    HTML formats must meet WCAG 2.1 Level AA requirements and use MathJax to render all mathematical text.
+  \item
+    You can check your document meets the legal requirement of WCAG 2.1 Level AA with e.g. \href{https://accessibilityinsights.io/docs/en/web/overview}{Accessibility Insights for Web plugin for Chrome}
+  \item
+    You can check it is MathJax by right clicking on the expression (try it in the HTML version):
+    \[x = \frac{-b\pm\sqrt{b^2 - 4ac}}{2a}\]
+  \end{itemize}
+\item
+  Word document using in-built Equation Editor for all mathematical text
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Word formats must pass the in-built Accessibility Checker and use the in-built Equation Editor for all mathematical text.
+  \item
+    You can use the in-built Word Accessibility Checker and information on \href{https://support.office.com/en-gb/article/make-your-word-documents-accessible-to-people-with-disabilities-d9bf3683-87ac-47ea-b91a-78dcacb3c66d}{Making your Word documents accessible} to check your document.
+  \item
+    You can use Review -\textgreater{} Read Aloud (Alt + Ctrl + Space) to check the maths
+  \end{itemize}
+\item
+  EPub3 using MathML for all mathematical text:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    If the HTML format is accessible then the EPub3 output from ClavertonDown will be also
+  \end{itemize}
+\end{itemize}
+
+The output from ClavertonDown will meet these requirements as far as possible. However, we cannot stop you from doing things which will fail to meet requirements. In particular, if you use images, sound, videos, colour or interactive/dynamic elements within the HTML you will need to ensure that you have done so within the accessibility requirements.
+
+\hypertarget{why-do-we-still-supply-inaccessible-pdfs}{%
+\subsection{Why do we still supply inaccessible PDFs?}\label{why-do-we-still-supply-inaccessible-pdfs}}
+
+It isn't possible to create accessible PDFs using LaTeX. Even if a PDF is accessible the mathematical text within it will \textbf{still be technically inaccessible} regardless of how the PDF has been produced but\ldots{}
+
+\begin{itemize}
+\tightlist
+\item
+  not all accessibility is about technical access - for some a clear or large print PDF is best
+\item
+  clear print is selected most often by disabled students in the Department of Mathematical Sciences.
+\end{itemize}
+
+\hypertarget{testing-some-theorem-stuff}{%
+\section{Testing some theorem stuff}\label{testing-some-theorem-stuff}}
+
+\BeginKnitrBlock{theorem}[Foo]
+\label{thm:thm1} \iffalse (Foo) \fi{} Bookdown is needed for things like theorems and internal references
+\EndKnitrBlock{theorem}
+
+\BeginKnitrBlock{proposition}[Thingy we need for \ref{thm:thm1}]
+\label{prp:prp1} \iffalse (Thingy we need for \ref{thm:thm1}) \fi{} You can create new theorem types
+\EndKnitrBlock{proposition}
+
+\BeginKnitrBlock{Proof}[Of theorem \ref{thm:thm1}]
+\protect\hypertarget{Proof:unnamed-chunk-1}{}{\iffalse{} (\) \fi{}}Here is a proof
+\EndKnitrBlock{Proof}
+
+\BeginKnitrBlock{proof}[Proof of theorem \ref{thm:thm1}]
+\iffalse{} {Proof (Proof of theorem \ref{thm:thm1}). } \fi{}Here is a proof
+\EndKnitrBlock{proof}
+
+\BeginKnitrBlock{proposition}
+\label{prp:prp2} Bookdown is needed for things like theorems and internal references
+\EndKnitrBlock{proposition}
+
+\BeginKnitrBlock{Thought}[Bar]
+\protect\hypertarget{Thought:tho1}{}{\iffalse{} \label{tho:tho1} \fi{}}You can create new theorem types
+\EndKnitrBlock{Thought}
+
+\BeginKnitrBlock{Wonder}
+\protect\hypertarget{Wonder:unnamed-chunk-3}{}{\iffalse{} (\) \fi{}}You can create new unumbered theorem types
+\EndKnitrBlock{Wonder}
+
+\BeginKnitrBlock{Nugget}
+\protect\hypertarget{Nugget:nug1}{}{\iffalse{} \label{nug:nug1} \fi{}}You can create new theorem types
+\EndKnitrBlock{Nugget}
+
+Now go to \ref{thm:thm1}.
+
+\BeginKnitrBlock{Solution}
+\protect\hypertarget{Solution:sol1}{}{\iffalse{} \label{sol:sol1} \fi{}}You can create new theorem types
+\EndKnitrBlock{Solution}
+
+\BeginKnitrBlock{solution}
+\iffalse{} {Solution. } \fi{}Test
+\EndKnitrBlock{solution}
+
+\end{document}
