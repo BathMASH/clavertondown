@@ -29,7 +29,7 @@ markdown_clav = function(
 word_clav = function(..., reference_docx = NULL) {
 
   #Check that what is going on here is what you think is going on here...
-  reference_docx_ref = clavertondown_file('templates', 'bookdownReference.docx')
+  reference_docx_ref = clavertondown_file('templates', 'clavertondownReference.docx')
   #print(reference_docx)
   #print(reference_docx_ref)
   if(is.null(reference_docx)) reference_docx = reference_docx_ref
