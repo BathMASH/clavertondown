@@ -193,7 +193,8 @@ split_chapters_clav = function(output, build = bookdown:::build_chapter, number_
   idx = grep(r_chap, html_body)
   nms = gsub(r_chap, '\\1', html_body[idx])  # to be used in HTML filenames
   h1 = grep('^<div (id="[^"]+" )?class="section level1("| )', x)
-  if (length(h1) < length(nms)) warning(
+  if(length(h1) == 0) split_level = 0
+  if (length(h1) > 0 && length(h1) < length(nms)) warning(
     'You have ', length(nms), ' Rmd input file(s) but only ', length(h1),
     ' first-level heading(s). Did you forget first-level headings in certain Rmd files?'
   )
@@ -204,7 +205,8 @@ split_chapters_clav = function(output, build = bookdown:::build_chapter, number_
   # do not split the HTML file
   if (split_level == 0) {
     html_body[idx] = ''  # remove chapter tokens
-    html_body = add_chapter_prefix(html_body)
+    html_body = bookdown:::add_chapter_prefix(html_body)
+    output = 'index.html'
     write_utf8(build(
       html_head, html_toc, c(html_title, html_body), NULL, NULL, NULL, output, html_foot, ...
     ), output)

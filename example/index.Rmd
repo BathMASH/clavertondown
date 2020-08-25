@@ -11,6 +11,8 @@ geometry: margin=2.5cm
 output:
   clavertondown::epub_clav:
     toc: true
+  clavertondown::html_clav:
+    toc: true
   clavertondown::pdf_clav:
     latex_engine: pdflatex
     dev: pdf
@@ -26,8 +28,6 @@ output:
     toc: true
     number_sections: true
     keep_md: true
-  clavertondown::html_clav:
-    toc: true
 ---
 
 \newpage
