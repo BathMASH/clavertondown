@@ -133,9 +133,10 @@ split_chapters_clav = function(output, build = bookdown:::build_chapter, number_
 	#print(i5)
 	#print(h12)
 	#This test is highly dubiuous, I have fixed it for now by adding 1 but this is too fragile, could be a windows linux thing as well
-    if (length(h12) > 0 && h12[1] != i5 + 2) stop(
-      'The document must start with a first (#) or second level (##) heading'
-    )
+	#Actually, I am not sure why this needs to be true? I think I've fixed it below. 
+    	#if (length(h12) > 0 && h12[1] != i5 + 2) stop(
+    	#  'The document must start with a first (#) or second level (##) heading'
+    	#)
     h12 = sort(h12)
     if (length(h12) > 1) {
       n12 = names(h12)
@@ -275,8 +276,12 @@ split_chapters_clav = function(output, build = bookdown:::build_chapter, number_
       if (!file.exists(output_path(nms[i]))) file.create(nms[i])
       next
     }
-    i1 = idx[i]
+    #This should enable us to keep anything prior to the first heading in the gitbook format. I don't understand the reason for preventing this in the first place so we should play around with this. 
+    i1 = if(i == 1) 1 else idx[i]
     i2 = if (i == n) length(html_body) else idx[i + 1] - 1
+    #print(i1)
+    #print(i2)
+    #print(html_body[i1:i2])
     html = c(if (i == 1) html_title, html_body[i1:i2])
     a_targets = bookdown:::parse_a_targets(html)
     if (split_bib) {
@@ -305,16 +310,18 @@ split_chapters_clav = function(output, build = bookdown:::build_chapter, number_
 
 #' Resolve newtheorems introduced by the user which are using a renderer which does not know the label, only the env name
 resolve_new_theorems = function(content, global = FALSE, new_theorems, number_by){
-  for(i in 1:length(new_theorems)){
-    if(new_theorems[[i]] == "---"){
-      # Resolve the unnumbered (and HENCE unnamed theorems - since names come from labels and unnumbered SHOULD NOT HAVE labels!) in html:
-      content = gsub(sprintf('id="%s:unnamed-chunk-[-/[:alnum:]]+"', names(new_theorems[i])), sprintf('', new_theorems[[i]]), content)
-      content = gsub(sprintf(' \\(#%s:unnamed-chunk-[-/[:alnum:]]+\\)', names(new_theorems[i])), sprintf(':'), content)
-      content = gsub(sprintf('#%s:unnamed-chunk-[-/[:alnum:]]+', names(new_theorems[i])), sprintf(''), content)
-    }else{
-      content = gsub(sprintf('id="%s:', names(new_theorems[i])), sprintf('id="%s:', new_theorems[[i]]), content)
-      content = gsub(sprintf('\\(#%s:', names(new_theorems[i])), sprintf('\\(#%s:', new_theorems[[i]]), content)
-      content = gsub(sprintf('#%s:', names(new_theorems[i])), sprintf('#%s:', new_theorems[[i]]), content)
+  if(length(new_theorems) > 0){
+    for(i in 1:length(new_theorems)){
+      if(new_theorems[[i]] == "---"){
+        # Resolve the unnumbered (and HENCE unnamed theorems - since names come from labels and unnumbered SHOULD NOT HAVE labels!) in html:
+      	content = gsub(sprintf('id="%s:unnamed-chunk-[-/[:alnum:]]+"', names(new_theorems[i])), sprintf('', new_theorems[[i]]), content)
+      	content = gsub(sprintf(' \\(#%s:unnamed-chunk-[-/[:alnum:]]+\\)', names(new_theorems[i])), sprintf(':'), content)
+      	content = gsub(sprintf('#%s:unnamed-chunk-[-/[:alnum:]]+', names(new_theorems[i])), sprintf(''), content)
+      }else{
+      	content = gsub(sprintf('id="%s:', names(new_theorems[i])), sprintf('id="%s:', new_theorems[[i]]), content)
+      	content = gsub(sprintf('\\(#%s:', names(new_theorems[i])), sprintf('\\(#%s:', new_theorems[[i]]), content)
+      	content = gsub(sprintf('#%s:', names(new_theorems[i])), sprintf('#%s:', new_theorems[[i]]), content)
+      }
     }
   }
   content
