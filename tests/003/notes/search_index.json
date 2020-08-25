@@ -1,0 +1,4 @@
+[
+["index.html", "Test 003: New theorems, numbering and styles 1 Testing some theorem stuff", " Test 003: New theorems, numbering and styles Emma Cliffe, Skills Centre: MASH, University of Bath August 2020 1 Testing some theorem stuff Theorem 1.1: (Foo) Bookdown is needed for things like theorems and internal references Proposition 1.2: (Thingy we need for 1.1) You can create new theorem types Proof: (Of theorem 1.1) Here is a proof Proof (Proof of theorem 1.1). Here is a proof Proposition 1.3: Bookdown is needed for things like theorems and internal references Thought 1.1: (Bar) You can create new theorem types Wonder: You can create new unumbered theorem types Nugget 1.2: You can create new theorem types Solution 1.1: You can create new theorem types Solution. Test "],
+["testing-the-reference-link-back.html", "2 Testing the reference link back", " 2 Testing the reference link back Now go to theorem 1.1. "]
+]

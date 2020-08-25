@@ -1,0 +1,59 @@
+---
+title: "Test 003: New theorems, numbering and styles"
+author: 'Emma Cliffe, Skills Centre: MASH, University of Bath'
+date: 'August 2020'
+site: bookdown::bookdown_site
+lang: en
+documentclass: article
+classoption: a4paper
+fontsize: 10pt
+geometry: margin=2.5cm
+output:
+  clavertondown::word_clav:
+    toc: true
+    number_sections: true
+    keep_md: true
+  clavertondown::gitbook_clav:
+    split_by: section
+    config:
+      download: [["Notes.html", "HTML page"], ["Notes.pdf","Standard print PDF"], ["NotesClear.pdf","Clear print PDF"], ["NotesLarge.pdf","Large print PDF"], ["Notes.docx","Accessible Word document"], ["Notes.epub","Accessible EPub book" ]]
+      sharing: no
+  clavertondown::html_clav:
+    toc: true
+  clavertondown::epub_clav:
+    toc: true
+  clavertondown::pdf_clav:
+    latex_engine: pdflatex
+    dev: pdf
+    keep_tex: true
+    fig_caption: false
+    toc: true
+---
+# Testing some theorem stuff
+
+\BeginKnitrBlock{theorem}\iffalse{-91-70-111-111-93-}\fi{}<div class="bookdown-theorem" id="thm:thm1"><strong>(\#thm:thm1)  \iffalse (Foo) \fi{} </strong>Bookdown is needed for things like theorems and internal references</div>\EndKnitrBlock{theorem}
+
+\BeginKnitrBlock{proposition}\iffalse{-91-84-104-105-110-103-121-32-119-101-32-110-101-101-100-32-102-111-114-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proposition" id="prp:prp1"><strong>(\#prp:prp1)  \iffalse (Thingy we need for \@ref(thm:thm1)) \fi{} </strong>You can create new theorem types</div>\EndKnitrBlock{proposition}
+
+\BeginKnitrBlock{Proof}<div class="newtheorem"><span class="Proof" id="Proof:unnamed-chunk-1"><strong> Proof:  (Of theorem \@ref(thm:thm1)) </strong></span>Here is a proof</div>\EndKnitrBlock{Proof}
+
+\BeginKnitrBlock{proof}\iffalse{-91-80-114-111-111-102-32-111-102-32-116-104-101-111-114-101-109-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proof">\iffalse{} <span class="proof"><em>Proof</em> (Proof of theorem \@ref(thm:thm1)). </span>  \fi{}Here is a proof</div>\EndKnitrBlock{proof}
+
+\BeginKnitrBlock{proposition}<div class="bookdown-proposition" id="prp:prp2"><strong>(\#prp:prp2) </strong>Bookdown is needed for things like theorems and internal references</div>\EndKnitrBlock{proposition}
+
+\BeginKnitrBlock{Thought}<div class="newtheorem"><span class="Thought" id="Thought:tho1"><strong> Thought (\#Thought:tho1)  (Bar) </strong></span>You can create new theorem types</div>\EndKnitrBlock{Thought}
+
+\BeginKnitrBlock{Wonder}<div class="newtheorem"><span class="Wonder" id="Wonder:unnamed-chunk-3"><strong> Wonder: </strong></span>You can create new unumbered theorem types</div>\EndKnitrBlock{Wonder}
+
+\BeginKnitrBlock{Nugget}<div class="newtheorem"><span class="Nugget" id="Nugget:nug1"><strong> Nugget (\#Nugget:nug1) </strong></span>You can create new theorem types</div>\EndKnitrBlock{Nugget}
+
+\BeginKnitrBlock{Solution}<div class="newtheorem"><span class="Solution" id="Solution:sol1"><strong> Solution (\#Solution:sol1) </strong></span>You can create new theorem types</div>\EndKnitrBlock{Solution}
+
+\BeginKnitrBlock{solution}<div class="bookdown-solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}Test</div>\EndKnitrBlock{solution}
+
+# Testing the reference link back
+
+Now go to theorem \@ref(thm:thm1).
+
+<!--chapter:end:index.Rmd-->
+
