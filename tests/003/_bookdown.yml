@@ -4,12 +4,14 @@ new_theorems:
   Thought: tho
   Nugget: nug
   Solution: sol
-  Wonder: ---
+  Defns: ---
   Proof: ---
+  Exercises: ---
+  Example: ---
 number_by:
   prp: thm
   nug: tho
 style_with:
-  plain: []
-  definition: ["Wonder","proposition"]
-  remark: ["Proof"]
+  plain: ["Defns"]
+  definition: ["proposition"]
+  remark: ["Proof", "Exercises"]

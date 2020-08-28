@@ -40,6 +40,7 @@ $endif$
   $if(favicon)$<link rel="shortcut icon" href="$favicon$" type="image/x-icon" />$endif$
 <!--bookdown:link_prev-->
 <!--bookdown:link_next-->
+
 $if(abstract)$
 <style type="text/css">
 p.abstract{
@@ -80,6 +81,16 @@ $endif$
 $for(css)$
 <link rel="stylesheet" href="$css$" $if(html5)$$else$type="text/css" $endif$/>
 $endfor$
+
+<style type="text/css">
+  a {
+   color: blue;
+  }
+  .book .book-summary ul.summary li a, .book .book-summary ul.summary li.active>a, .book .book-body .page-wrapper .page-inner section.normal a {
+  color: blue;
+  }
+</style>
+
 </head>
 
 <body>

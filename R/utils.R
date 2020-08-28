@@ -71,14 +71,25 @@ eng_theorem = function(options) {
   h6 = options$html.after2 %n% ''
   if (knitr::is_latex_output()) {
     h7 = h8 = '\n'
+    s1 = s2 = ''
   } else {
-    h7 = sprintf('<%s class="bookdown-%s" id="%s">', h2, type, label)
+  s1 = '<p>'
+  s2 = '<p>'
+  if(type == 'definition')
+      h7 = sprintf('<%s class="bookdown-%s" id="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;">', h2, type, label)
+    else if(type == 'example' || type == 'exercise')
+      h7 = sprintf('<%s class="bookdown-%s" id="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">', h2, type, label)
+    else{
+      h7 = sprintf('<%s class="bookdown-%s" id="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;">', h2, type, label)
+      s1 = '<p><em>'
+      s2 = '</em></p>'
+    }
     h8 = sprintf('</%s>', h2)
   }
 
   sprintf(
-    '\\BeginKnitrBlock{%s}%s%s%s<strong>%s</strong>%s%s%s%s\\EndKnitrBlock{%s}',
-    type, l1, h3, h7, html.before2, code, h6, h8, h4, type
+    '\\BeginKnitrBlock{%s}%s%s%s<strong>%s</strong>%s%s%s%s%s%s\\EndKnitrBlock{%s}',
+    type, l1, h3, h7, html.before2, s1, code, s2, h6, h8, h4, type
   )
 }
 
@@ -136,14 +147,33 @@ eng_newtheorem = function(options) {
   #Added this because of the issue in the block2 engine of knitr
   if(knitr::is_latex_output()){
     h7 = h8 = '\n'
+    s1 = s2 = ''
   }else{
-    h7 = sprintf('<%s class="%s">', h1, type)
+    s1 = '<p>'
+    s2 = '</p>'
+    if(stringr::str_detect(tolower(env), 'proof') || stringr::str_detect(tolower(env), 'solution') || stringr::str_detect(tolower(env), 'soln'))
+      h7 = sprintf('<%s class="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;">', h1, env)
+    else if(stringr::str_detect(tolower(env),'example') || stringr::str_detect(tolower(env), 'exercise'))
+      h7 = sprintf('<%s class="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">', h1, env)
+    else if(stringr::str_detect(tolower(env), 'definition') || stringr::str_detect(tolower(env), 'defn'))
+      h7 = sprintf('<%s class="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;">', h1, env)
+    else{
+      h7 = sprintf('<%s class="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;">', h1, env)
+      s1 = '<p><em>'
+      s2 = '</em></p>'
+      }
     h8 = sprintf('</%s>', h1)
   }
 
+  if(stringr::str_detect(tolower(env), 'proof'))
+    if(knitr::is_latex_output())
+      h6 = '\\qed'
+    else
+      h8 = sprintf('<p>&squ;</p></%s>', h1)
+
   sprintf(
-    '\\BeginKnitrBlock{%s}%s%s%s<%s class="%s" id="%s"><strong>%s</strong></%s>%s%s%s%s\\EndKnitrBlock{%s}',
-    env, l1, h3, h7, h2, env, label, html.before2, h2, code, h6, h8, h4, env
+    '\\BeginKnitrBlock{%s}%s%s%s<%s class="%s" id="%s"><strong>%s</strong></%s>%s%s%s%s%s%s\\EndKnitrBlock{%s}',
+    env, l1, h3, h7, h2, env, label, html.before2, h2, s1, code, s2, h6, h8, h4, env
   )
 
 #Code before the issue with the block2 engine in knitr
@@ -205,12 +235,19 @@ eng_proof = function(options) {
     h7 = h8 = '\n'
     } else {
     #A proof can't have a label so it doesn't need an id. The id that was here was working in html, in, one browser, but not in epub as it was being set to a label that could contain all kinds of things which, unlike eng_theorem's label, is not appropriate
-    h7 = sprintf('<%s class="bookdown-%s">', h2, type)
+    h7 = sprintf('<%s class="bookdown-%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;">', h2, type)
     h8 = sprintf('</%s>', h2)
     }
 
+  if(stringr::str_detect(tolower(type), 'proof'))
+    if(knitr::is_latex_output())
+      h6 = ''
+    else
+      h8 = sprintf('<p>&squ;</p></%s>', h2)
+
+
     sprintf(
-	'\\BeginKnitrBlock{%s}%s%s%s%s%s%s%s%s\\EndKnitrBlock{%s}',
+	'\\BeginKnitrBlock{%s}%s%s%s%s<p>%s</p>%s%s%s\\EndKnitrBlock{%s}',
     	type, l1, h3, h7, html.before2, code, h6, h8, h4, type
   	)
 }

@@ -82,7 +82,7 @@
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{Thought}{Thought}[section]
-\theoremstyle{plain}
+\theoremstyle{definition}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{Nugget}[Thought]{Nugget}
 \theoremstyle{plain}
@@ -101,9 +101,11 @@
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 \newtheorem*{solution}{Solution}
-\newtheorem*{Wonder}{Wonder}
-\theoremstyle{remark}
+\theoremstyle{plain}
+\newtheorem*{Defns}{Defns}
 \newtheorem*{Proof}{Proof}
+\newtheorem*{Exercises}{Exercises}
+\newtheorem*{Example}{Example}
 \let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
 \begin{document}
 \maketitle
@@ -115,6 +117,16 @@
 \hypertarget{testing-some-theorem-stuff}{%
 \section{Testing some theorem stuff}\label{testing-some-theorem-stuff}}
 
+\BeginKnitrBlock{definition}
+\label{def:truth} Here is a definition
+\EndKnitrBlock{definition}
+
+\BeginKnitrBlock{example}
+\label{exm:unnamed-chunk-1} Here is an example.
+\EndKnitrBlock{example}
+
+Here is some more boring text in between.
+
 \BeginKnitrBlock{theorem}[Foo]
 \label{thm:thm1} \iffalse (Foo) \fi{} Bookdown is needed for things like theorems and internal references
 \EndKnitrBlock{theorem}
@@ -124,40 +136,71 @@
 \EndKnitrBlock{proposition}
 
 \BeginKnitrBlock{Proof}[Of theorem \ref{thm:thm1}]
-\protect\hypertarget{Proof:unnamed-chunk-1}{}{\iffalse{} (\) \fi{}}Here is a proof
+\protect\hypertarget{Proof:unnamed-chunk-2}{}{\iffalse{} (\) \fi{}}Here is a proof\qed
 \EndKnitrBlock{Proof}
 
 \BeginKnitrBlock{proof}[Proof of theorem \ref{thm:thm1}]
-\iffalse{} {Proof (Proof of theorem \ref{thm:thm1}). } \fi{}Here is a proof
+\iffalse{} {Proof (Proof of theorem \ref{thm:thm1}). } \fi{}
+
+Here is a proof
 \EndKnitrBlock{proof}
 
 \BeginKnitrBlock{proposition}
 \label{prp:prp2} Bookdown is needed for things like theorems and internal references
 \EndKnitrBlock{proposition}
 
-\BeginKnitrBlock{Thought}[Bar]
+\BeginKnitrBlock{Thought}[Bar of \ref{thm:thm1}]
 \protect\hypertarget{Thought:tho1}{}{\iffalse{} \label{tho:tho1} \fi{}}You can create new theorem types
 \EndKnitrBlock{Thought}
 
-\BeginKnitrBlock{Wonder}
-\protect\hypertarget{Wonder:unnamed-chunk-3}{}{\iffalse{} (\) \fi{}}You can create new unumbered theorem types
-\EndKnitrBlock{Wonder}
+\BeginKnitrBlock{Defns}
+\protect\hypertarget{Defns:unnamed-chunk-4}{}{\iffalse{} (\) \fi{}}You can create new unumbered theorem types
+\EndKnitrBlock{Defns}
 
 \BeginKnitrBlock{Nugget}
 \protect\hypertarget{Nugget:nug1}{}{\iffalse{} \label{nug:nug1} \fi{}}You can create new theorem types
 \EndKnitrBlock{Nugget}
 
+\BeginKnitrBlock{Example}
+\protect\hypertarget{Example:unnamed-chunk-5}{}{\iffalse{} (\#\url{Example:unnamed-chunk-5}) \fi{}}An example
+\EndKnitrBlock{Example}
+
 \BeginKnitrBlock{Solution}
 \protect\hypertarget{Solution:sol1}{}{\iffalse{} \label{sol:sol1} \fi{}}You can create new theorem types
 \EndKnitrBlock{Solution}
 
+\BeginKnitrBlock{Exercises}
+\protect\hypertarget{Exercises:unnamed-chunk-6}{}{\iffalse{} (\) \fi{}}Here is a question
+\EndKnitrBlock{Exercises}
+
 \BeginKnitrBlock{solution}
-\iffalse{} {Solution. } \fi{}Test
+\iffalse{} {Solution. } \fi{}
+
+Test
 \EndKnitrBlock{solution}
 
 \hypertarget{testing-the-reference-link-back}{%
 \section{Testing the reference link back}\label{testing-the-reference-link-back}}
 
 Now go to theorem \ref{thm:thm1}.
+
+\BeginKnitrBlock{solution}
+\iffalse{} {Solution. } \fi{}
+
+Test
+\EndKnitrBlock{solution}
+
+\BeginKnitrBlock{definition}
+\label{def:truth} Here is a definition
+\EndKnitrBlock{definition}
+
+\BeginKnitrBlock{Thought}[Bar of \ref{thm:thm1}]
+\protect\hypertarget{Thought:tho1}{}{\iffalse{} \label{tho:tho1} \fi{}}You can create new theorem types
+\EndKnitrBlock{Thought}
+
+Now an actual new thing:
+\BeginKnitrBlock{Thought}
+\protect\hypertarget{Thought:tho2}{}{\iffalse{} \label{tho:tho2} \fi{}}Stuff and nonsense
+\EndKnitrBlock{Thought}
 
 \end{document}

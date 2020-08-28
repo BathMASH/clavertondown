@@ -38,7 +38,7 @@ html_clav = function(
   ..., number_sections = TRUE, pandoc_args = NULL, base_format = rmarkdown::html_document
 ) {
   config = get_base_format(base_format, list(
-    ..., number_sections = number_sections, pandoc_args = bookdown:::pandoc_args2(pandoc_args)
+    ..., template = clavertondown_file('templates/default.html'), number_sections = number_sections, pandoc_args = bookdown:::pandoc_args2(pandoc_args)
   ))
   post = config$post_processor  # in case a post processor have been defined
   config$post_processor = function(metadata, input, output, clean, verbose) {
