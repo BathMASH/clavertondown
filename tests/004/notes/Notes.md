@@ -35,30 +35,27 @@ output:
 ---
 # Here is a figure
 
-```{r cars-plot, dev='png', fig.show='hide', fig.cap='A thing about cars', include=FALSE}
-plot(cars)
-```
+
 
 ![(\#fig:cars1)Something else to do with cars](Notes_files/figure-html/cars-plot-1.png)
 
 # Here is the putting of a figure inside another built in environment
 
-```{example}
-Here is an example.
+\BeginKnitrBlock{example}<div class="bookdown-example" id="exm:unnamed-chunk-1" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;"><strong>(\#exm:unnamed-chunk-1) </strong><p>Here is an example.
 
 ![(\#fig:cars2)Something to do with cars](Notes_files/figure-html/cars-plot-1.png)
 
 This is a test. So, you need an empty line before and after the above for it to be a float. At the end of an environment this means that you need TWO empty lines. This is Pandoc.
-
-```
+<p></div>\EndKnitrBlock{example}
 
 # Here is the putting of a figure inside a newtheorem
 
-```{newtheorem, env='Example'}
-An example
+\BeginKnitrBlock{Example}<div class="Example" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;"><span class="Example" id="Example:unnamed-chunk-2"><strong> Example: </strong></span><p>An example
 
 ![(\#fig:cars3)Something to do with cars](Notes_files/figure-html/cars-plot-1.png)
 
+</p></div>\EndKnitrBlock{Example}
 
-```
+
+<!--chapter:end:index.Rmd-->
 
