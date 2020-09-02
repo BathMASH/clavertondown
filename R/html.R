@@ -1,5 +1,5 @@
 html_chapters_clav = function(
-  toc = TRUE, number_sections = TRUE, fig_caption = TRUE, lib_dir = 'libs',
+  toc = TRUE, number_sections = TRUE, fig_caption = TRUE, self_contained = FALSE, lib_dir = 'libs',
   template = clavertondown_file('templates/default.html'), pandoc_args = NULL, ...,
   base_format = rmarkdown::html_document, split_bib = TRUE, page_builder = bookdown:::build_chapter,
   split_by = c('section+number', 'section', 'chapter+number', 'chapter', 'rmd', 'none')
@@ -35,10 +35,12 @@ tufte_html_book_clav = function(...) {
 }
 
 html_clav = function(
-  ..., number_sections = TRUE, pandoc_args = NULL, base_format = rmarkdown::html_document
+  ..., toc = TRUE, fig_caption = TRUE, number_sections = TRUE, self_contained = FALSE, pandoc_args = NULL, base_format = rmarkdown::html_document, lib_dir = 'libs'
 ) {
   config = get_base_format(base_format, list(
-    ..., template = clavertondown_file('templates/default.html'), number_sections = number_sections, pandoc_args = bookdown:::pandoc_args2(pandoc_args)
+    ..., toc = toc, number_sections = number_sections, fig_caption = fig_caption,
+    self_contained = FALSE, lib_dir = lib_dir,
+    template = clavertondown_file('templates/default.html'), pandoc_args = bookdown:::pandoc_args2(pandoc_args)
   ))
   post = config$post_processor  # in case a post processor have been defined
   config$post_processor = function(metadata, input, output, clean, verbose) {
@@ -55,6 +57,7 @@ html_clav = function(
     print("Resolved references")
     print(knitr:::opts_knit$get('header.title'))
     write_utf8(x, output)
+    bookdown:::move_files_html(output, lib_dir)
     move_output(output)
   }
   config$bookdown_output_format = 'html'
