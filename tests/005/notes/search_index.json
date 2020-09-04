@@ -1,0 +1,4 @@
+[
+["index.html", "Test 005: Repeat an environment with the correct numbering 1 Section 1", " Test 005: Repeat an environment with the correct numbering Emma Cliffe, Skills Centre: MASH, University of Bath August 2020 1 Section 1 Example 1.1: 2+3 Exercise 1.1: 4+5 Example 1.1: 2+3 "],
+["section-2.html", "2 Section 2", " 2 Section 2 Example 2.1: I should be example 2.1 Example 1.1: 2+3 Exercise 1.1: 4+5 Example 2.2: I should be example 2.2 Exercise 2.1: I should be exercise 2.1 Conclusion: This worked already everywhere except LaTeX. This is a Bookdown issue. To be fair, there isn’t any nice way to do this in LaTeX. I did not want to go down the road of restatable in LaTeX. Instead I wanted to resolve this prior to that point in the way an author would. To do so we change the repeated label to be the ref instead and also ensure that the counter is not incremented. "]
+]

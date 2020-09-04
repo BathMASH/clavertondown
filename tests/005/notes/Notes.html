@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Test 005: Repeat an environment with the correct numbering" />
+<meta property="og:type" content="book" />
+
+
+
+
+
+<meta name="author" content="Emma Cliffe, Skills Centre: MASH, University of Bath" />
+
+
+
+<meta name="description" content="Test 005: Repeat an environment with the correct numbering">
+
+<title>Test 005: Repeat an environment with the correct numbering</title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+</style>
+
+<style type="text/css">
+  a {
+   color: blue;
+  }
+</style>
+
+</head>
+
+<body>
+
+<div class="container-fluid main-container">
+
+
+<!--bookdown:title:start-->
+<div id="header">
+<h1 class="title">Test 005: Repeat an environment with the correct numbering</h1>
+<h4 class="author"><em>Emma Cliffe, Skills Centre: MASH, University of Bath</em></h4>
+<h4 class="date"><em>August 2020</em></h4>
+</div>
+<!--bookdown:title:end-->
+
+<!--bookdown:toc:start-->
+<div id="TOC">
+<ul>
+<li><a href="#section-1"><span class="toc-section-number">1</span> Section 1</a></li>
+<li><a href="#section-2"><span class="toc-section-number">2</span> Section 2</a></li>
+</ul>
+</div>
+<!--bookdown:toc:end-->
+
+<!--bookdown:body:start-->
+<div id="section-1" class="section level1">
+<h1><span class="header-section-number">1</span> Section 1</h1>
+
+<div class="bookdown-example" id="exm:inbuilt" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
+<strong>Example 1.1:  </strong>
+<p>
+2+3
+<p>
+</div>
+
+
+<div class="Exercise" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
+<span id="Exe:author" class="Exercise"><strong> Exercise 1.1:  </strong></span>
+<p>
+4+5
+</p>
+</div>
+
+
+<div class="bookdown-example" id="exm:inbuilt" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
+<strong>Example 1.1:  </strong>
+<p>
+2+3
+<p>
+</div>
+
+</div>
+<div id="section-2" class="section level1">
+<h1><span class="header-section-number">2</span> Section 2</h1>
+
+<div class="bookdown-example" id="exm:unnamed-chunk-1" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
+<strong>Example 2.1:  </strong>
+<p>
+I should be example 2.1
+<p>
+</div>
+
+
+<div class="bookdown-example" id="exm:inbuilt" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
+<strong>Example 1.1:  </strong>
+<p>
+2+3
+<p>
+</div>
+
+
+<div class="Exercise" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
+<span id="Exe:author" class="Exercise"><strong> Exercise 1.1:  </strong></span>
+<p>
+4+5
+</p>
+</div>
+
+
+<div class="bookdown-example" id="exm:unnamed-chunk-2" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
+<strong>Example 2.2:  </strong>
+<p>
+I should be example 2.2
+<p>
+</div>
+
+
+<div class="Exercise" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
+<span id="Exe:author2" class="Exercise"><strong> Exercise 2.1:  </strong></span>
+<p>
+I should be exercise 2.1
+</p>
+</div>
+
+<p>Conclusion: This worked already everywhere except LaTeX. This is a Bookdown issue. To be fair, there isn’t any nice way to do this in LaTeX. I did not want to go down the road of restatable in LaTeX. Instead I wanted to resolve this prior to that point in the way an author would. To do so we change the repeated label to be the ref instead and also ensure that the counter is not incremented.</p>
+<!--chapter:end:index.Rmd-->
+</div>
+<!--bookdown:body:end-->
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+</body>
+</html>

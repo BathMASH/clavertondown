@@ -1,0 +1,6 @@
+book_filename: "Notes"
+output_dir: "notes"
+new_theorems:
+  Exercise: Exe
+style_with:
+  remark: ["Exercise"]
