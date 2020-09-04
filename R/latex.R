@@ -142,7 +142,11 @@ restore_block2 = function(x, global = FALSE, new_theorems_numbered, new_theorems
       #These are the locations of all the envs which share counters and those which they share
       allcounted_abbrLoc = c(counters_abbrLoc,duplicated_abbrLoc)
       #These are the locations of all the envs that don't share a counter
-      noncounters_abbrLoc = match(names(aligned_abbr[-allcounted_abbrLoc]),names(aligned_abbr))
+      if(length(allcounted_abbrLoc) > 0)
+        noncounters_abbrLoc = match(names(aligned_abbr[-allcounted_abbrLoc]),names(aligned_abbr))
+      else
+        noncounters_abbrLoc = 1:length(aligned_abbr)
+      #print(noncounters_abbrLoc)
 
       #The envs which are going to share their counter
       theorem_counters_defs = sprintf(
@@ -200,16 +204,16 @@ style_remark = c('remark')
 # which styles of theorem environments to use
 theorem_style = function(env,style_with) {
   styles = character(length(env))
-  print(style_with["definition"])
-  print(env)
+  #print(style_with["definition"])
+  #print(env)
   styles[env %in% style_plain] = '\\theoremstyle{plain}\n'
   styles[env %in% style_with["plain"]] = '\\theoremstyle{plain}\n'
   styles[env %in% style_definition] = '\\theoremstyle{definition}\n'
   styles[env %in% style_with["definition"]] = '\\theoremstyle{definition}\n'
   styles[env %in% style_remark] = '\\theoremstyle{remark}\n'
   styles[env %in% style_with["remark"]] = '\\theoremstyle{remark}\n'
-  print("Styles:")
-  print(styles)
+  #print("Styles:")
+  #print(styles)
   styles
 }
 
@@ -244,9 +248,59 @@ resolve_basic_refs_latex = function(x){
   x
 }
 
+
+#To do the right thing with repeated environments we need to remove the label and override the numbering of the environment to be that of the label.
+#This is actually quite involved... so, what tools does LaTeX have we can use...? None, really. The package proof-at-the-end might be a longer-term solution but any solution in LaTeX requires us to alter how the original theorem is encoded. This just moves the difficult problem to somewhere else in the code. The thing to do which fits in with the rest of this code is to alter the below function to do some of the same work which resolve_refs_html does _via_ parse_fig_labels. First question is... can we reuse parse_fig_labels? Actually, yes, we can but it seems to make no difference to the output at all! It is because the labs are in a different format at this point in the LaTeX code due to the escaped \
+#OK, looking at whether we can notice that this is a repeated environment in the engine... Nope, there is no different in the options from the r chunk if it is a reuse - you cannot tell this! So, here is the best place unfortunately :(
+#Let's concentrate on detection first, to detect a reuse of a label we need to collect all the labels etc. 
 resolve_refs_latex = function(x, new_reg_label_types) {
-  x = resolve_basic_refs_latex(x)
+  #Look for the labels
+  m = gregexpr(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), x)
+  labs = regmatches(x, m)
+  actuallabs = list()
+  locs = list()
+  duplocs = list()
+  
+  for (i in seq_along(labs)) {
+    if (length(lab <- labs[[i]]) == 0) next
+    #This is where the labels are, now we need to locate any repeats
+    actuallabs = c(actuallabs,lab)
+    locs = c(locs,i)
+  }
+  dups = duplicated(actuallabs)
+  #This is where the duplicates are
+  if(length(dups) > 0){
+    for(i in 1:length(dups))
+      if(dups[[i]] == TRUE){
+        duplocs = c(duplocs,locs[[i]])
+      	#This is where we need to insert the counter override... is there a way to do this so that we don't have to put anything after the theorem 
+      	#print(x[[locs[[i]]-3]])
+      	#print(actuallabs[[i]])
+      	#print(gsub(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), '\\\\ref{\\1}', actuallabs[[i]]))      
+      	#We need to know what sort of environment this is so that we can override the numbering.
+	stringr::str_split("aabcc", "b")[[1]][[1]]
+      	whatami = stringr::str_split(stringr::str_remove(x[[locs[[i]]-2]],'\\\\BeginKnitrBlock\\{'),'\\}',n=2)[[1]][[1]]
+      	print(whatami)
+      	if(whatami == '')
+          stop('There is a problem with a repeated environment.')
+      	x[[locs[[i]]-3]] = stringr::str_c(x[[locs[[i]]-3]],sprintf('\\begingroup\\renewcommand{\\the%s}{%s}', whatami, gsub(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), '\\\\ref{\\1}', actuallabs[[i]])))
+      	#Remove the duplicate label
+      	#print(sprintf('\\(\\\\%s\\)',stringr::str_sub(actuallabs[[i]],3,-2)))
+      	x[[locs[[i]]]] = stringr::str_remove(x[[locs[[i]]]],sprintf('\\(\\\\%s\\)',stringr::str_sub(actuallabs[[i]],3,-2)))
+      	
+      	#This is where we need to end the group, we are making the assumption that you cannot put theorem environments inside other theorem environments which I think is true because of how the engine works.
+      	for(j in locs[[i]]:length(x))
+          if(stringr::str_detect(x[[j]],'\\EndKnitrBlock')){
+	    print(sprintf('I am an %s. Starting at original loc %d I found the end at loc %d while reading %s', whatami, locs[[i]], j, x[[j]]))
+	    x[[j+1]] = stringr::str_c(x[[j+1]],sprintf('\\endgroup\\addtocounter{%s}{-1}',whatami))
+	    break
+	  }
+     }
+  }
+ 
+  x = resolve_basic_refs_latex(x)  
   #print(new_reg_label_types)
+  #This is the original
   x = gsub(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), '\\\\label{\\1}', x)
   x
 }

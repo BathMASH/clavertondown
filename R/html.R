@@ -321,11 +321,14 @@ resolve_new_theorems = function(content, global = FALSE, new_theorems, number_by
         # Resolve the unnumbered (and HENCE unnamed theorems - since names come from labels and unnumbered SHOULD NOT HAVE labels!) in html:
       	content = gsub(sprintf('id="%s:unnamed-chunk-[-/[:alnum:]]+"', names(new_theorems[i])), sprintf('', new_theorems[[i]]), content)
       	content = gsub(sprintf(' \\(#%s:unnamed-chunk-[-/[:alnum:]]+\\)', names(new_theorems[i])), sprintf(':'), content)
-      	content = gsub(sprintf('#%s:unnamed-chunk-[-/[:alnum:]]+', names(new_theorems[i])), sprintf(''), content)
+	#Instead of trying to guess what variety of things might happen below we have put \iffalse \iff around the label, we leave it there in this case and remove it in the numbered case. 
+	#content = gsub(sprintf('#%s:unnamed-chunk-[-/[:alnum:]]+', names(new_theorems[i])), sprintf(''), content)
       }else{
       	content = gsub(sprintf('id="%s:', names(new_theorems[i])), sprintf('id="%s:', new_theorems[[i]]), content)
       	content = gsub(sprintf('\\(#%s:', names(new_theorems[i])), sprintf('\\(#%s:', new_theorems[[i]]), content)
-      	content = gsub(sprintf('#%s:', names(new_theorems[i])), sprintf('#%s:', new_theorems[[i]]), content)
+	#Allow the labels for the numbered
+	#content = gsub(sprintf('#%s:', names(new_theorems[i])), sprintf('#%s:', new_theorems[[i]]), content)
+	content = gsub(sprintf('\\\\iffalse\\{\\} \\(\\\\#%s:([[:alnum:]]+)\\) \\\\fi\\{\\}', names(new_theorems[i])), sprintf('\\(\\\\#%s:\\1\\)', new_theorems[[i]]), content)
       }
     }
   }

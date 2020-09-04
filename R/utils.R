@@ -37,7 +37,7 @@ one_string = function(x, ...) paste(x, ..., collapse = '\n')
 #Actually, this seems to be a wider problem and so I need to fix it locally by removing reliance on block2
 eng_theorem = function(options) {
   if (isFALSE(options$echo)) return()
-
+  
   code = one_string(options$code);
   type = options$type %n% 'theorem'
   if (is.null(type)) return(code)
@@ -134,6 +134,7 @@ eng_newtheorem = function(options) {
   if (l1 != '') l1 = paste(
     c('\\iffalse{', utf8ToInt(enc2utf8(l1)), '}\\fi{}'), collapse = '-'
   )
+  #This is going to label the numbered and the unnumbered. At this point we cannot determine the right action so we edit them all out and then in resolve theorems we allow the labels of the numbered theorems to stand (see html.R, of all places, for this function)
   if (knitr::is_latex_output())
      html.before2 = paste('\\iffalse{}', html.before2, '\\fi{}')
    
