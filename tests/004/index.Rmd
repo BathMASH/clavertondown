@@ -9,10 +9,6 @@ classoption: a4paper
 fontsize: 10pt
 geometry: margin=2.5cm
 output:
-  clavertondown::html_clav:
-    toc: true
-    fig_caption: true
-    keep_md: true
   clavertondown::word_clav:
     toc: true
     number_sections: true
@@ -32,6 +28,10 @@ output:
     config:
       download: [["Notes.html", "HTML page"], ["Notes.pdf","Standard print PDF"], ["NotesClear.pdf","Clear print PDF"], ["NotesLarge.pdf","Large print PDF"], ["Notes.docx","Accessible Word document"], ["Notes.epub","Accessible EPub book" ]]
       sharing: no
+  clavertondown::html_clav:
+    toc: true
+    fig_caption: true
+    keep_md: true
 ---
 # Here is a figure
 
