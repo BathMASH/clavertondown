@@ -136,7 +136,7 @@ Here is some more boring text in between.
 \EndKnitrBlock{proposition}
 
 \BeginKnitrBlock{Proof}[Of theorem \ref{thm:thm1}]
-\protect\hypertarget{Proof:unnamed-chunk-2}{}{\iffalse{} (\) \fi{}}Here is a proof\qed
+\protect\hypertarget{Proof:unnamed-chunk-2}{}{\iffalse{} (\#Proof:unnamed-chunk-2) \fi{}}Here is a proof\qed
 \EndKnitrBlock{Proof}
 
 \BeginKnitrBlock{proof}[Proof of theorem \ref{thm:thm1}]
@@ -150,15 +150,15 @@ Here is a proof
 \EndKnitrBlock{proposition}
 
 \BeginKnitrBlock{Thought}[Bar of \ref{thm:thm1}]
-\protect\hypertarget{Thought:tho1}{}{\iffalse{} \label{tho:tho1} \fi{}}You can create new theorem types
+\protect\hypertarget{Thought:tho1}{}{\label{tho:tho1}}You can create new theorem types
 \EndKnitrBlock{Thought}
 
 \BeginKnitrBlock{Defns}
-\protect\hypertarget{Defns:unnamed-chunk-4}{}{\iffalse{} (\) \fi{}}You can create new unumbered theorem types
+\protect\hypertarget{Defns:unnamed-chunk-4}{}{\iffalse{} (\#Defns:unnamed-chunk-4) \fi{}}You can create new unumbered theorem types
 \EndKnitrBlock{Defns}
 
 \BeginKnitrBlock{Nugget}
-\protect\hypertarget{Nugget:nug1}{}{\iffalse{} \label{nug:nug1} \fi{}}You can create new theorem types
+\protect\hypertarget{Nugget:nug1}{}{\label{nug:nug1}}You can create new theorem types
 \EndKnitrBlock{Nugget}
 
 \BeginKnitrBlock{Example}
@@ -166,11 +166,11 @@ Here is a proof
 \EndKnitrBlock{Example}
 
 \BeginKnitrBlock{Solution}
-\protect\hypertarget{Solution:sol1}{}{\iffalse{} \label{sol:sol1} \fi{}}You can create new theorem types
+\protect\hypertarget{Solution:sol1}{}{\label{sol:sol1}}You can create new theorem types
 \EndKnitrBlock{Solution}
 
 \BeginKnitrBlock{Exercises}
-\protect\hypertarget{Exercises:unnamed-chunk-6}{}{\iffalse{} (\) \fi{}}Here is a question
+\protect\hypertarget{Exercises:unnamed-chunk-6}{}{\iffalse{} (\#Exercises:unnamed-chunk-6) \fi{}}Here is a question
 \EndKnitrBlock{Exercises}
 
 \BeginKnitrBlock{solution}
@@ -182,25 +182,25 @@ Test
 \hypertarget{testing-the-reference-link-back}{%
 \section{Testing the reference link back}\label{testing-the-reference-link-back}}
 
-Now go to theorem \ref{thm:thm1}.
+Now go to theorem \ref{thm:thm1} or thought \ref{tho:tho1}
 
 \BeginKnitrBlock{solution}
 \iffalse{} {Solution. } \fi{}
 
 Test
 \EndKnitrBlock{solution}
-
+\begingroup\renewcommand{\thedefinition}{\ref{def:truth}}
 \BeginKnitrBlock{definition}
-\label{def:truth} Here is a definition
+ Here is a definition
 \EndKnitrBlock{definition}
-
+\endgroup\addtocounter{definition}{-1}\begingroup\renewcommand{\theThought}{\ref{tho:tho1}}
 \BeginKnitrBlock{Thought}[Bar of \ref{thm:thm1}]
-\protect\hypertarget{Thought:tho1}{}{\iffalse{} \label{tho:tho1} \fi{}}You can create new theorem types
+\protect\hypertarget{Thought:tho1}{}{}You can create new theorem types
 \EndKnitrBlock{Thought}
-
+\endgroup\addtocounter{Thought}{-1}
 Now an actual new thing:
 \BeginKnitrBlock{Thought}
-\protect\hypertarget{Thought:tho2}{}{\iffalse{} \label{tho:tho2} \fi{}}Stuff and nonsense
+\protect\hypertarget{Thought:tho2}{}{\label{tho:tho2}}Stuff and nonsense
 \EndKnitrBlock{Thought}
 
 \end{document}
