@@ -329,8 +329,9 @@ resolve_new_theorems = function(content, global = FALSE, new_theorems, number_by
       	content = gsub(sprintf('id="%s:', names(new_theorems[i])), sprintf('id="%s:', new_theorems[[i]]), content)
       	content = gsub(sprintf('\\(#%s:', names(new_theorems[i])), sprintf('\\(#%s:', new_theorems[[i]]), content)
 	#Allow the labels for the numbered
-	#content = gsub(sprintf('#%s:', names(new_theorems[i])), sprintf('#%s:', new_theorems[[i]]), content)
 	content = gsub(sprintf('\\\\iffalse\\{\\} \\(\\\\#%s:([[:alnum:]]+)\\) \\\\fi\\{\\}', names(new_theorems[i])), sprintf('\\(\\\\#%s:\\1\\)', new_theorems[[i]]), content)
+	#This is still needed for ePub and Word
+	content = gsub(sprintf('#%s:', names(new_theorems[i])), sprintf('#%s:', new_theorems[[i]]), content)
 	if(names(new_theorems[i]) == 'Example' || names(new_theorems[i]) == 'example'){
 	  content = gsub(sprintf('\\(#<a href="%s:([[:alnum:]]+)" class="uri">%s:([[:alnum:]]+)</a>\\)', names(new_theorems[i]), names(new_theorems[i])), sprintf('\\(#%s:\\1\\)', new_theorems[[i]]), content)
 	}
