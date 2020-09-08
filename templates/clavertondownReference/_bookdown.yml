@@ -1,0 +1,32 @@
+book_filename: "clavertondownReference-output"
+output_dir: "Output"
+new_theorems:
+  Definition: Def
+  Lemma: Lem
+  Proposition: Pro
+  Theorem: Thm
+  Corollary: Cor
+  Proof: ---
+  Conjecture: Con
+  Example: Exm
+  Exercise: Exr
+  Solution: ---
+  Remark: ---
+number_by:
+  prp: thm
+  lem: thm
+  cor: thm
+  cnj: thm
+  exr: exm
+  Def: def
+  Lem: thm
+  Pro: thm
+  Thm: thm
+  Cor: thm
+  Con: thm
+  Exm: exm
+  Exr: exm
+style_with:
+  plain: []
+  definition: []
+  remark: []

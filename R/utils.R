@@ -64,7 +64,8 @@ eng_theorem = function(options) {
   if (l1 != '') l1 = paste(
     c('\\iffalse{', utf8ToInt(enc2utf8(l1)), '}\\fi{}'), collapse = '-'
   )
-  h2 = options$html.tag %n% 'div'
+  h1 = options$html.tag %n% 'div'
+  h2 = options$html.tag %n% 'span'
   h3 = options$html.before %n% ''
   h4 = options$html.after %n% ''
   #h5 = options$html.before2 %n% ''
@@ -74,22 +75,22 @@ eng_theorem = function(options) {
     s1 = s2 = ''
   } else {
   s1 = '<p>'
-  s2 = '<p>'
+  s2 = '</p>'
   if(type == 'definition')
-      h7 = sprintf('<%s class="bookdown-%s" id="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;">', h2, type, label)
+      h7 = sprintf('<%s class="bookdown-%s" id="%s" custom-style="DefinitionStyle" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;">', h1, type, label)
     else if(type == 'example' || type == 'exercise')
-      h7 = sprintf('<%s class="bookdown-%s" id="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">', h2, type, label)
+      h7 = sprintf('<%s class="bookdown-%s" id="%s" custom-style="ExampleStyle" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">', h1, type, label)
     else{
-      h7 = sprintf('<%s class="bookdown-%s" id="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;">', h2, type, label)
+      h7 = sprintf('<%s class="bookdown-%s" id="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">', h1, type, label)
       s1 = '<p><em>'
       s2 = '</em></p>'
     }
-    h8 = sprintf('</%s>', h2)
+    h8 = sprintf('</%s>', h1)
   }
 
   sprintf(
-    '\\BeginKnitrBlock{%s}%s%s%s<strong>%s</strong>%s%s%s%s%s%s\\EndKnitrBlock{%s}',
-    type, l1, h3, h7, html.before2, s1, code, s2, h6, h8, h4, type
+    '\\BeginKnitrBlock{%s}%s%s%s<%s class="%s" id="%s" custom-style="NameStyle"><strong>%s</strong></%s>%s%s%s%s%s%s\\EndKnitrBlock{%s}',
+    type, l1, h3, h7, h2, type, label, html.before2, h2, s1, code, s2, h6, h8, h4, type
   )
 }
 
@@ -152,14 +153,14 @@ eng_newtheorem = function(options) {
   }else{
     s1 = '<p>'
     s2 = '</p>'
-    if(stringr::str_detect(tolower(env), 'proof') || stringr::str_detect(tolower(env), 'solution') || stringr::str_detect(tolower(env), 'soln'))
-      h7 = sprintf('<%s class="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;">', h1, env)
+    if(stringr::str_detect(tolower(env), 'proof') || stringr::str_detect(tolower(env), 'solution') || stringr::str_detect(tolower(env), 'soln') || stringr::str_detect(tolower(env), 'remark'))
+      h7 = sprintf('<%s class="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;" custom-style="ProofStyle">', h1, env)
     else if(stringr::str_detect(tolower(env),'example') || stringr::str_detect(tolower(env), 'exercise'))
-      h7 = sprintf('<%s class="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">', h1, env)
+      h7 = sprintf('<%s class="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;" custom-style="ExampleStyle">', h1, env)
     else if(stringr::str_detect(tolower(env), 'definition') || stringr::str_detect(tolower(env), 'defn'))
-      h7 = sprintf('<%s class="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;">', h1, env)
+      h7 = sprintf('<%s class="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;" custom-style="DefinitionStyle">', h1, env)
     else{
-      h7 = sprintf('<%s class="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;">', h1, env)
+      h7 = sprintf('<%s class="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">', h1, env)
       s1 = '<p><em>'
       s2 = '</em></p>'
       }
@@ -173,7 +174,7 @@ eng_newtheorem = function(options) {
       h8 = sprintf('<p>&squ;</p></%s>', h1)
 
   sprintf(
-    '\\BeginKnitrBlock{%s}%s%s%s<%s class="%s" id="%s"><strong>%s</strong></%s>%s%s%s%s%s%s\\EndKnitrBlock{%s}',
+    '\\BeginKnitrBlock{%s}%s%s%s<%s class="%s" id="%s" custom-style="NameStyle"><strong>%s</strong></%s>%s%s%s%s%s%s\\EndKnitrBlock{%s}',
     env, l1, h3, h7, h2, env, label, html.before2, h2, s1, code, s2, h6, h8, h4, env
   )
 
@@ -214,7 +215,7 @@ eng_proof = function(options) {
        label = sprintf('<em>%s</em>', label)
     }
     html.before2 = sprintf(
-    '<span class="%s">%s</span> ', type, label
+    '<span class="%s" custom-style="NameStyle">%s</span> ', type, label
     )
     if (!to_md)
       html.before2 = paste('\\iffalse{}', html.before2, '\\fi{}')
@@ -236,7 +237,7 @@ eng_proof = function(options) {
     h7 = h8 = '\n'
     } else {
     #A proof can't have a label so it doesn't need an id. The id that was here was working in html, in, one browser, but not in epub as it was being set to a label that could contain all kinds of things which, unlike eng_theorem's label, is not appropriate
-    h7 = sprintf('<%s class="bookdown-%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;">', h2, type)
+    h7 = sprintf('<%s class="bookdown-%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;" custom-style="ProofStyle">', h2, type)
     h8 = sprintf('</%s>', h2)
     }
 
