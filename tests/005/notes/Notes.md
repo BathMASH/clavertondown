@@ -1,5 +1,5 @@
 ---
-title: "Test 005: Repeat an environment with the correct numbering"
+title: "Test 004: Put a labeled figure/table inside a theorem/proof etc."
 author: 'Emma Cliffe, Skills Centre: MASH, University of Bath'
 date: 'August 2020'
 site: bookdown::bookdown_site
@@ -13,6 +13,8 @@ output:
     toc: true
     number_sections: true
     keep_md: true
+  clavertondown::epub_clav:
+    toc: true
   clavertondown::html_clav:
     toc: true
     fig_caption: true
@@ -23,8 +25,6 @@ output:
     config:
       download: [["Notes.html", "HTML page"], ["Notes.pdf","Standard print PDF"], ["NotesClear.pdf","Clear print PDF"], ["NotesLarge.pdf","Large print PDF"], ["Notes.docx","Accessible Word document"], ["Notes.epub","Accessible EPub book" ]]
       sharing: no
-  clavertondown::epub_clav:
-    toc: true
   clavertondown::pdf_clav:
     latex_engine: pdflatex
     dev: pdf
@@ -33,33 +33,29 @@ output:
     fig_caption: true
     toc: true
 ---
-
-# Section 1
-
+# Here is a figure
 
 
 
+![(\#fig:cars1)Something else to do with cars](Notes_files/figure-html/cars-plot-1.png)
 
-\BeginKnitrBlock{example}<div class="bookdown-example" id="exm:inbuilt" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;"><strong>(\#exm:inbuilt) </strong><p>2+3<p></div>\EndKnitrBlock{example}
+# Here is the putting of a figure inside another built in environment
 
-\BeginKnitrBlock{Exercise}<div class="Exercise" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;"><span class="Exercise" id="Exercise:author"><strong> Exercise (\#Exercise:author) </strong></span><p>4+5</p></div>\EndKnitrBlock{Exercise}
+\BeginKnitrBlock{example}<div class="bookdown-example" id="exm:unnamed-chunk-1" custom-style="ExampleStyle" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;"><span class="example" id="exm:unnamed-chunk-1" custom-style="NameStyle"><strong>(\#exm:unnamed-chunk-1) </strong></span><p>Here is an example.
 
-\BeginKnitrBlock{example}<div class="bookdown-example" id="exm:inbuilt" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;"><strong>(\#exm:inbuilt) </strong><p>2+3<p></div>\EndKnitrBlock{example}
+![(\#fig:cars2)Something to do with cars](Notes_files/figure-html/cars-plot-1.png)
 
-# Section 2
+This is a test. So, you need an empty line before and after the above for it to be a float. At the end of an environment this means that you need TWO empty lines. This is Pandoc.
+</p></div>\EndKnitrBlock{example}
 
-\BeginKnitrBlock{example}<div class="bookdown-example" id="exm:unnamed-chunk-1" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;"><strong>(\#exm:unnamed-chunk-1) </strong><p>I should be example 2.1<p></div>\EndKnitrBlock{example}
+# Here is the putting of a figure inside a newtheorem
 
-\BeginKnitrBlock{example}<div class="bookdown-example" id="exm:inbuilt" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;"><strong>(\#exm:inbuilt) </strong><p>2+3<p></div>\EndKnitrBlock{example}
+\BeginKnitrBlock{Example}<div class="Example" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;" custom-style="ExampleStyle"><span class="Example" id="Example:unnamed-chunk-2" custom-style="NameStyle"><strong> Example: </strong></span><p>An example
 
-\BeginKnitrBlock{Exercise}<div class="Exercise" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;"><span class="Exercise" id="Exercise:author"><strong> Exercise (\#Exercise:author) </strong></span><p>4+5</p></div>\EndKnitrBlock{Exercise}
+![(\#fig:cars3)Something to do with cars](Notes_files/figure-html/cars-plot-1.png)
 
-\BeginKnitrBlock{example}<div class="bookdown-example" id="exm:unnamed-chunk-2" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;"><strong>(\#exm:unnamed-chunk-2) </strong><p>I should be example 2.2<p></div>\EndKnitrBlock{example}
+</p></div>\EndKnitrBlock{Example}
 
-
-\BeginKnitrBlock{Exercise}<div class="Exercise" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;"><span class="Exercise" id="Exercise:author2"><strong> Exercise (\#Exercise:author2) </strong></span><p>I should be exercise 2.1</p></div>\EndKnitrBlock{Exercise}
-
-Conclusion: This worked already everywhere except LaTeX. This is a Bookdown issue. To be fair, there isn't any nice way to do this in LaTeX. I did not want to go down the road of restatable in LaTeX. Instead I wanted to resolve this prior to that point in the way an author would. To do so we change the repeated label to be the ref instead and also ensure that the counter is not incremented. 
 
 <!--chapter:end:index.Rmd-->
 

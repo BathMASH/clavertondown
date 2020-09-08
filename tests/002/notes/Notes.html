@@ -20,6 +20,7 @@
 
 <title>Test 002: Sections and text</title>
 
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -73,11 +74,13 @@ img {
 <div id="TOC">
 <ul>
 <li><a href="#unnumbered-section">Unnumbered section</a></li>
-<li><a href="#section-1"><span class="toc-section-number">1</span> Section 1</a><ul>
+<li><a href="#section-1"><span class="toc-section-number">1</span> Section 1</a>
+<ul>
 <li><a href="#subsection-1.1"><span class="toc-section-number">1.1</span> Subsection 1.1</a></li>
 <li><a href="#subsection-1.2"><span class="toc-section-number">1.2</span> Subsection 1.2</a></li>
 </ul></li>
-<li><a href="#section-2"><span class="toc-section-number">2</span> Section 2</a><ul>
+<li><a href="#section-2"><span class="toc-section-number">2</span> Section 2</a>
+<ul>
 <li><a href="#subsection-2.1"><span class="toc-section-number">2.1</span> Subsection 2.1</a></li>
 </ul></li>
 </ul>
@@ -90,21 +93,21 @@ img {
 <h1>Unnumbered section</h1>
 <p>This is an unnumbered section.</p>
 </div>
-<div id="section-1" class="section level1">
+<div id="section-1" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Section 1</h1>
 <p>This is section 1 and now we have a subsection.</p>
-<div id="subsection-1.1" class="section level2">
+<div id="subsection-1.1" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> Subsection 1.1</h2>
 <p>And another one.</p>
 </div>
-<div id="subsection-1.2" class="section level2">
+<div id="subsection-1.2" class="section level2" number="1.2">
 <h2><span class="header-section-number">1.2</span> Subsection 1.2</h2>
 <p>And now an section with a subsection immediately at the start.</p>
 </div>
 </div>
-<div id="section-2" class="section level1">
+<div id="section-2" class="section level1" number="2">
 <h1><span class="header-section-number">2</span> Section 2</h1>
-<div id="subsection-2.1" class="section level2">
+<div id="subsection-2.1" class="section level2" number="2.1">
 <h2><span class="header-section-number">2.1</span> Subsection 2.1</h2>
 <p>And some final text.</p>
 <!--chapter:end:index.Rmd-->

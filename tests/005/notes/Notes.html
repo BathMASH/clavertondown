@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Test 005: Repeat an environment with the correct numbering" />
+<meta property="og:title" content="Test 004: Put a labeled figure/table inside a theorem/proof etc." />
 <meta property="og:type" content="book" />
 
 
@@ -16,10 +16,11 @@
 
 
 
-<meta name="description" content="Test 005: Repeat an environment with the correct numbering">
+<meta name="description" content="Test 004: Put a labeled figure/table inside a theorem/proof etc.">
 
-<title>Test 005: Repeat an environment with the correct numbering</title>
+<title>Test 004: Put a labeled figure/table inside a theorem/proof etc.</title>
 
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -63,7 +64,7 @@ img {
 
 <!--bookdown:title:start-->
 <div id="header">
-<h1 class="title">Test 005: Repeat an environment with the correct numbering</h1>
+<h1 class="title">Test 004: Put a labeled figure/table inside a theorem/proof etc.</h1>
 <h4 class="author"><em>Emma Cliffe, Skills Centre: MASH, University of Bath</em></h4>
 <h4 class="date"><em>August 2020</em></h4>
 </div>
@@ -72,83 +73,49 @@ img {
 <!--bookdown:toc:start-->
 <div id="TOC">
 <ul>
-<li><a href="#section-1"><span class="toc-section-number">1</span> Section 1</a></li>
-<li><a href="#section-2"><span class="toc-section-number">2</span> Section 2</a></li>
+<li><a href="#here-is-a-figure"><span class="toc-section-number">1</span> Here is a figure</a></li>
+<li><a href="#here-is-the-putting-of-a-figure-inside-another-built-in-environment"><span class="toc-section-number">2</span> Here is the putting of a figure inside another built in environment</a></li>
+<li><a href="#here-is-the-putting-of-a-figure-inside-a-newtheorem"><span class="toc-section-number">3</span> Here is the putting of a figure inside a newtheorem</a></li>
 </ul>
 </div>
 <!--bookdown:toc:end-->
 
 <!--bookdown:body:start-->
-<div id="section-1" class="section level1">
-<h1><span class="header-section-number">1</span> Section 1</h1>
-
-<div class="bookdown-example" id="exm:inbuilt" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
-<strong>Example 1.1:  </strong>
-<p>
-2+3
-<p>
+<div id="here-is-a-figure" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Here is a figure</h1>
+<div class="figure"><span id="fig:cars1"></span>
+<img src="Notes_files/figure-html/cars-plot-1.png" alt="" />
+<p class="caption">Figure 1.1: Something else to do with cars</p>
 </div>
+</div>
+<div id="here-is-the-putting-of-a-figure-inside-another-built-in-environment" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Here is the putting of a figure inside another built in environment</h1>
 
-
-<div class="Exercise" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
-<span id="Exe:author" class="Exercise"><strong> Exercise 1.1:  </strong></span>
+<div id="exm:unnamed-chunk-1" class="bookdown-example" custom-style="ExampleStyle" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
+<span id="exm:unnamed-chunk-1" class="example" custom-style="NameStyle"><strong>Example 2.1:  </strong></span>
 <p>
-4+5
+<p>Here is an example.</p>
+<div class="figure"><span id="fig:cars2"></span>
+<img src="Notes_files/figure-html/cars-plot-1.png" alt="" />
+<p class="caption">Figure 2.1: Something to do with cars</p>
+</div>
+This is a test. So, you need an empty line before and after the above for it to be a float. At the end of an environment this means that you need TWO empty lines. This is Pandoc.
 </p>
 </div>
-
-
-<div class="bookdown-example" id="exm:inbuilt" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
-<strong>Example 1.1:  </strong>
-<p>
-2+3
-<p>
 </div>
+<div id="here-is-the-putting-of-a-figure-inside-a-newtheorem" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Here is the putting of a figure inside a newtheorem</h1>
 
+<div class="Example" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;" custom-style="ExampleStyle">
+<span  class="Example" custom-style="NameStyle"><strong> Example: </strong></span>
+<p>
+<p>An example</p>
+<div class="figure"><span id="fig:cars3"></span>
+<img src="Notes_files/figure-html/cars-plot-1.png" alt="" />
+<p class="caption">Figure 3.1: Something to do with cars</p>
 </div>
-<div id="section-2" class="section level1">
-<h1><span class="header-section-number">2</span> Section 2</h1>
-
-<div class="bookdown-example" id="exm:unnamed-chunk-1" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
-<strong>Example 2.1:  </strong>
-<p>
-I should be example 2.1
-<p>
-</div>
-
-
-<div class="bookdown-example" id="exm:inbuilt" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
-<strong>Example 1.1:  </strong>
-<p>
-2+3
-<p>
-</div>
-
-
-<div class="Exercise" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
-<span id="Exe:author" class="Exercise"><strong> Exercise 1.1:  </strong></span>
-<p>
-4+5
 </p>
 </div>
-
-
-<div class="bookdown-example" id="exm:unnamed-chunk-2" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
-<strong>Example 2.2:  </strong>
-<p>
-I should be example 2.2
-<p>
-</div>
-
-
-<div class="Exercise" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
-<span id="Exe:author2" class="Exercise"><strong> Exercise 2.1:  </strong></span>
-<p>
-I should be exercise 2.1
-</p>
-</div>
-
-<p>Conclusion: This worked already everywhere except LaTeX. This is a Bookdown issue. To be fair, there isn’t any nice way to do this in LaTeX. I did not want to go down the road of restatable in LaTeX. Instead I wanted to resolve this prior to that point in the way an author would. To do so we change the repeated label to be the ref instead and also ensure that the counter is not incremented.</p>
 <!--chapter:end:index.Rmd-->
 </div>
 <!--bookdown:body:end-->

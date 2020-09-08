@@ -1,44 +1,60 @@
-\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 %
-\documentclass[10pt,english,a4paper]{article}
+\documentclass[
+  10pt,
+  english,
+  a4paper]{article}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provides euro and other symbols
-\else % if luatex or xelatex
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
   \usepackage{unicode-math}
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% use upquote if available, for straight quotes in verbatim environments
+% Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% use microtype if available
-\IfFileExists{microtype.sty}{%
-\usepackage[]{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
-\usepackage{hyperref}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-            pdftitle={Test 004: Put a labeled figure/table inside a theorem/proof etc.},
-            pdfauthor={Emma Cliffe, Skills Centre: MASH, University of Bath},
-            pdfborder={0 0 0},
-            breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
+  pdftitle={Test 004: New theorems, numbering and styles},
+  pdfauthor={Emma Cliffe, Skills Centre: MASH, University of Bath},
+  pdflang={en},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=2.5cm]{geometry}
 \usepackage{longtable,booktabs}
-% Fix footnotes in tables (requires footnote package)
-\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
-\usepackage{graphicx,grffile}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -47,34 +63,26 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
-
-% set default figure placement to htbp
+% Set default figure placement to htbp
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[shorthands=off,main=english]{babel}
-\else
-  % load polyglossia as late as possible as it *could* call bidi if RTL lang (e.g. Hebrew or Arabic)
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\ifxetex
+  % Load polyglossia as late as possible: uses bidi with RTL langages (e.g. Hebrew, Arabic)
   \usepackage{polyglossia}
   \setmainlanguage[]{english}
+\else
+  \usepackage[shorthands=off,main=english]{babel}
+\fi
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
 \fi
 
-\title{Test 004: Put a labeled figure/table inside a theorem/proof etc.}
+\title{Test 004: New theorems, numbering and styles}
 \author{Emma Cliffe, Skills Centre: MASH, University of Bath}
 \date{August 2020}
 
@@ -114,41 +122,93 @@
 \setcounter{tocdepth}{2}
 \tableofcontents
 }
-\hypertarget{here-is-a-figure}{%
-\section{Here is a figure}\label{here-is-a-figure}}
+\hypertarget{testing-some-theorem-stuff}{%
+\section{Testing some theorem stuff}\label{testing-some-theorem-stuff}}
 
-\begin{figure}
-\centering
-\includegraphics{Notes_files/figure-html/cars-plot-1.png}
-\caption{\label{fig:cars1}Something else to do with cars}
-\end{figure}
-
-\hypertarget{here-is-the-putting-of-a-figure-inside-another-built-in-environment}{%
-\section{Here is the putting of a figure inside another built in environment}\label{here-is-the-putting-of-a-figure-inside-another-built-in-environment}}
+\BeginKnitrBlock{definition}
+\protect\hypertarget{def:truth}{}{\label{def:truth} }Here is a definition
+\EndKnitrBlock{definition}
 
 \BeginKnitrBlock{example}
-\label{exm:unnamed-chunk-1} Here is an example.
-
-\begin{figure}
-\centering
-\includegraphics{Notes_files/figure-html/cars-plot-1.png}
-\caption{\label{fig:cars2}Something to do with cars}
-\end{figure}
-
-This is a test. So, you need an empty line before and after the above for it to be a float. At the end of an environment this means that you need TWO empty lines. This is Pandoc.
+\protect\hypertarget{exm:unnamed-chunk-1}{}{\label{exm:unnamed-chunk-1} }Here is an example.
 \EndKnitrBlock{example}
 
-\hypertarget{here-is-the-putting-of-a-figure-inside-a-newtheorem}{%
-\section{Here is the putting of a figure inside a newtheorem}\label{here-is-the-putting-of-a-figure-inside-a-newtheorem}}
+Here is some more boring text in between.
+
+\BeginKnitrBlock{theorem}[Foo]
+\protect\hypertarget{thm:thm1}{}{\label{thm:thm1} \iffalse (Foo) \fi{} }Bookdown is needed for things like theorems and internal references
+\EndKnitrBlock{theorem}
+
+\BeginKnitrBlock{proposition}[Thingy we need for \ref{thm:thm1}]
+\protect\hypertarget{prp:prp1}{}{\label{prp:prp1} \iffalse (Thingy we need for \ref{thm:thm1}) \fi{} }You can create new theorem types
+\EndKnitrBlock{proposition}
+
+\BeginKnitrBlock{Proof}[Of theorem \ref{thm:thm1}]
+\protect\hypertarget{Proof:unnamed-chunk-2}{}{\iffalse{} (\#Proof:unnamed-chunk-2) \fi{}}Here is a proof\qed
+\EndKnitrBlock{Proof}
+
+\BeginKnitrBlock{proof}[Proof of theorem \ref{thm:thm1}]
+\iffalse{} {Proof (Proof of theorem \ref{thm:thm1}). } \fi{}
+
+Here is a proof
+\EndKnitrBlock{proof}
+
+\BeginKnitrBlock{proposition}
+\protect\hypertarget{prp:prp2}{}{\label{prp:prp2} }Bookdown is needed for things like theorems and internal references
+\EndKnitrBlock{proposition}
+
+\BeginKnitrBlock{Thought}[Bar of \ref{thm:thm1}]
+\protect\hypertarget{Thought:tho1}{}{\label{tho:tho1}}You can create new theorem types
+\EndKnitrBlock{Thought}
+
+\BeginKnitrBlock{Defns}
+\protect\hypertarget{Defns:unnamed-chunk-4}{}{\iffalse{} (\#Defns:unnamed-chunk-4) \fi{}}You can create new unumbered theorem types
+\EndKnitrBlock{Defns}
+
+\BeginKnitrBlock{Nugget}
+\protect\hypertarget{Nugget:nug1}{}{\label{nug:nug1}}You can create new theorem types
+\EndKnitrBlock{Nugget}
 
 \BeginKnitrBlock{Example}
-\protect\hypertarget{Example:unnamed-chunk-2}{}{\iffalse{} (\#\url{Example:unnamed-chunk-2}) \fi{}}An example
-
-\begin{figure}
-\centering
-\includegraphics{Notes_files/figure-html/cars-plot-1.png}
-\caption{\label{fig:cars3}Something to do with cars}
-\end{figure}
+\protect\hypertarget{Example:unnamed-chunk-5}{}{\iffalse{} (\#\url{Example:unnamed-chunk-5}) \fi{}}An example
 \EndKnitrBlock{Example}
+
+\BeginKnitrBlock{Solution}
+\protect\hypertarget{Solution:sol1}{}{\label{sol:sol1}}You can create new theorem types
+\EndKnitrBlock{Solution}
+
+\BeginKnitrBlock{Exercises}
+\protect\hypertarget{Exercises:unnamed-chunk-6}{}{\iffalse{} (\#Exercises:unnamed-chunk-6) \fi{}}Here is a question
+\EndKnitrBlock{Exercises}
+
+\BeginKnitrBlock{solution}
+\iffalse{} {Solution. } \fi{}
+
+Test
+\EndKnitrBlock{solution}
+
+\hypertarget{testing-the-reference-link-back}{%
+\section{Testing the reference link back}\label{testing-the-reference-link-back}}
+
+Now go to theorem \ref{thm:thm1} or thought \ref{tho:tho1}
+
+\BeginKnitrBlock{solution}
+\iffalse{} {Solution. } \fi{}
+
+Test
+\EndKnitrBlock{solution}
+\begingroup\renewcommand{\thedefinition}{\ref{def:truth}}
+\BeginKnitrBlock{definition}
+\protect\hypertarget{def:truth}{}{ }Here is a definition
+\EndKnitrBlock{definition}
+\endgroup\addtocounter{definition}{-1}\begingroup\renewcommand{\theThought}{\ref{tho:tho1}}
+\BeginKnitrBlock{Thought}[Bar of \ref{thm:thm1}]
+\protect\hypertarget{Thought:tho1}{}{}You can create new theorem types
+\EndKnitrBlock{Thought}
+\endgroup\addtocounter{Thought}{-1}
+Now an actual new thing:
+\BeginKnitrBlock{Thought}
+\protect\hypertarget{Thought:tho2}{}{\label{tho:tho2}}Stuff and nonsense
+\EndKnitrBlock{Thought}
 
 \end{document}

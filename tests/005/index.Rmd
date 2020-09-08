@@ -1,5 +1,5 @@
 ---
-title: "Test 005: Repeat an environment with the correct numbering"
+title: "Test 004: Put a labeled figure/table inside a theorem/proof etc."
 author: 'Emma Cliffe, Skills Centre: MASH, University of Bath'
 date: 'August 2020'
 site: bookdown::bookdown_site
@@ -9,12 +9,6 @@ classoption: a4paper
 fontsize: 10pt
 geometry: margin=2.5cm
 output:
-  clavertondown::epub_clav:
-    toc: true
-  clavertondown::html_clav:
-    toc: true
-    fig_caption: true
-    keep_md: true
   clavertondown::gitbook_clav:
     split_by: section
     self_contained: no
@@ -25,6 +19,12 @@ output:
     toc: true
     number_sections: true
     keep_md: true
+  clavertondown::html_clav:
+    toc: true
+    fig_caption: true
+    keep_md: true
+  clavertondown::epub_clav:
+    toc: true
   clavertondown::pdf_clav:
     latex_engine: pdflatex
     dev: pdf
@@ -33,45 +33,32 @@ output:
     fig_caption: true
     toc: true
 ---
+# Here is a figure
 
-# Section 1
-
-```{example, inbuilt, include=FALSE}
-2+3
+```{r cars-plot, dev='png', fig.show='hide', fig.cap='A thing about cars', include=FALSE}
+plot(cars)
 ```
 
-```{newtheorem, author, env='Exercise', include=FALSE}
-4+5
-```
+![(\#fig:cars1)Something else to do with cars](Notes_files/figure-html/cars-plot-1.png)
 
-```{example, inbuilt}
-```
-
-```{newtheorem, author, env='Exercise'}
-```
-
-```{example, inbuilt}
-```
-
-# Section 2
+# Here is the putting of a figure inside another built in environment
 
 ```{example}
-I should be example 2.1
+Here is an example.
+
+![(\#fig:cars2)Something to do with cars](Notes_files/figure-html/cars-plot-1.png)
+
+This is a test. So, you need an empty line before and after the above for it to be a float. At the end of an environment this means that you need TWO empty lines. This is Pandoc.
+
 ```
 
-```{example, inbuilt}
+# Here is the putting of a figure inside a newtheorem
+
+```{newtheorem, env='Example'}
+An example
+
+![(\#fig:cars3)Something to do with cars](Notes_files/figure-html/cars-plot-1.png)
+
+
 ```
 
-```{newtheorem, author, env='Exercise'}
-```
-
-```{example}
-I should be example 2.2
-```
-
-
-```{newtheorem, author2, env='Exercise'}
-I should be exercise 2.1
-```
-
-Conclusion: This worked already everywhere except LaTeX. This is a Bookdown issue. To be fair, there isn't any nice way to do this in LaTeX. I did not want to go down the road of restatable in LaTeX. Instead I wanted to resolve this prior to that point in the way an author would. To do so we change the repeated label to be the ref instead and also ensure that the counter is not incremented. 

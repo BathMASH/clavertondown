@@ -1,44 +1,60 @@
-\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 %
-\documentclass[17pt,english,a4paper]{extarticle}
+\documentclass[
+  17pt,
+  english,
+  a4paper]{extarticle}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provides euro and other symbols
-\else % if luatex or xelatex
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
   \usepackage{unicode-math}
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% use upquote if available, for straight quotes in verbatim environments
+% Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% use microtype if available
-\IfFileExists{microtype.sty}{%
-\usepackage[]{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
-\usepackage{hyperref}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-            pdftitle={Test 005: Repeat an environment with the correct numbering},
-            pdfauthor={Emma Cliffe, Skills Centre: MASH, University of Bath},
-            pdfborder={0 0 0},
-            breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
+  pdftitle={Test 004: Put a labeled figure/table inside a theorem/proof etc.},
+  pdfauthor={Emma Cliffe, Skills Centre: MASH, University of Bath},
+  pdflang={en},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=2.5cm]{geometry}
 \usepackage{longtable,booktabs}
-% Fix footnotes in tables (requires footnote package)
-\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
-\usepackage{graphicx,grffile}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -47,46 +63,40 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
-
-% set default figure placement to htbp
+% Set default figure placement to htbp
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[shorthands=off,main=english]{babel}
-\else
-  % load polyglossia as late as possible as it *could* call bidi if RTL lang (e.g. Hebrew or Arabic)
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\ifxetex
+  % Load polyglossia as late as possible: uses bidi with RTL langages (e.g. Hebrew, Arabic)
   \usepackage{polyglossia}
   \setmainlanguage[]{english}
+\else
+  \usepackage[shorthands=off,main=english]{babel}
+\fi
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
 \fi
 
-\title{Test 005: Repeat an environment with the correct numbering}
+\title{Test 004: Put a labeled figure/table inside a theorem/proof etc.}
 \author{Emma Cliffe, Skills Centre: MASH, University of Bath}
 \date{August 2020}
 
 \usepackage{amsthm}
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
+\newtheorem{Thought}{Thought}[section]
+\theoremstyle{definition}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{Nugget}[Thought]{Nugget}
 \theoremstyle{plain}
 \newtheorem{lemma}{Lemma}[section]
 \theoremstyle{plain}
 \newtheorem{corollary}{Corollary}[section]
-\theoremstyle{plain}
-\newtheorem{proposition}{Proposition}[section]
 \theoremstyle{plain}
 \newtheorem{conjecture}{Conjecture}[section]
 \theoremstyle{definition}
@@ -95,11 +105,15 @@
 \newtheorem{example}{Example}[section]
 \theoremstyle{definition}
 \newtheorem{exercise}{Exercise}[section]
-\theoremstyle{remark}
-\newtheorem{Exercise}{Exercise}[section]
+\newtheorem{Solution}{Solution}[section]
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 \newtheorem*{solution}{Solution}
+\theoremstyle{plain}
+\newtheorem*{Defns}{Defns}
+\newtheorem*{Proof}{Proof}
+\newtheorem*{Exercises}{Exercises}
+\newtheorem*{Example}{Example}
 \let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
 
 
@@ -140,44 +154,41 @@
 \setcounter{tocdepth}{2}
 \tableofcontents
 }
-\hypertarget{section-1}{%
-\section{Section 1}\label{section-1}}
+\hypertarget{here-is-a-figure}{%
+\section{Here is a figure}\label{here-is-a-figure}}
+
+\begin{figure}
+\centering
+\includegraphics{Notes_files/figure-html/cars-plot-1.png}
+\caption{\label{fig:cars1}Something else to do with cars}
+\end{figure}
+
+\hypertarget{here-is-the-putting-of-a-figure-inside-another-built-in-environment}{%
+\section{Here is the putting of a figure inside another built in environment}\label{here-is-the-putting-of-a-figure-inside-another-built-in-environment}}
 
 \BeginKnitrBlock{example}
-\label{exm:inbuilt} 2+3
+\protect\hypertarget{exm:unnamed-chunk-1}{}{\label{exm:unnamed-chunk-1} }Here is an example.
+
+\begin{figure}
+\centering
+\includegraphics{Notes_files/figure-html/cars-plot-1.png}
+\caption{\label{fig:cars2}Something to do with cars}
+\end{figure}
+
+This is a test. So, you need an empty line before and after the above for it to be a float. At the end of an environment this means that you need TWO empty lines. This is Pandoc.
 \EndKnitrBlock{example}
 
-\BeginKnitrBlock{Exercise}
-\protect\hypertarget{Exercise:author}{}{\label{Exe:author}}4+5
-\EndKnitrBlock{Exercise}
-\begingroup\renewcommand{\theexample}{\ref{exm:inbuilt}}
-\BeginKnitrBlock{example}
- 2+3
-\EndKnitrBlock{example}
-\endgroup\addtocounter{example}{-1}
-\hypertarget{section-2}{%
-\section{Section 2}\label{section-2}}
+\hypertarget{here-is-the-putting-of-a-figure-inside-a-newtheorem}{%
+\section{Here is the putting of a figure inside a newtheorem}\label{here-is-the-putting-of-a-figure-inside-a-newtheorem}}
 
-\BeginKnitrBlock{example}
-\label{exm:unnamed-chunk-1} I should be example 2.1
-\EndKnitrBlock{example}
-\begingroup\renewcommand{\theexample}{\ref{exm:inbuilt}}
-\BeginKnitrBlock{example}
- 2+3
-\EndKnitrBlock{example}
-\endgroup\addtocounter{example}{-1}\begingroup\renewcommand{\theExercise}{\ref{Exe:author}}
-\BeginKnitrBlock{Exercise}
-\protect\hypertarget{Exercise:author}{}{}4+5
-\EndKnitrBlock{Exercise}
-\endgroup\addtocounter{Exercise}{-1}
-\BeginKnitrBlock{example}
-\label{exm:unnamed-chunk-2} I should be example 2.2
-\EndKnitrBlock{example}
+\BeginKnitrBlock{Example}
+\protect\hypertarget{Example:unnamed-chunk-2}{}{\iffalse{} (\#\url{Example:unnamed-chunk-2}) \fi{}}An example
 
-\BeginKnitrBlock{Exercise}
-\protect\hypertarget{Exercise:author2}{}{\label{Exe:author2}}I should be exercise 2.1
-\EndKnitrBlock{Exercise}
-
-Conclusion: This worked already everywhere except LaTeX. This is a Bookdown issue. To be fair, there isn't any nice way to do this in LaTeX. I did not want to go down the road of restatable in LaTeX. Instead I wanted to resolve this prior to that point in the way an author would. To do so we change the repeated label to be the ref instead and also ensure that the counter is not incremented.
+\begin{figure}
+\centering
+\includegraphics{Notes_files/figure-html/cars-plot-1.png}
+\caption{\label{fig:cars3}Something to do with cars}
+\end{figure}
+\EndKnitrBlock{Example}
 
 \end{document}

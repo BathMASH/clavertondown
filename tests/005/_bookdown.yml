@@ -1,6 +1,17 @@
 book_filename: "Notes"
 output_dir: "notes"
 new_theorems:
-  Exercise: Exe
+  Thought: tho
+  Nugget: nug
+  Solution: sol
+  Defns: ---
+  Proof: ---
+  Exercises: ---
+  Example: ---
+number_by:
+  prp: thm
+  nug: tho
 style_with:
-  remark: ["Exercise"]
+  plain: ["Defns"]
+  definition: ["proposition"]
+  remark: ["Proof", "Exercises"]

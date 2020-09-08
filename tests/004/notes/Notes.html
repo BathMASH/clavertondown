@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta property="og:title" content="Test 004: Put a labeled figure/table inside a theorem/proof etc." />
+<meta property="og:title" content="Test 004: New theorems, numbering and styles" />
 <meta property="og:type" content="book" />
 
 
@@ -16,10 +16,11 @@
 
 
 
-<meta name="description" content="Test 004: Put a labeled figure/table inside a theorem/proof etc.">
+<meta name="description" content="Test 004: New theorems, numbering and styles">
 
-<title>Test 004: Put a labeled figure/table inside a theorem/proof etc.</title>
+<title>Test 004: New theorems, numbering and styles</title>
 
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -63,7 +64,7 @@ img {
 
 <!--bookdown:title:start-->
 <div id="header">
-<h1 class="title">Test 004: Put a labeled figure/table inside a theorem/proof etc.</h1>
+<h1 class="title">Test 004: New theorems, numbering and styles</h1>
 <h4 class="author"><em>Emma Cliffe, Skills Centre: MASH, University of Bath</em></h4>
 <h4 class="date"><em>August 2020</em></h4>
 </div>
@@ -72,51 +73,153 @@ img {
 <!--bookdown:toc:start-->
 <div id="TOC">
 <ul>
-<li><a href="#here-is-a-figure"><span class="toc-section-number">1</span> Here is a figure</a></li>
-<li><a href="#here-is-the-putting-of-a-figure-inside-another-built-in-environment"><span class="toc-section-number">2</span> Here is the putting of a figure inside another built in environment</a></li>
-<li><a href="#here-is-the-putting-of-a-figure-inside-a-newtheorem"><span class="toc-section-number">3</span> Here is the putting of a figure inside a newtheorem</a></li>
+<li><a href="#testing-some-theorem-stuff"><span class="toc-section-number">1</span> Testing some theorem stuff</a></li>
+<li><a href="#testing-the-reference-link-back"><span class="toc-section-number">2</span> Testing the reference link back</a></li>
 </ul>
 </div>
 <!--bookdown:toc:end-->
 
 <!--bookdown:body:start-->
-<div id="here-is-a-figure" class="section level1">
-<h1><span class="header-section-number">1</span> Here is a figure</h1>
-<div class="figure"><span id="fig:cars1"></span>
-<img src="Notes_files/figure-html/cars-plot-1.png" alt="Something else to do with cars" />
-<p class="caption">Figure 1.1: Something else to do with cars</p>
-</div>
-</div>
-<div id="here-is-the-putting-of-a-figure-inside-another-built-in-environment" class="section level1">
-<h1><span class="header-section-number">2</span> Here is the putting of a figure inside another built in environment</h1>
+<div id="testing-some-theorem-stuff" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Testing some theorem stuff</h1>
 
-<div class="bookdown-example" id="exm:unnamed-chunk-1" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
-<strong>Example 2.1:  </strong>
+<div id="def:truth" class="bookdown-definition" custom-style="DefinitionStyle" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;">
+<span id="def:truth" class="definition" custom-style="NameStyle"><strong>Definition 1.1:  </strong></span>
 <p>
-<p>Here is an example.</p>
-<div class="figure"><span id="fig:cars2"></span>
-<img src="Notes_files/figure-html/cars-plot-1.png" alt="Something to do with cars" />
-<p class="caption">Figure 2.1: Something to do with cars</p>
-</div>
-This is a test. So, you need an empty line before and after the above for it to be a float. At the end of an environment this means that you need TWO empty lines. This is Pandoc.
-<p>
-</div>
-
-</div>
-<div id="here-is-the-putting-of-a-figure-inside-a-newtheorem" class="section level1">
-<h1><span class="header-section-number">3</span> Here is the putting of a figure inside a newtheorem</h1>
-
-<div class="Example" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
-<span  class="Example"><strong> Example: </strong></span>
-<p>
-<p>An example</p>
-<div class="figure"><span id="fig:cars3"></span>
-<img src="Notes_files/figure-html/cars-plot-1.png" alt="Something to do with cars" />
-<p class="caption">Figure 3.1: Something to do with cars</p>
-</div>
+Here is a definition
 </p>
 </div>
 
+<div id="exm:unnamed-chunk-1" class="bookdown-example" custom-style="ExampleStyle" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
+<span id="exm:unnamed-chunk-1" class="example" custom-style="NameStyle"><strong>Example 1.1:  </strong></span>
+<p>
+Here is an example.
+</p>
+</div>
+<p>Here is some more boring text in between.</p>
+
+<div id="thm:thm1" class="bookdown-theorem" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">
+<span id="thm:thm1" class="theorem" custom-style="NameStyle"><strong>Theorem 1.1:  (Foo)  </strong></span>
+<p>
+<em>Bookdown is needed for things like theorems and internal references</em>
+</p>
+</div>
+
+<div id="prp:prp1" class="bookdown-proposition" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">
+<span id="prp:prp1" class="proposition" custom-style="NameStyle"><strong>Proposition 1.2:  (Thingy we need for <a href="#thm:thm1">1.1</a>)  </strong></span>
+<p>
+<em>You can create new theorem types</em>
+</p>
+</div>
+
+<div class="Proof" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;" custom-style="ProofStyle">
+<span  class="Proof" custom-style="NameStyle"><strong> Proof: (Of theorem <a href="#thm:thm1">1.1</a>) </strong></span>
+<p>
+Here is a proof
+</p>
+<p>
+□
+</p>
+</div>
+
+<div class="bookdown-proof" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;" custom-style="ProofStyle">
+ <span class="proof" custom-style="NameStyle"><em>Proof</em> (Proof of theorem <a href="#thm:thm1">1.1</a>). </span> 
+<p>
+Here is a proof
+</p>
+<p>
+□
+</p>
+</div>
+
+<div id="prp:prp2" class="bookdown-proposition" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">
+<span id="prp:prp2" class="proposition" custom-style="NameStyle"><strong>Proposition 1.3:  </strong></span>
+<p>
+<em>Bookdown is needed for things like theorems and internal references</em>
+</p>
+</div>
+
+<div class="Thought" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">
+<span id="tho:tho1" class="Thought" custom-style="NameStyle"><strong> Thought 1.1:  (Bar of <a href="#thm:thm1">1.1</a>) </strong></span>
+<p>
+<em>You can create new theorem types</em>
+</p>
+</div>
+
+<div class="Defns" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;" custom-style="DefinitionStyle">
+<span  class="Defns" custom-style="NameStyle"><strong> Defns: </strong></span>
+<p>
+You can create new unumbered theorem types
+</p>
+</div>
+
+<div class="Nugget" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">
+<span id="nug:nug1" class="Nugget" custom-style="NameStyle"><strong> Nugget 1.2:  </strong></span>
+<p>
+<em>You can create new theorem types</em>
+</p>
+</div>
+
+<div class="Example" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;" custom-style="ExampleStyle">
+<span  class="Example" custom-style="NameStyle"><strong> Example: </strong></span>
+<p>
+An example
+</p>
+</div>
+
+<div class="Solution" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;" custom-style="ProofStyle">
+<span id="sol:sol1" class="Solution" custom-style="NameStyle"><strong> Solution 1.1:  </strong></span>
+<p>
+You can create new theorem types
+</p>
+</div>
+
+<div class="Exercises" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;" custom-style="ExampleStyle">
+<span  class="Exercises" custom-style="NameStyle"><strong> Exercises: </strong></span>
+<p>
+Here is a question
+</p>
+</div>
+
+<div class="bookdown-solution" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;" custom-style="ProofStyle">
+ <span class="solution" custom-style="NameStyle"><em>Solution. </em></span> 
+<p>
+Test
+</p>
+</div>
+</div>
+<div id="testing-the-reference-link-back" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Testing the reference link back</h1>
+<p>Now go to theorem <a href="#thm:thm1">1.1</a> or thought <a href="#tho:tho1">1.1</a></p>
+
+<div class="bookdown-solution" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;" custom-style="ProofStyle">
+ <span class="solution" custom-style="NameStyle"><em>Solution. </em></span> 
+<p>
+Test
+</p>
+</div>
+
+<div id="def:truth" class="bookdown-definition" custom-style="DefinitionStyle" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;">
+<span id="def:truth" class="definition" custom-style="NameStyle"><strong>Definition 1.1:  </strong></span>
+<p>
+Here is a definition
+</p>
+</div>
+
+<div class="Thought" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">
+<span id="tho:tho1" class="Thought" custom-style="NameStyle"><strong> Thought 1.1:  (Bar of <a href="#thm:thm1">1.1</a>) </strong></span>
+<p>
+<em>You can create new theorem types</em>
+</p>
+</div>
+Now an actual new thing:
+
+<div class="Thought" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">
+<span id="tho:tho2" class="Thought" custom-style="NameStyle"><strong> Thought 2.1:  </strong></span>
+<p>
+<em>Stuff and nonsense</em>
+</p>
+</div>
 <!--chapter:end:index.Rmd-->
 </div>
 <!--bookdown:body:end-->

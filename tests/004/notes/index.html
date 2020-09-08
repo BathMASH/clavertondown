@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Test 004: Put a labeled figure/table inside a theorem/proof etc.</title>
-  <meta name="description" content="Test 004: Put a labeled figure/table inside a theorem/proof etc." />
+  <title>Test 004: New theorems, numbering and styles</title>
+  <meta name="description" content="Test 004: New theorems, numbering and styles" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Test 004: Put a labeled figure/table inside a theorem/proof etc." />
+  <meta property="og:title" content="Test 004: New theorems, numbering and styles" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Test 004: Put a labeled figure/table inside a theorem/proof etc." />
+  <meta name="twitter:title" content="Test 004: New theorems, numbering and styles" />
   
   
   
@@ -31,8 +31,9 @@
   
   
 
-<link rel="next" href="here-is-the-putting-of-a-figure-inside-another-built-in-environment.html"/>
+<link rel="next" href="testing-the-reference-link-back.html"/>
 
+<script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -104,9 +105,8 @@ MathJax.Hub.Config({
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Here is a figure</a></li>
-<li class="chapter" data-level="2" data-path="here-is-the-putting-of-a-figure-inside-another-built-in-environment.html"><a href="here-is-the-putting-of-a-figure-inside-another-built-in-environment.html"><i class="fa fa-check"></i><b>2</b> Here is the putting of a figure inside another built in environment</a></li>
-<li class="chapter" data-level="3" data-path="here-is-the-putting-of-a-figure-inside-a-newtheorem.html"><a href="here-is-the-putting-of-a-figure-inside-a-newtheorem.html"><i class="fa fa-check"></i><b>3</b> Here is the putting of a figure inside a newtheorem</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Testing some theorem stuff</a></li>
+<li class="chapter" data-level="2" data-path="testing-the-reference-link-back.html"><a href="testing-the-reference-link-back.html"><i class="fa fa-check"></i><b>2</b> Testing the reference link back</a></li>
 </ul>
 
       </nav>
@@ -116,7 +116,7 @@ MathJax.Hub.Config({
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Test 004: Put a labeled figure/table inside a theorem/proof etc.</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Test 004: New theorems, numbering and styles</a>
           </h1>
         </div>
 
@@ -125,15 +125,116 @@ MathJax.Hub.Config({
 
             <section class="normal" id="section-">
 <div id="header">
-<h1 class="title"><span style="font-size:150%; margin-bottom:0">Test 004: Put a labeled figure/table inside a theorem/proof etc.</span></h1>
+<h1 class="title"><span style="font-size:150%; margin-bottom:0">Test 004: New theorems, numbering and styles</span></h1>
 <p class="author" style="font-size:120%; margin-bottom:0"><em>Emma Cliffe, Skills Centre: MASH, University of Bath</em></p>
 <p class="date" style="font-size:120%; margin-bottom:0"><em>August 2020</em></p>
 </div>
-<div id="here-is-a-figure" class="section level1">
-<h1><span class="header-section-number">1</span> Here is a figure</h1>
-<div class="figure"><span id="fig:cars1"></span>
-<img src="Notes_files/figure-html/cars-plot-1.png" alt="Something else to do with cars" />
-<p class="caption">Figure 1.1: Something else to do with cars</p>
+<div id="testing-some-theorem-stuff" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Testing some theorem stuff</h1>
+
+<div id="def:truth" class="bookdown-definition" custom-style="DefinitionStyle" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;">
+<span id="def:truth" class="definition" custom-style="NameStyle"><strong>Definition 1.1:  </strong></span>
+<p>
+Here is a definition
+</p>
+</div>
+
+<div id="exm:unnamed-chunk-1" class="bookdown-example" custom-style="ExampleStyle" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">
+<span id="exm:unnamed-chunk-1" class="example" custom-style="NameStyle"><strong>Example 1.1:  </strong></span>
+<p>
+Here is an example.
+</p>
+</div>
+<p>Here is some more boring text in between.</p>
+
+<div id="thm:thm1" class="bookdown-theorem" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">
+<span id="thm:thm1" class="theorem" custom-style="NameStyle"><strong>Theorem 1.1:  (Foo)  </strong></span>
+<p>
+<em>Bookdown is needed for things like theorems and internal references</em>
+</p>
+</div>
+
+<div id="prp:prp1" class="bookdown-proposition" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">
+<span id="prp:prp1" class="proposition" custom-style="NameStyle"><strong>Proposition 1.2:  (Thingy we need for <a href="index.html#thm:thm1">1.1</a>)  </strong></span>
+<p>
+<em>You can create new theorem types</em>
+</p>
+</div>
+
+<div class="Proof" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;" custom-style="ProofStyle">
+<span  class="Proof" custom-style="NameStyle"><strong> Proof: (Of theorem <a href="index.html#thm:thm1">1.1</a>) </strong></span>
+<p>
+Here is a proof
+</p>
+<p>
+□
+</p>
+</div>
+
+<div class="bookdown-proof" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;" custom-style="ProofStyle">
+ <span class="proof" custom-style="NameStyle"><em>Proof</em> (Proof of theorem <a href="index.html#thm:thm1">1.1</a>). </span> 
+<p>
+Here is a proof
+</p>
+<p>
+□
+</p>
+</div>
+
+<div id="prp:prp2" class="bookdown-proposition" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">
+<span id="prp:prp2" class="proposition" custom-style="NameStyle"><strong>Proposition 1.3:  </strong></span>
+<p>
+<em>Bookdown is needed for things like theorems and internal references</em>
+</p>
+</div>
+
+<div class="Thought" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">
+<span id="tho:tho1" class="Thought" custom-style="NameStyle"><strong> Thought 1.1:  (Bar of <a href="index.html#thm:thm1">1.1</a>) </strong></span>
+<p>
+<em>You can create new theorem types</em>
+</p>
+</div>
+
+<div class="Defns" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;" custom-style="DefinitionStyle">
+<span  class="Defns" custom-style="NameStyle"><strong> Defns: </strong></span>
+<p>
+You can create new unumbered theorem types
+</p>
+</div>
+
+<div class="Nugget" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">
+<span id="nug:nug1" class="Nugget" custom-style="NameStyle"><strong> Nugget 1.2:  </strong></span>
+<p>
+<em>You can create new theorem types</em>
+</p>
+</div>
+
+<div class="Example" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;" custom-style="ExampleStyle">
+<span  class="Example" custom-style="NameStyle"><strong> Example: </strong></span>
+<p>
+An example
+</p>
+</div>
+
+<div class="Solution" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;" custom-style="ProofStyle">
+<span id="sol:sol1" class="Solution" custom-style="NameStyle"><strong> Solution 1.1:  </strong></span>
+<p>
+You can create new theorem types
+</p>
+</div>
+
+<div class="Exercises" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;" custom-style="ExampleStyle">
+<span  class="Exercises" custom-style="NameStyle"><strong> Exercises: </strong></span>
+<p>
+Here is a question
+</p>
+</div>
+
+<div class="bookdown-solution" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;" custom-style="ProofStyle">
+ <span class="solution" custom-style="NameStyle"><em>Solution. </em></span> 
+<p>
+Test
+</p>
 </div>
 </div>
             </section>
@@ -142,7 +243,7 @@ MathJax.Hub.Config({
         </div>
       </div>
 
-<a href="here-is-the-putting-of-a-figure-inside-another-built-in-environment.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="testing-the-reference-link-back.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
