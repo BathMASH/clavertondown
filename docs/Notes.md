@@ -13,21 +13,28 @@ output:
     toc: true
     number_sections: true
     keep_md: true
-  clavertondown::html_clav:
-    toc: true
+    pandoc_args: --default-image-extension=svg
   clavertondown::pdf_clav:
     latex_engine: pdflatex
-    dev: pdf
     keep_tex: true
-    fig_caption: false
+    fig_caption: true
     toc: true
+    extra_dependencies: ["float"]
+    pandoc_args: --default-image-extension=pdf
+  clavertondown::html_clav:
+    toc: true
+    pandoc_args: --default-image-extension=svg
+  clavertondown::epub_clav:
+    toc: true
+    pandoc_args: --default-image-extension=svg
   clavertondown::gitbook_clav:
     split_by: section
     config:
       download: [["Notes.html", "HTML page"], ["Notes.pdf","Standard print PDF"], ["NotesClear.pdf","Clear print PDF"], ["NotesLarge.pdf","Large print PDF"], ["Notes.docx","Accessible Word document"], ["Notes.epub","Accessible EPub book" ]]
       sharing: no
-  clavertondown::epub_clav:
-    toc: true
+    pandoc_args: --default-image-extension=svg
+header-includes:
+  - \newcommand{\BOO}{BOO}
 ---
 
 \newpage
@@ -70,31 +77,177 @@ The output from ClavertonDown will meet these requirements as far as possible. H
 It isn't possible to create accessible PDFs using LaTeX. Even if a PDF is accessible the mathematical text within it will **still be technically inaccessible** regardless of how the PDF has been produced but...
 
 * not all accessibility is about technical access - for some a clear or large print PDF is best
-* clear print is selected most often by disabled students in the Department of Mathematical Sciences.
+* currently, clear print is selected most often by disabled students in the Department of Mathematical Sciences
+* PDF remains the best fallback when a student is concerned that a document is not being rendered as the author intended
+* PDF remains the best starting point for creating hard copy resources which is important for some disabled students
 
-# Testing some theorem stuff
 
-\BeginKnitrBlock{theorem}\iffalse{-91-70-111-111-93-}\fi{}<div class="bookdown-theorem" id="thm:thm1"><strong>(\#thm:thm1)  \iffalse (Foo) \fi{} </strong>Bookdown is needed for things like theorems and internal references</div>\EndKnitrBlock{theorem}
+Finally, our aim here is to produce choice for *all* students, disabled or not, and many will still select PDF. 
 
-\BeginKnitrBlock{proposition}\iffalse{-91-84-104-105-110-103-121-32-119-101-32-110-101-101-100-32-102-111-114-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proposition" id="prp:prp1"><strong>(\#prp:prp1)  \iffalse (Thingy we need for \@ref(thm:thm1)) \fi{} </strong>You can create new theorem types</div>\EndKnitrBlock{proposition}
+## Do I really have to put all this on Moodle?
 
-\BeginKnitrBlock{Proof}<div class="newtheorem"><span class="Proof" id="Proof:unnamed-chunk-1"><strong> Proof:  (Of theorem \@ref(thm:thm1)) </strong></span>Here is a proof</div>\EndKnitrBlock{Proof}
+If you use the same set up as this example document then all the outputs will be collected together into a single folder. We recommend that you:
 
-\BeginKnitrBlock{proof}\iffalse{-91-80-114-111-111-102-32-111-102-32-116-104-101-111-114-101-109-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proof">\iffalse{} <span class="proof"><em>Proof</em> (Proof of theorem \@ref(thm:thm1)). </span>  \fi{}Here is a proof</div>\EndKnitrBlock{proof}
+* Zip up the folder and upload it to Moodle *as a file*
+* Select Add a resource -> File. Give the resource a name (e.g. lecture notes 1).
+* Add the zip file. Right click on the zip file, a window appears, click on unzip and wait until complete. 
+* Right click on the zip again and click on delete. You will have a folder remaining. 
+* Left click on the folder to open it. 
+* Find the main file index.html and right click on this, 
+a window appears, click on Set main file. 
+* Change any other settings you wish in the resource and then save. 
 
-\BeginKnitrBlock{proposition}<div class="bookdown-proposition" id="prp:prp2"><strong>(\#prp:prp2) </strong>Bookdown is needed for things like theorems and internal references</div>\EndKnitrBlock{proposition}
+When you click on this resource you will see the HTML book version of the notes. This is technically accessible, searchable and usable on a mobile device. In the menu at the top there is a download button, from here a student can access any of the other formats. This is as close as we can get to replicating the Blackboard Ally student experience of being able to transform accessible resources to other formats.
 
-\BeginKnitrBlock{Thought}<div class="newtheorem"><span class="Thought" id="Thought:tho1"><strong> Thought (\#Thought:tho1)  (Bar) </strong></span>You can create new theorem types</div>\EndKnitrBlock{Thought}
+# Theorems and stuff
 
-\BeginKnitrBlock{Wonder}<div class="newtheorem"><span class="Wonder" id="Wonder:unnamed-chunk-3"><strong> Wonder: </strong></span>You can create new unumbered theorem types</div>\EndKnitrBlock{Wonder}
+You will notice that there are a variety of ways that theorem type environments are presented in the different formats. All of these pass technical accessibility tests or are following RNIB Clear Print guidelines and have been used for at least a decade in our provision for disabled students. We have also take on feedback that in HTML formats colour might be helpful to show where environments start and finish. We have chosen to impose a structured colour scheme on you, for now. The colours have been chosen so that they pass accessibility tests for contrast with the text. 
 
-\BeginKnitrBlock{Nugget}<div class="newtheorem"><span class="Nugget" id="Nugget:nug1"><strong> Nugget (\#Nugget:nug1) </strong></span>You can create new theorem types</div>\EndKnitrBlock{Nugget}
+However, this doesn't mean we have got it right. Give us feedback. Ideally, get students to give feedback too. 
 
-Now go to \@ref(thm:thm1).
+\BeginKnitrBlock{theorem}\iffalse{-91-70-111-111-93-}\fi{}<div class="bookdown-theorem" id="thm:thm1" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle"><span class="thm:thm1" custom-style="NameStyle"><strong>(\#thm:thm1)  \iffalse (Foo) \fi{} </strong></span><div style="font-style:italic">
+This is a theorem environment already provided by Bookdown. It still works as before.
+</div></div>\EndKnitrBlock{theorem}
 
-\BeginKnitrBlock{Solution}<div class="newtheorem"><span class="Solution" id="Solution:sol1"><strong> Solution (\#Solution:sol1) </strong></span>You can create new theorem types</div>\EndKnitrBlock{Solution}
+\BeginKnitrBlock{proposition}\iffalse{-91-84-104-105-110-103-121-32-119-101-32-110-101-101-100-32-102-111-114-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proposition" id="prp:prp1" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle"><span class="prp:prp1" custom-style="NameStyle"><strong>(\#prp:prp1)  \iffalse (Thingy we need for \@ref(thm:thm1)) \fi{} </strong></span><div style="font-style:italic">
+However, in this system you can now 
 
-\BeginKnitrBlock{solution}<div class="bookdown-solution">\iffalse{} <span class="solution"><em>Solution. </em></span>  \fi{}Test</div>\EndKnitrBlock{solution}
+* Change the numbering system of the inbuilt environments - this is done in the file _bookdown.yml. Please see the file in the same folder as this file. 
+* Reference other environments within names. Notice that you need to use a double backslash.
+</div></div>\EndKnitrBlock{proposition}
+
+\BeginKnitrBlock{Proof}<div class="Proof" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;" custom-style="ProofStyle"><span class="Proof" custom-style="NameStyle"><strong> Proof:  (Of theorem \@ref(thm:thm1)) </strong></span><p>
+You can make new unnumbered theorem environments. You can call them whatever you like. They work kind of like the inbuilt ones but the environment is always newtheorem and the env defines the type. 
+
+You need to have predefined the type and made any changes to the standard print style in the file _bookdown.yml. Please see the file in the same folder as this file. 
+
+You can't control what things look like in the other formats as they have been designed with a variety of accessibility features. If you don't like how they look then maybe contact us and ask about it. It might be something we can think about changing or allowing author control or, it might not.
+</p><p>&squ;</p></div>\EndKnitrBlock{Proof}
+
+\BeginKnitrBlock{proof}\iffalse{-91-80-114-111-111-102-32-111-102-32-116-104-101-111-114-101-109-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proof" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;" custom-style="ProofStyle">\iffalse{} <span class="proof" custom-style="NameStyle"><em>Proof</em> (Proof of theorem \@ref(thm:thm1)). </span>  \fi{}<p>
+Defining your own proof environment doesn't stop the inbuilt one working. 
+</p><p>&squ;</p></div>\EndKnitrBlock{proof}
+
+
+\BeginKnitrBlock{definition}<div class="bookdown-definition" id="def:unnamed-chunk-3" custom-style="DefinitionStyle" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;"><span class="def:unnamed-chunk-3" custom-style="NameStyle"><strong>(\#def:unnamed-chunk-3) </strong></span><p>
+You can leave some things numbered on their own.
+</p></div>\EndKnitrBlock{definition}
+
+\BeginKnitrBlock{Definitions}<div class="Definitions" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;" custom-style="DefinitionStyle"><span class="Definitions" custom-style="NameStyle"><strong> Definitions (\#Definitions:def1) </strong></span><p>
+You can create new numbered theorem types. Unlike inbuilt environments, for them to be numbered in all formats they *must* have a label. If you forget then they won't be numbered in any format *except* for PDF and then your numbering won't match. I might try and fix this at some point. You can number them alone or with other inbuilt or newtheorem environments.
+
+You need to have predefined the type, the numbering and made any changes to the standard print style in the file _bookdown.yml. Please see the file in the same folder as this file.
+
+Take care not to reuse the inbuilt numbering labels with your new theorems! This will lead to odd things happening. The inbuilt labels to avoid are: thm, lem, cor, prp, cnj, def, exm, exr, fig, tab and eq. 
+</p></div>\EndKnitrBlock{Definitions}
+
+References still work in the same way as in Bookdown. Now go to theorem \@ref(thm:thm1) or proposition \@ref(prp:prp1).
+
+# Figures inside other environments
+
+## Here is a figure
+
+
+
+![(\#fig:cars1)This is title and the caption](./Notes_files/figures/cars-plot-1 "This is the alternative text"){width="60%"}
+
+## Here is the putting of a figure inside another built in environment
+
+\BeginKnitrBlock{example}<div class="bookdown-example" id="exm:unnamed-chunk-4" custom-style="ExampleStyle" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;"><span class="exm:unnamed-chunk-4" custom-style="NameStyle"><strong>(\#exm:unnamed-chunk-4) </strong></span><p>Here is an example.
+
+![(\#fig:cars2)Something to do with cars](./Notes_files/figures/cars-plot-1   "Some more meaningful alternative text?"){width="60%"}
+
+This is a test. So, you need an empty line before and after the above for it to be a float. At the end of an environment this means that you need TWO empty lines. This is Pandoc.
+</p></div>\EndKnitrBlock{example}
+
+## Here is the putting of a figure inside a newtheorem
+
+Here we are going to do something a bit more impressive with the automatic creation of alternative image formats. This is only useful to you if you are using R to generate graphs etc.
+
+
+
+
+
+\BeginKnitrBlock{Example}<div class="Example" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;" custom-style="ExampleStyle"><span class="Example" custom-style="NameStyle"><strong> Example: </strong></span><p>An example in which we have autogenerated a useful description of the scatterplot for a person who cannot see it, using BrailleR. To see the content of the long description if you view the HTML in Firefox and right click you can request it.
+
+![(\#fig:cars3)More cars things](./Notes_files/figures/cars-plot-1 "This is a scatterplot with speed on the x-axis and distance on the y-axis, please read the long description for details."){longdesc=./cars.txt width="60%"}
+
+</p></div>\EndKnitrBlock{Example}
+
+
+
+# Repeating environments
+
+Sometimes I would like to repeat a definition from earlier and have it numbered the same. This now works as expected in all formats including the numbering of the environment. However, the numbering of *things inside the environment* will probably be wrong so take care. Tell us if this is important to you as it is low priority at the moment. 
+
+Inbuilt using own numbering
+
+\BeginKnitrBlock{theorem}\iffalse{-91-70-111-111-93-}\fi{}<div class="bookdown-theorem" id="thm:thm1" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle"><span class="thm:thm1" custom-style="NameStyle"><strong>(\#thm:thm1)  \iffalse (Foo) \fi{} </strong></span><div style="font-style:italic">
+This is a theorem environment already provided by Bookdown. It still works as before.
+</div></div>\EndKnitrBlock{theorem}
+
+Inbuilt using other inbuilt numbering
+
+\BeginKnitrBlock{proposition}\iffalse{-91-84-104-105-110-103-121-32-119-101-32-110-101-101-100-32-102-111-114-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proposition" id="prp:prp1" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle"><span class="prp:prp1" custom-style="NameStyle"><strong>(\#prp:prp1)  \iffalse (Thingy we need for \@ref(thm:thm1)) \fi{} </strong></span><div style="font-style:italic">
+However, in this system you can now 
+
+* Change the numbering system of the inbuilt environments - this is done in the file _bookdown.yml. Please see the file in the same folder as this file. 
+* Reference other environments within names. Notice that you need to use a double backslash.
+</div></div>\EndKnitrBlock{proposition}
+
+Newtheorem using other inbuilt numbering
+
+\BeginKnitrBlock{Definitions}<div class="Definitions" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;" custom-style="DefinitionStyle"><span class="Definitions" custom-style="NameStyle"><strong> Definitions (\#Definitions:def1) </strong></span><p>
+You can create new numbered theorem types. Unlike inbuilt environments, for them to be numbered in all formats they *must* have a label. If you forget then they won't be numbered in any format *except* for PDF and then your numbering won't match. I might try and fix this at some point. You can number them alone or with other inbuilt or newtheorem environments.
+
+You need to have predefined the type, the numbering and made any changes to the standard print style in the file _bookdown.yml. Please see the file in the same folder as this file.
+
+Take care not to reuse the inbuilt numbering labels with your new theorems! This will lead to odd things happening. The inbuilt labels to avoid are: thm, lem, cor, prp, cnj, def, exm, exr, fig, tab and eq. 
+</p></div>\EndKnitrBlock{Definitions}
+
+I still need to test the other combinations. Please tell me if it is broken. 
+
+# But... I want it to do...
+
+We have chosen to create a new package instead of adding to Bookdown because we are diverging from what Bookdown was designed to do. This also means that we can mould how this system works to best meet the needs of students and lecturers. 
+
+Tell us what to do next. We'll tell you if it is possible and the likely priority! 
+
+# LaTeX newcommands, usepackages etc.
+
+You can add these in the header-includes part of the code at the start of this file. You cannot pass a filename to this at the moment. If this is a dealbreaker then let me know. This will work in all formats. *All* other ways of adding commands and packages in will not result in the right thing happening in formats other than PDF, as far as I know.
+\[
+\BOO(x)
+\]
+
+# Great. How do I use this thing?
+
+This package is not on CRAN and it is not going to be in the short or medium term. Instead you need to install it directly from github (if you want to know why then get in touch and ask) which means you will need devtools installed and loaded.  
+
+## Installing ClavertonDown
+
+Once you have devtools you need to load it:
+
+> library(devtools)
+
+Then you can install ClavertonDown:
+
+> install_github("BathMASH/ClavertonDown")
+
+Obviously, you need an internet connection. 
+
+## Using ClavertonDown for the first time
+
+I suggest that you download the files which were used to create this document:
+
+* https://raw.githubusercontent.com/BathMASH/clavertondown/master/example/index.Rmd
+* https://raw.githubusercontent.com/BathMASH/clavertondown/master/example/_bookdown.yml
+
+Put them in a folder together, open index.Rmd in RStudio and use the Knit menu to compile the various formats. If this doesn't work then something is wrong (get in touch Bath people!). Then... read the files. 
+
+# Can I tell people not at Claverton Down about this?
+
+Yes, sure, that is why it is public. But, this is released with no promises and no warranty. Help will only be provided to staff and students of the University of Bath but we might fix bugs or consider suggestions by others. 
 
 <!--chapter:end:index.Rmd-->
 

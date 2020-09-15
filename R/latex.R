@@ -32,7 +32,7 @@ pdf_clav = function(
     x = resolve_new_theorems(read_utf8(f), global = !number_sections, new_theorems, number_by)
     #x = resolve_refs_latex(read_utf8(f), new_reg_label_types)
     #This should now only involve those theorems which are numbered
-    x = resolve_refs_latex(x, new_reg_label_types)
+    x = resolve_refs_latex(x, new_reg_label_types, new_theorems, number_by)
     #x = resolve_ref_links_latex(x)
     x = bookdown:::restore_part_latex(x)
     x = bookdown:::restore_appendix_latex(x, toc_appendix)
@@ -253,7 +253,7 @@ resolve_basic_refs_latex = function(x){
 #This is actually quite involved... so, what tools does LaTeX have we can use...? None, really. The package proof-at-the-end might be a longer-term solution but any solution in LaTeX requires us to alter how the original theorem is encoded. This just moves the difficult problem to somewhere else in the code. The thing to do which fits in with the rest of this code is to alter the below function to do some of the same work which resolve_refs_html does _via_ parse_fig_labels. First question is... can we reuse parse_fig_labels? Actually, yes, we can but it seems to make no difference to the output at all! It is because the labs are in a different format at this point in the LaTeX code due to the escaped \
 #OK, looking at whether we can notice that this is a repeated environment in the engine... Nope, there is no different in the options from the r chunk if it is a reuse - you cannot tell this! So, here is the best place unfortunately :(
 #Let's concentrate on detection first, to detect a reuse of a label we need to collect all the labels etc. 
-resolve_refs_latex = function(x, new_reg_label_types) {
+resolve_refs_latex = function(x, new_reg_label_types, new_theorems, number_by) {
   #Look for the labels
   m = gregexpr(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), x)
   labs = regmatches(x, m)
@@ -278,21 +278,33 @@ resolve_refs_latex = function(x, new_reg_label_types) {
       	#print(actuallabs[[i]])
       	#print(gsub(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), '\\\\ref{\\1}', actuallabs[[i]]))      
       	#We need to know what sort of environment this is so that we can override the numbering.
+	#Actually, this is more complicated, we do need to know this, but, if this environment is numbered with another environments counter
+	#then it is that counter that we need to mess about with. Can we even access this information?
 	stringr::str_split("aabcc", "b")[[1]][[1]]
       	whatami = stringr::str_split(stringr::str_remove(x[[locs[[i]]-2]],'\\\\BeginKnitrBlock\\{'),'\\}',n=2)[[1]][[1]]
-      	print(whatami)
+	#print(whatami)
+	mycounter = ''
+	#Create list of all of the theorem types
+	new_theorem_abbr = c(theorem_abbr,new_theorems)
+	#print(new_theorem_abbr)
+	mycounter = names(new_theorem_abbr[match(number_by[new_theorem_abbr[whatami][[1]]],new_theorem_abbr)])
+	#Numbered as itself
+	if(is.na(mycounter))
+	  mycounter = whatami
+	#print(mycounter)
       	if(whatami == '')
           stop('There is a problem with a repeated environment.')
-      	x[[locs[[i]]-3]] = stringr::str_c(x[[locs[[i]]-3]],sprintf('\\begingroup\\renewcommand{\\the%s}{%s}', whatami, gsub(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), '\\\\ref{\\1}', actuallabs[[i]])))
+      	x[[locs[[i]]-3]] = stringr::str_c(x[[locs[[i]]-3]],sprintf('\\begingroup\\renewcommand{\\the%s}{%s}', mycounter, gsub(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), '\\\\ref{\\1}', actuallabs[[i]])))
       	#Remove the duplicate label
       	#print(sprintf('\\(\\\\%s\\)',stringr::str_sub(actuallabs[[i]],3,-2)))
       	x[[locs[[i]]]] = stringr::str_remove(x[[locs[[i]]]],sprintf('\\(\\\\%s\\)',stringr::str_sub(actuallabs[[i]],3,-2)))
       	
-      	#This is where we need to end the group, we are making the assumption that you cannot put theorem environments inside other theorem environments which I think is true because of how the engine works.
+      	#This is where we need to end the group, we are making the assumption that you cannot put theorem environments inside other theorem environments
+	#which I think is true because of how the engine works.
       	for(j in locs[[i]]:length(x))
           if(stringr::str_detect(x[[j]],'\\EndKnitrBlock')){
-	    print(sprintf('I am an %s. Starting at original loc %d I found the end at loc %d while reading %s', whatami, locs[[i]], j, x[[j]]))
-	    x[[j+1]] = stringr::str_c(x[[j+1]],sprintf('\\endgroup\\addtocounter{%s}{-1}',whatami))
+	    print(sprintf('I am an %s using the counter %s. Starting at original loc %d I found the end at loc %d while reading %s', whatami, mycounter, locs[[i]], j, x[[j]]))
+	    x[[j+1]] = stringr::str_c(x[[j+1]],sprintf('\\endgroup\\addtocounter{%s}{-1}',mycounter))
 	    break
 	  }
      }

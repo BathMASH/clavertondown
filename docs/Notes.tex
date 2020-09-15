@@ -1,44 +1,60 @@
-\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 %
-\documentclass[10pt,english,a4paper]{article}
+\documentclass[
+  10pt,
+  english,
+  a4paper]{article}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provides euro and other symbols
-\else % if luatex or xelatex
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
   \usepackage{unicode-math}
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
-% use upquote if available, for straight quotes in verbatim environments
+% Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% use microtype if available
-\IfFileExists{microtype.sty}{%
-\usepackage[]{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
-\usepackage{hyperref}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-            pdftitle={ClavertonDown Example},
-            pdfauthor={Emma Cliffe, Skills Centre: MASH, University of Bath},
-            pdfborder={0 0 0},
-            breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
+  pdftitle={ClavertonDown Example},
+  pdfauthor={Emma Cliffe, Skills Centre: MASH, University of Bath},
+  pdflang={en},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=2.5cm]{geometry}
 \usepackage{longtable,booktabs}
-% Fix footnotes in tables (requires footnote package)
-\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
-\usepackage{graphicx,grffile}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -47,31 +63,25 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
-
-% set default figure placement to htbp
+% Set default figure placement to htbp
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[shorthands=off,main=english]{babel}
-\else
-  % load polyglossia as late as possible as it *could* call bidi if RTL lang (e.g. Hebrew or Arabic)
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\newcommand{\BOO}{BOO}
+\usepackage{float}
+\ifxetex
+  % Load polyglossia as late as possible: uses bidi with RTL langages (e.g. Hebrew, Arabic)
   \usepackage{polyglossia}
   \setmainlanguage[]{english}
+\else
+  \usepackage[shorthands=off,main=english]{babel}
+\fi
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
 \fi
 
 \title{ClavertonDown Example}
@@ -81,10 +91,12 @@
 \usepackage{amsthm}
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
-\newtheorem{Thought}{Thought}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
 \theoremstyle{plain}
 \newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{Nugget}[Thought]{Nugget}
+\theoremstyle{plain}
+\newtheorem{Definitions}[definition]{Definitions}
 \theoremstyle{plain}
 \newtheorem{lemma}{Lemma}[section]
 \theoremstyle{plain}
@@ -92,16 +104,14 @@
 \theoremstyle{plain}
 \newtheorem{conjecture}{Conjecture}[section]
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
-\theoremstyle{definition}
 \newtheorem{example}{Example}[section]
 \theoremstyle{definition}
 \newtheorem{exercise}{Exercise}[section]
-\newtheorem{Solution}{Solution}[section]
+\newtheorem{Thought}{Thought}[section]
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
 \newtheorem*{solution}{Solution}
-\newtheorem*{Wonder}{Wonder}
+\newtheorem*{Example}{Example}
 \theoremstyle{remark}
 \newtheorem*{Proof}{Proof}
 \let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
@@ -154,7 +164,7 @@ From a technical point of view only three of these formats of mathematical text 
   \item
     HTML formats must meet WCAG 2.1 Level AA requirements and use MathJax to render all mathematical text.
   \item
-    You can check your document meets the legal requirement of WCAG 2.1 Level AA with e.g. \href{https://accessibilityinsights.io/docs/en/web/overview}{Accessibility Insights for Web plugin for Chrome}
+    You can check your document meets the legal requirement of WCAG 2.1 Level AA with e.g.~\href{https://accessibilityinsights.io/docs/en/web/overview}{Accessibility Insights for Web plugin for Chrome}
   \item
     You can check it is MathJax by right clicking on the expression (try it in the HTML version):
     \[x = \frac{-b\pm\sqrt{b^2 - 4ac}}{2a}\]
@@ -193,52 +203,235 @@ It isn't possible to create accessible PDFs using LaTeX. Even if a PDF is access
 \item
   not all accessibility is about technical access - for some a clear or large print PDF is best
 \item
-  clear print is selected most often by disabled students in the Department of Mathematical Sciences.
+  currently, clear print is selected most often by disabled students in the Department of Mathematical Sciences
+\item
+  PDF remains the best fallback when a student is concerned that a document is not being rendered as the author intended
+\item
+  PDF remains the best starting point for creating hard copy resources which is important for some disabled students
 \end{itemize}
 
-\hypertarget{testing-some-theorem-stuff}{%
-\section{Testing some theorem stuff}\label{testing-some-theorem-stuff}}
+Finally, our aim here is to produce choice for \emph{all} students, disabled or not, and many will still select PDF.
+
+\hypertarget{do-i-really-have-to-put-all-this-on-moodle}{%
+\subsection{Do I really have to put all this on Moodle?}\label{do-i-really-have-to-put-all-this-on-moodle}}
+
+If you use the same set up as this example document then all the outputs will be collected together into a single folder. We recommend that you:
+
+\begin{itemize}
+\tightlist
+\item
+  Zip up the folder and upload it to Moodle \emph{as a file}
+\item
+  Select Add a resource -\textgreater{} File. Give the resource a name (e.g.~lecture notes 1).
+\item
+  Add the zip file. Right click on the zip file, a window appears, click on unzip and wait until complete.
+\item
+  Right click on the zip again and click on delete. You will have a folder remaining.
+\item
+  Left click on the folder to open it.
+\item
+  Find the main file index.html and right click on this,
+  a window appears, click on Set main file.
+\item
+  Change any other settings you wish in the resource and then save.
+\end{itemize}
+
+When you click on this resource you will see the HTML book version of the notes. This is technically accessible, searchable and usable on a mobile device. In the menu at the top there is a download button, from here a student can access any of the other formats. This is as close as we can get to replicating the Blackboard Ally student experience of being able to transform accessible resources to other formats.
+
+\hypertarget{theorems-and-stuff}{%
+\section{Theorems and stuff}\label{theorems-and-stuff}}
+
+You will notice that there are a variety of ways that theorem type environments are presented in the different formats. All of these pass technical accessibility tests or are following RNIB Clear Print guidelines and have been used for at least a decade in our provision for disabled students. We have also take on feedback that in HTML formats colour might be helpful to show where environments start and finish. We have chosen to impose a structured colour scheme on you, for now. The colours have been chosen so that they pass accessibility tests for contrast with the text.
+
+However, this doesn't mean we have got it right. Give us feedback. Ideally, get students to give feedback too.
 
 \BeginKnitrBlock{theorem}[Foo]
-\label{thm:thm1} \iffalse (Foo) \fi{} Bookdown is needed for things like theorems and internal references
+{\label{thm:thm1} \iffalse (Foo) \fi{} }
+This is a theorem environment already provided by Bookdown. It still works as before.
 \EndKnitrBlock{theorem}
 
 \BeginKnitrBlock{proposition}[Thingy we need for \ref{thm:thm1}]
-\label{prp:prp1} \iffalse (Thingy we need for \ref{thm:thm1}) \fi{} You can create new theorem types
+{\label{prp:prp1} \iffalse (Thingy we need for \ref{thm:thm1}) \fi{} }
+However, in this system you can now
+
+\begin{itemize}
+\tightlist
+\item
+  Change the numbering system of the inbuilt environments - this is done in the file \_bookdown.yml. Please see the file in the same folder as this file.
+\item
+  Reference other environments within names. Notice that you need to use a double backslash.
+\end{itemize}
 \EndKnitrBlock{proposition}
 
 \BeginKnitrBlock{Proof}[Of theorem \ref{thm:thm1}]
-\protect\hypertarget{Proof:unnamed-chunk-1}{}{\iffalse{} (\) \fi{}}Here is a proof
+{\iffalse{} (\#Proof:unnamed-chunk-1) \fi{}}
+You can make new unnumbered theorem environments. You can call them whatever you like. They work kind of like the inbuilt ones but the environment is always newtheorem and the env defines the type.
+
+You need to have predefined the type and made any changes to the standard print style in the file \_bookdown.yml. Please see the file in the same folder as this file.
+
+You can't control what things look like in the other formats as they have been designed with a variety of accessibility features. If you don't like how they look then maybe contact us and ask about it. It might be something we can think about changing or allowing author control or, it might not.
+\qed
 \EndKnitrBlock{Proof}
 
 \BeginKnitrBlock{proof}[Proof of theorem \ref{thm:thm1}]
-\iffalse{} {Proof (Proof of theorem \ref{thm:thm1}). } \fi{}Here is a proof
+\iffalse{} {Proof (Proof of theorem \ref{thm:thm1}). } \fi{}
+
+Defining your own proof environment doesn't stop the inbuilt one working.
 \EndKnitrBlock{proof}
 
-\BeginKnitrBlock{proposition}
-\label{prp:prp2} Bookdown is needed for things like theorems and internal references
+\BeginKnitrBlock{definition}
+{\label{def:unnamed-chunk-3} }
+You can leave some things numbered on their own.
+\EndKnitrBlock{definition}
+
+\BeginKnitrBlock{Definitions}
+{\label{Def:def1}}
+You can create new numbered theorem types. Unlike inbuilt environments, for them to be numbered in all formats they \emph{must} have a label. If you forget then they won't be numbered in any format \emph{except} for PDF and then your numbering won't match. I might try and fix this at some point. You can number them alone or with other inbuilt or newtheorem environments.
+
+You need to have predefined the type, the numbering and made any changes to the standard print style in the file \_bookdown.yml. Please see the file in the same folder as this file.
+
+Take care not to reuse the inbuilt numbering labels with your new theorems! This will lead to odd things happening. The inbuilt labels to avoid are: thm, lem, cor, prp, cnj, def, exm, exr, fig, tab and eq.
+\EndKnitrBlock{Definitions}
+
+References still work in the same way as in Bookdown. Now go to theorem \ref{thm:thm1} or proposition \ref{prp:prp1}.
+
+\hypertarget{figures-inside-other-environments}{%
+\section{Figures inside other environments}\label{figures-inside-other-environments}}
+
+\hypertarget{here-is-a-figure}{%
+\subsection{Here is a figure}\label{here-is-a-figure}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth,height=\textheight]{./Notes_files/figures/cars-plot-1.pdf}
+\caption{\label{fig:cars1}This is title and the caption}
+\end{figure}
+
+\hypertarget{here-is-the-putting-of-a-figure-inside-another-built-in-environment}{%
+\subsection{Here is the putting of a figure inside another built in environment}\label{here-is-the-putting-of-a-figure-inside-another-built-in-environment}}
+
+\BeginKnitrBlock{example}
+{\label{exm:unnamed-chunk-4} }Here is an example.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth,height=\textheight]{./Notes_files/figures/cars-plot-1.pdf}
+\caption{\label{fig:cars2}Something to do with cars}
+\end{figure}
+
+This is a test. So, you need an empty line before and after the above for it to be a float. At the end of an environment this means that you need TWO empty lines. This is Pandoc.
+\EndKnitrBlock{example}
+
+\hypertarget{here-is-the-putting-of-a-figure-inside-a-newtheorem}{%
+\subsection{Here is the putting of a figure inside a newtheorem}\label{here-is-the-putting-of-a-figure-inside-a-newtheorem}}
+
+Here we are going to do something a bit more impressive with the automatic creation of alternative image formats. This is only useful to you if you are using R to generate graphs etc.
+
+\BeginKnitrBlock{Example}
+{\iffalse{} (\#\url{Example:unnamed-chunk-5}) \fi{}}An example in which we have autogenerated a useful description of the scatterplot for a person who cannot see it, using BrailleR. To see the content of the long description if you view the HTML in Firefox and right click you can request it.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\textwidth,height=\textheight]{./Notes_files/figures/cars-plot-1.pdf}
+\caption{\label{fig:cars3}More cars things}
+\end{figure}
+\EndKnitrBlock{Example}
+
+\hypertarget{repeating-environments}{%
+\section{Repeating environments}\label{repeating-environments}}
+
+Sometimes I would like to repeat a definition from earlier and have it numbered the same. This now works as expected in all formats including the numbering of the environment. However, the numbering of \emph{things inside the environment} will probably be wrong so take care. Tell us if this is important to you as it is low priority at the moment.
+
+Inbuilt using own numbering
+\begingroup\renewcommand{\thetheorem}{\ref{thm:thm1}}
+\BeginKnitrBlock{theorem}[Foo]
+{ \iffalse (Foo) \fi{} }
+This is a theorem environment already provided by Bookdown. It still works as before.
+\EndKnitrBlock{theorem}
+\endgroup\addtocounter{theorem}{-1}
+Inbuilt using other inbuilt numbering
+\begingroup\renewcommand{\thetheorem}{\ref{prp:prp1}}
+\BeginKnitrBlock{proposition}[Thingy we need for \ref{thm:thm1}]
+{ \iffalse (Thingy we need for \ref{thm:thm1}) \fi{} }
+However, in this system you can now
+
+\begin{itemize}
+\tightlist
+\item
+  Change the numbering system of the inbuilt environments - this is done in the file \_bookdown.yml. Please see the file in the same folder as this file.
+\item
+  Reference other environments within names. Notice that you need to use a double backslash.
+\end{itemize}
 \EndKnitrBlock{proposition}
+\endgroup\addtocounter{theorem}{-1}
+Newtheorem using other inbuilt numbering
+\begingroup\renewcommand{\thedefinition}{\ref{Def:def1}}
+\BeginKnitrBlock{Definitions}
+{}
+You can create new numbered theorem types. Unlike inbuilt environments, for them to be numbered in all formats they \emph{must} have a label. If you forget then they won't be numbered in any format \emph{except} for PDF and then your numbering won't match. I might try and fix this at some point. You can number them alone or with other inbuilt or newtheorem environments.
 
-\BeginKnitrBlock{Thought}[Bar]
-\protect\hypertarget{Thought:tho1}{}{\iffalse{} \label{tho:tho1} \fi{}}You can create new theorem types
-\EndKnitrBlock{Thought}
+You need to have predefined the type, the numbering and made any changes to the standard print style in the file \_bookdown.yml. Please see the file in the same folder as this file.
 
-\BeginKnitrBlock{Wonder}
-\protect\hypertarget{Wonder:unnamed-chunk-3}{}{\iffalse{} (\) \fi{}}You can create new unumbered theorem types
-\EndKnitrBlock{Wonder}
+Take care not to reuse the inbuilt numbering labels with your new theorems! This will lead to odd things happening. The inbuilt labels to avoid are: thm, lem, cor, prp, cnj, def, exm, exr, fig, tab and eq.
+\EndKnitrBlock{Definitions}
+\endgroup\addtocounter{definition}{-1}
+I still need to test the other combinations. Please tell me if it is broken.
 
-\BeginKnitrBlock{Nugget}
-\protect\hypertarget{Nugget:nug1}{}{\iffalse{} \label{nug:nug1} \fi{}}You can create new theorem types
-\EndKnitrBlock{Nugget}
+\hypertarget{but-i-want-it-to-do}{%
+\section{But\ldots{} I want it to do\ldots{}}\label{but-i-want-it-to-do}}
 
-Now go to \ref{thm:thm1}.
+We have chosen to create a new package instead of adding to Bookdown because we are diverging from what Bookdown was designed to do. This also means that we can mould how this system works to best meet the needs of students and lecturers.
 
-\BeginKnitrBlock{Solution}
-\protect\hypertarget{Solution:sol1}{}{\iffalse{} \label{sol:sol1} \fi{}}You can create new theorem types
-\EndKnitrBlock{Solution}
+Tell us what to do next. We'll tell you if it is possible and the likely priority!
 
-\BeginKnitrBlock{solution}
-\iffalse{} {Solution. } \fi{}Test
-\EndKnitrBlock{solution}
+\hypertarget{latex-newcommands-usepackages-etc.}{%
+\section{LaTeX newcommands, usepackages etc.}\label{latex-newcommands-usepackages-etc.}}
+
+You can add these in the header-includes part of the code at the start of this file. You cannot pass a filename to this at the moment. If this is a dealbreaker then let me know. This will work in all formats. \emph{All} other ways of adding commands and packages in will not result in the right thing happening in formats other than PDF, as far as I know.
+\[
+BOO(x)
+\]
+
+\hypertarget{great.-how-do-i-use-this-thing}{%
+\section{Great. How do I use this thing?}\label{great.-how-do-i-use-this-thing}}
+
+This package is not on CRAN and it is not going to be in the short or medium term. Instead you need to install it directly from github (if you want to know why then get in touch and ask) which means you will need devtools installed and loaded.
+
+\hypertarget{installing-clavertondown}{%
+\subsection{Installing ClavertonDown}\label{installing-clavertondown}}
+
+Once you have devtools you need to load it:
+
+\begin{quote}
+library(devtools)
+\end{quote}
+
+Then you can install ClavertonDown:
+
+\begin{quote}
+install\_github(``BathMASH/ClavertonDown'')
+\end{quote}
+
+Obviously, you need an internet connection.
+
+\hypertarget{using-clavertondown-for-the-first-time}{%
+\subsection{Using ClavertonDown for the first time}\label{using-clavertondown-for-the-first-time}}
+
+I suggest that you download the files which were used to create this document:
+
+\begin{itemize}
+\tightlist
+\item
+  \url{https://raw.githubusercontent.com/BathMASH/clavertondown/master/example/index.Rmd}
+\item
+  \url{https://raw.githubusercontent.com/BathMASH/clavertondown/master/example/_bookdown.yml}
+\end{itemize}
+
+Put them in a folder together, open index.Rmd in RStudio and use the Knit menu to compile the various formats. If this doesn't work then something is wrong (get in touch Bath people!). Then\ldots{} read the files.
+
+\hypertarget{can-i-tell-people-not-at-claverton-down-about-this}{%
+\section{Can I tell people not at Claverton Down about this?}\label{can-i-tell-people-not-at-claverton-down-about-this}}
+
+Yes, sure, that is why it is public. But, this is released with no promises and no warranty. Help will only be provided to staff and students of the University of Bath but we might fix bugs or consider suggestions by others.
 
 \end{document}

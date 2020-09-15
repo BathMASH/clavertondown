@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>ClavertonDown Example</title>
-  <meta name="description" content="ClavertonDown Example" />
+  <title>2 Theorems and stuff | ClavertonDown Example</title>
+  <meta name="description" content="2 Theorems and stuff | ClavertonDown Example" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="ClavertonDown Example" />
+  <meta property="og:title" content="2 Theorems and stuff | ClavertonDown Example" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="ClavertonDown Example" />
+  <meta name="twitter:title" content="2 Theorems and stuff | ClavertonDown Example" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="what-formats-do-i-need-to-produce-and-why.html"/>
+<link rel="prev" href="do-i-really-have-to-put-all-this-on-moodle.html"/>
+<link rel="next" href="figures-inside-other-environments.html"/>
 
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
@@ -144,23 +144,75 @@ MathJax.Hub.Config({
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title"><span style="font-size:150%; margin-bottom:0">ClavertonDown Example</span></h1>
-<p class="author" style="font-size:120%; margin-bottom:0"><em>Emma Cliffe, Skills Centre: MASH, University of Bath</em></p>
-<p class="date" style="font-size:120%; margin-bottom:0"><em>August 2020</em></p>
+<div id="theorems-and-stuff" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Theorems and stuff</h1>
+<p>You will notice that there are a variety of ways that theorem type environments are presented in the different formats. All of these pass technical accessibility tests or are following RNIB Clear Print guidelines and have been used for at least a decade in our provision for disabled students. We have also take on feedback that in HTML formats colour might be helpful to show where environments start and finish. We have chosen to impose a structured colour scheme on you, for now. The colours have been chosen so that they pass accessibility tests for contrast with the text.</p>
+<p>However, this doesn’t mean we have got it right. Give us feedback. Ideally, get students to give feedback too.</p>
+
+<div id="thm:thm1" class="bookdown-theorem" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">
+<span class="thm:thm1" custom-style="NameStyle"><strong>Theorem 2.1:  (Foo)  </strong></span>
+<div style="font-style:italic">
+<p>This is a theorem environment already provided by Bookdown. It still works as before.</p>
 </div>
-<div id="introduction" class="section level1 unnumbered">
-<h1>Introduction</h1>
-<p>ClavertonDown is aimed at staff at the University of Bath which is located on Claverton Down. It uses knitr, RMarkdown and Bookdown and aims to produce a system for creating sets of lecture notes in a variety of formats, including those which are technically accessible and those which are often preferred by disabled students. We aim for the system to be usable in both pure and applied mathematical settings. Requests to adapt the system or the outputs of the system to meet these goals will be considered by MASH. The main contact email address is <a href="mailto:mash-access@bath.ac.uk" class="email">mash-access@bath.ac.uk</a> but you should use the Team set up by the Centre for Learning and Teaching for support in the first instance.</p>
-<p>This document is <strong>also</strong> a work in progress. Like everything right now!</p>
+</div>
+
+<div id="prp:prp1" class="bookdown-proposition" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">
+<span class="prp:prp1" custom-style="NameStyle"><strong>Proposition 2.2:  (Thingy we need for <a href="theorems-and-stuff.html#thm:thm1">2.1</a>)  </strong></span>
+<div style="font-style:italic">
+<p>However, in this system you can now</p>
+<ul>
+<li>Change the numbering system of the inbuilt environments - this is done in the file _bookdown.yml. Please see the file in the same folder as this file.</li>
+<li>Reference other environments within names. Notice that you need to use a double backslash.</li>
+</ul>
+</div>
+</div>
+
+<div class="Proof" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;" custom-style="ProofStyle">
+<span class="Proof" custom-style="NameStyle"><strong> Proof: (Of theorem <a href="theorems-and-stuff.html#thm:thm1">2.1</a>) </strong></span>
+<p>
+<p>You can make new unnumbered theorem environments. You can call them whatever you like. They work kind of like the inbuilt ones but the environment is always newtheorem and the env defines the type.</p>
+<p>You need to have predefined the type and made any changes to the standard print style in the file _bookdown.yml. Please see the file in the same folder as this file.</p>
+You can’t control what things look like in the other formats as they have been designed with a variety of accessibility features. If you don’t like how they look then maybe contact us and ask about it. It might be something we can think about changing or allowing author control or, it might not.
+</p>
+<p>
+□
+</p>
+</div>
+
+<div class="bookdown-proof" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;" custom-style="ProofStyle">
+ <span class="proof" custom-style="NameStyle"><em>Proof</em> (Proof of theorem <a href="theorems-and-stuff.html#thm:thm1">2.1</a>). </span> 
+<p>
+Defining your own proof environment doesn’t stop the inbuilt one working.
+</p>
+<p>
+□
+</p>
+</div>
+
+<div id="def:unnamed-chunk-3" class="bookdown-definition" custom-style="DefinitionStyle" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;">
+<span class="def:unnamed-chunk-3" custom-style="NameStyle"><strong>Definition 2.1:  </strong></span>
+<p>
+You can leave some things numbered on their own.
+</p>
+</div>
+
+<div class="Definitions" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;" custom-style="DefinitionStyle">
+<span class="Definitions" custom-style="NameStyle"><strong> Definitions 2.2:  </strong></span>
+<p>
+<p>You can create new numbered theorem types. Unlike inbuilt environments, for them to be numbered in all formats they <em>must</em> have a label. If you forget then they won’t be numbered in any format <em>except</em> for PDF and then your numbering won’t match. I might try and fix this at some point. You can number them alone or with other inbuilt or newtheorem environments.</p>
+<p>You need to have predefined the type, the numbering and made any changes to the standard print style in the file _bookdown.yml. Please see the file in the same folder as this file.</p>
+Take care not to reuse the inbuilt numbering labels with your new theorems! This will lead to odd things happening. The inbuilt labels to avoid are: thm, lem, cor, prp, cnj, def, exm, exr, fig, tab and eq.
+</p>
+</div>
+<p>References still work in the same way as in Bookdown. Now go to theorem <a href="theorems-and-stuff.html#thm:thm1">2.1</a> or proposition <a href="theorems-and-stuff.html#prp:prp1">2.2</a>.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="what-formats-do-i-need-to-produce-and-why.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="do-i-really-have-to-put-all-this-on-moodle.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="figures-inside-other-environments.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

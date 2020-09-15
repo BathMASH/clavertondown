@@ -9,25 +9,32 @@ classoption: a4paper
 fontsize: 10pt
 geometry: margin=2.5cm
 output:
-  clavertondown::epub_clav:
-    toc: true
-  clavertondown::html_clav:
-    toc: true
-  clavertondown::pdf_clav:
-    latex_engine: pdflatex
-    dev: pdf
-    keep_tex: true
-    fig_caption: false
-    toc: true
   clavertondown::gitbook_clav:
     split_by: section
     config:
       download: [["Notes.html", "HTML page"], ["Notes.pdf","Standard print PDF"], ["NotesClear.pdf","Clear print PDF"], ["NotesLarge.pdf","Large print PDF"], ["Notes.docx","Accessible Word document"], ["Notes.epub","Accessible EPub book" ]]
       sharing: no
+    pandoc_args: --default-image-extension=svg
+  clavertondown::pdf_clav:
+    latex_engine: pdflatex
+    keep_tex: true
+    fig_caption: true
+    toc: true
+    extra_dependencies: ["float"]
+    pandoc_args: --default-image-extension=pdf
+  clavertondown::html_clav:
+    toc: true
+    pandoc_args: --default-image-extension=svg
+  clavertondown::epub_clav:
+    toc: true
+    pandoc_args: --default-image-extension=svg
   clavertondown::word_clav:
     toc: true
     number_sections: true
     keep_md: true
+    pandoc_args: --default-image-extension=svg
+header-includes:
+  - \newcommand{\BOO}{BOO}
 ---
 
 \newpage
@@ -70,48 +77,188 @@ The output from ClavertonDown will meet these requirements as far as possible. H
 It isn't possible to create accessible PDFs using LaTeX. Even if a PDF is accessible the mathematical text within it will **still be technically inaccessible** regardless of how the PDF has been produced but...
 
 * not all accessibility is about technical access - for some a clear or large print PDF is best
-* clear print is selected most often by disabled students in the Department of Mathematical Sciences.
+* currently, clear print is selected most often by disabled students in the Department of Mathematical Sciences
+* PDF remains the best fallback when a student is concerned that a document is not being rendered as the author intended
+* PDF remains the best starting point for creating hard copy resources which is important for some disabled students
 
-# Testing some theorem stuff
+
+Finally, our aim here is to produce choice for *all* students, disabled or not, and many will still select PDF. 
+
+## Do I really have to put all this on Moodle?
+
+If you use the same set up as this example document then all the outputs will be collected together into a single folder. We recommend that you:
+
+* Zip up the folder and upload it to Moodle *as a file*
+* Select Add a resource -> File. Give the resource a name (e.g. lecture notes 1).
+* Add the zip file. Right click on the zip file, a window appears, click on unzip and wait until complete. 
+* Right click on the zip again and click on delete. You will have a folder remaining. 
+* Left click on the folder to open it. 
+* Find the main file index.html and right click on this, 
+a window appears, click on Set main file. 
+* Change any other settings you wish in the resource and then save. 
+
+When you click on this resource you will see the HTML book version of the notes. This is technically accessible, searchable and usable on a mobile device. In the menu at the top there is a download button, from here a student can access any of the other formats. This is as close as we can get to replicating the Blackboard Ally student experience of being able to transform accessible resources to other formats.
+
+# Theorems and stuff
+
+You will notice that there are a variety of ways that theorem type environments are presented in the different formats. All of these pass technical accessibility tests or are following RNIB Clear Print guidelines and have been used for at least a decade in our provision for disabled students. We have also take on feedback that in HTML formats colour might be helpful to show where environments start and finish. We have chosen to impose a structured colour scheme on you, for now. The colours have been chosen so that they pass accessibility tests for contrast with the text. 
+
+However, this doesn't mean we have got it right. Give us feedback. Ideally, get students to give feedback too. 
 
 ```{theorem, label="thm1", name="Foo"}
-Bookdown is needed for things like theorems and internal references
+
+This is a theorem environment already provided by Bookdown. It still works as before.
+
 ```
 
 ```{proposition, label="prp1", name="Thingy we need for \\@ref(thm:thm1)"}
-You can create new theorem types
+
+However, in this system you can now 
+
+* Change the numbering system of the inbuilt environments - this is done in the file _bookdown.yml. Please see the file in the same folder as this file. 
+* Reference other environments within names. Notice that you need to use a double backslash.
+
 ```
 
 ```{newtheorem, env="Proof", name="Of theorem \\@ref(thm:thm1)"}
-Here is a proof
+
+You can make new unnumbered theorem environments. You can call them whatever you like. They work kind of like the inbuilt ones but the environment is always newtheorem and the env defines the type. 
+
+You need to have predefined the type and made any changes to the standard print style in the file _bookdown.yml. Please see the file in the same folder as this file. 
+
+You can't control what things look like in the other formats as they have been designed with a variety of accessibility features. If you don't like how they look then maybe contact us and ask about it. It might be something we can think about changing or allowing author control or, it might not.
+
 ```
 
 ```{proof,name="Proof of theorem \\@ref(thm:thm1)"}
-Here is a proof
+
+Defining your own proof environment doesn't stop the inbuilt one working. 
+
 ```
 
-```{proposition, label="prp2"}
-Bookdown is needed for things like theorems and internal references
+
+```{definition}
+
+You can leave some things numbered on their own.
+
 ```
 
-```{newtheorem, env='Thought', label="tho1", name="Bar"}
-You can create new theorem types
+```{newtheorem, env='Definitions', label="def1"}
+
+You can create new numbered theorem types. Unlike inbuilt environments, for them to be numbered in all formats they *must* have a label. If you forget then they won't be numbered in any format *except* for PDF and then your numbering won't match. I might try and fix this at some point. You can number them alone or with other inbuilt or newtheorem environments.
+
+You need to have predefined the type, the numbering and made any changes to the standard print style in the file _bookdown.yml. Please see the file in the same folder as this file.
+
+Take care not to reuse the inbuilt numbering labels with your new theorems! This will lead to odd things happening. The inbuilt labels to avoid are: thm, lem, cor, prp, cnj, def, exm, exr, fig, tab and eq. 
+
 ```
 
-```{newtheorem, env='Wonder'}
-You can create new unumbered theorem types
+References still work in the same way as in Bookdown. Now go to theorem \@ref(thm:thm1) or proposition \@ref(prp:prp1).
+
+# Figures inside other environments
+
+## Here is a figure
+
+```{r cars-plot, fig.path='./Notes_files/figures/', dev= c('svg','pdf'), fig.show='hide', include=FALSE}
+plot(cars)
 ```
 
-```{newtheorem, env='Nugget', label="nug1"}
-You can create new theorem types
+![(\#fig:cars1)This is title and the caption](./Notes_files/figures/cars-plot-1 "This is the alternative text"){width="60%"}
+
+## Here is the putting of a figure inside another built in environment
+
+```{example}
+Here is an example.
+
+![(\#fig:cars2)Something to do with cars](./Notes_files/figures/cars-plot-1   "Some more meaningful alternative text?"){width="60%"}
+
+This is a test. So, you need an empty line before and after the above for it to be a float. At the end of an environment this means that you need TWO empty lines. This is Pandoc.
+
 ```
 
-Now go to \@ref(thm:thm1).
+## Here is the putting of a figure inside a newtheorem
 
-```{newtheorem, env='Solution', label="sol1"}
-You can create new theorem types
+Here we are going to do something a bit more impressive with the automatic creation of alternative image formats. This is only useful to you if you are using R to generate graphs etc.
+
+
+```{r scatterplot, message=FALSE, warning=FALSE, include=FALSE}
+library(BrailleR)
+{sink(file="../docs/cars.txt")
+ WhatIs(cars)
+ print(WhereXY(cars))
+ sink()}
 ```
 
-```{solution}
-Test
+
+```{newtheorem, env='Example'}
+An example in which we have autogenerated a useful description of the scatterplot for a person who cannot see it, using BrailleR. To see the content of the long description if you view the HTML in Firefox and right click you can request it.
+
+![(\#fig:cars3)More cars things](./Notes_files/figures/cars-plot-1 "This is a scatterplot with speed on the x-axis and distance on the y-axis, please read the long description for details."){longdesc=./cars.txt width="60%"}
+
+
 ```
+
+
+
+# Repeating environments
+
+Sometimes I would like to repeat a definition from earlier and have it numbered the same. This now works as expected in all formats including the numbering of the environment. However, the numbering of *things inside the environment* will probably be wrong so take care. Tell us if this is important to you as it is low priority at the moment. 
+
+Inbuilt using own numbering
+
+```{theorem, label="thm1", name="Foo"}
+```
+
+Inbuilt using other inbuilt numbering
+
+```{proposition, label="prp1", name="Thingy we need for \\@ref(thm:thm1)"}
+```
+
+Newtheorem using other inbuilt numbering
+
+```{newtheorem, env='Definitions', label="def1"}
+```
+
+I still need to test the other combinations. Please tell me if it is broken. 
+
+# But... I want it to do...
+
+We have chosen to create a new package instead of adding to Bookdown because we are diverging from what Bookdown was designed to do. This also means that we can mould how this system works to best meet the needs of students and lecturers. 
+
+Tell us what to do next. We'll tell you if it is possible and the likely priority! 
+
+# LaTeX newcommands, usepackages etc.
+
+You can add these in the header-includes part of the code at the start of this file. You cannot pass a filename to this at the moment. If this is a dealbreaker then let me know. This will work in all formats. *All* other ways of adding commands and packages in will not result in the right thing happening in formats other than PDF, as far as I know.
+\[
+\BOO(x)
+\]
+
+# Great. How do I use this thing?
+
+This package is not on CRAN and it is not going to be in the short or medium term. Instead you need to install it directly from github (if you want to know why then get in touch and ask) which means you will need devtools installed and loaded.  
+
+## Installing ClavertonDown
+
+Once you have devtools you need to load it:
+
+> library(devtools)
+
+Then you can install ClavertonDown:
+
+> install_github("BathMASH/ClavertonDown")
+
+Obviously, you need an internet connection. 
+
+## Using ClavertonDown for the first time
+
+I suggest that you download the files which were used to create this document:
+
+* https://raw.githubusercontent.com/BathMASH/clavertondown/master/example/index.Rmd
+* https://raw.githubusercontent.com/BathMASH/clavertondown/master/example/_bookdown.yml
+
+Put them in a folder together, open index.Rmd in RStudio and use the Knit menu to compile the various formats. If this doesn't work then something is wrong (get in touch Bath people!). Then... read the files. 
+
+# Can I tell people not at Claverton Down about this?
+
+Yes, sure, that is why it is public. But, this is released with no promises and no warranty. Help will only be provided to staff and students of the University of Bath but we might fix bugs or consider suggestions by others. 

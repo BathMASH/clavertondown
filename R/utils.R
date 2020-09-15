@@ -82,15 +82,18 @@ eng_theorem = function(options) {
       h7 = sprintf('<%s class="bookdown-%s" id="%s" custom-style="ExampleStyle" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">', h1, type, label)
     else{
       h7 = sprintf('<%s class="bookdown-%s" id="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">', h1, type, label)
-      s1 = '<p><em>'
-      s2 = '</em></p>'
+      #This approach breaks WCAG level 2.1 AA when there is a list inside the theorem
+      #s1 = '<p><em>'
+      s1 = '<div style="font-style:italic">'
+      #s2 = '</em></p>'
+      s2 = '</div>'
     }
     h8 = sprintf('</%s>', h1)
   }
 
   sprintf(
-    '\\BeginKnitrBlock{%s}%s%s%s<%s class="%s" id="%s" custom-style="NameStyle"><strong>%s</strong></%s>%s%s%s%s%s%s\\EndKnitrBlock{%s}',
-    type, l1, h3, h7, h2, type, label, html.before2, h2, s1, code, s2, h6, h8, h4, type
+    '\\BeginKnitrBlock{%s}%s%s%s<%s class="%s" custom-style="NameStyle"><strong>%s</strong></%s>%s%s%s%s%s%s\\EndKnitrBlock{%s}',
+    type, l1, h3, h7, h2, label, html.before2, h2, s1, code, s2, h6, h8, h4, type
   )
 }
 
@@ -161,8 +164,11 @@ eng_newtheorem = function(options) {
       h7 = sprintf('<%s class="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;" custom-style="DefinitionStyle">', h1, env)
     else{
       h7 = sprintf('<%s class="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">', h1, env)
-      s1 = '<p><em>'
-      s2 = '</em></p>'
+      #This approach breaks WCAG level 2.1 AA when there is a list inside the theorem
+      #s1 = '<p><em>'
+      s1 = '<div style="font-style:italic">'
+      #s2 = '</em></p>'
+      s2 = '</div>'
       }
     h8 = sprintf('</%s>', h1)
   }
@@ -174,8 +180,8 @@ eng_newtheorem = function(options) {
       h8 = sprintf('<p>&squ;</p></%s>', h1)
 
   sprintf(
-    '\\BeginKnitrBlock{%s}%s%s%s<%s class="%s" id="%s" custom-style="NameStyle"><strong>%s</strong></%s>%s%s%s%s%s%s\\EndKnitrBlock{%s}',
-    env, l1, h3, h7, h2, env, label, html.before2, h2, s1, code, s2, h6, h8, h4, env
+    '\\BeginKnitrBlock{%s}%s%s%s<%s class="%s" custom-style="NameStyle"><strong>%s</strong></%s>%s%s%s%s%s%s\\EndKnitrBlock{%s}',
+    env, l1, h3, h7, h2, env, html.before2, h2, s1, code, s2, h6, h8, h4, env
   )
 
 #Code before the issue with the block2 engine in knitr

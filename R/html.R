@@ -53,7 +53,23 @@ html_clav = function(
     x = bookdown:::restore_part_html(x, remove = FALSE)
     x = resolve_new_theorems(x, global = !number_sections, new_theorems, number_by)
     print("Resolved new theorems")
+    x = resolve_alt_tags(x)
     x = resolve_refs_html(x, global = !number_sections, new_theorems, number_by)
+        new_theorems_unnumbered = new_theorems[new_theorems == "---"]
+    #print("Unnumbered:")
+    #print(new_theorems_unnumbered)
+    new_theorems_numbered = new_theorems[new_theorems != "---"]
+    #print("Numbered:")
+    #print(new_theorems_numbered)
+
+    new_theorem_abbr = c(theorem_abbr, new_theorems_numbered)
+    new_label_names_math = c(label_names_math, setNames(names(new_theorems_numbered), unlist(new_theorems_numbered, use.names=FALSE)))
+    new_label_names = c(list(fig = 'Figure ', tab = 'Table ', eq = 'Equation '), new_label_names_math)
+    new_label_types = names(new_label_names)
+    new_reg_label_types = paste(new_label_types, collapse = '|')
+    new_reg_label_types = paste(new_reg_label_types, 'ex', sep = '|')
+
+    x = resolve_repeated_ids(x, new_reg_label_types, new_theorems, number_by)
     print("Resolved references")
     print(knitr:::opts_knit$get('header.title'))
     write_utf8(x, output)
@@ -341,6 +357,14 @@ resolve_new_theorems = function(content, global = FALSE, new_theorems, number_by
   content
 }
 
+resolve_alt_tags = function(content){
+  #We are looking for titles inside img, by this point there will be an empty alt tag (the alt will have become the caption) which we need to remove and there will be a title which needs to become the alt tag. I am not happy with this method of achieving things as it is very backward but it is the outcome of where we are by this point and is the simplest thing to do. This will work with the ![]() format. I have no idea what the side effect is of this in any other method of including images and this will need to be tested extensively but not right now.
+
+  #Look for empty alt tags with a title on the same line, remove the alt tag and rename the title to be the alt
+  content = gsub('title="([^"]*)" alt=""','alt="\\1"', content)
+  content
+}
+
 resolve_refs_html = function(content, global = FALSE, new_theorems, number_by) {
   content = bookdown:::resolve_ref_links_html(content)
 
@@ -351,6 +375,7 @@ resolve_refs_html = function(content, global = FALSE, new_theorems, number_by) {
   # look for @ref(label) and resolve to actual figure/table/section numbers
   m = gregexpr('(?<!\\\\)@ref\\(([-:[:alnum:]]+)\\)', content, perl = TRUE)
   refs = regmatches(content, m)
+
   for (i in seq_along(refs)) {
     if (length(refs[[i]]) == 0) next
     # strip off html tags when resolve numbers in <img>'s alt attribute because
@@ -495,3 +520,34 @@ new_theorems = list(), number_by = list()
 }
 
 
+# We need to remove duplicate ids caused by repeated environments
+resolve_repeated_ids = function(x, new_reg_label_types, new_theorems, number_by) {
+  #Look for the ids
+  m = gregexpr(sprintf('id=\"(%s):[-/[:alnum:]]+\"', new_reg_label_types), x)
+  labs = regmatches(x, m)
+  actuallabs = list()
+  locs = list()
+  duplocs = list()
+  
+  for (i in seq_along(labs)) {
+    if (length(lab <- labs[[i]]) == 0) next
+    #This is where the labels are, now we need to locate any repeats
+    actuallabs = c(actuallabs,lab)
+    locs = c(locs,i)
+  }
+  dups = duplicated(actuallabs)
+  #print(dups)
+  #This is where the duplicates are
+  if(length(dups) > 0){
+    for(i in 1:length(dups))
+      if(dups[[i]] == TRUE){
+        duplocs = c(duplocs,locs[[i]])
+	#print(x[[locs[[i]]]])
+	#print(sprintf('id%s',stringr::str_sub(actuallabs[[i]],3,-1)))
+	x[[locs[[i]]]] = stringr::str_remove(x[[locs[[i]]]],sprintf('id%s',stringr::str_sub(actuallabs[[i]],3,-1)))
+	#print(x[[locs[[i]]]])
+	}
+  }
+
+  x
+}

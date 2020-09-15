@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>ClavertonDown Example</title>
-  <meta name="description" content="ClavertonDown Example" />
+  <title>4 Repeating environments | ClavertonDown Example</title>
+  <meta name="description" content="4 Repeating environments | ClavertonDown Example" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="ClavertonDown Example" />
+  <meta property="og:title" content="4 Repeating environments | ClavertonDown Example" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="ClavertonDown Example" />
+  <meta name="twitter:title" content="4 Repeating environments | ClavertonDown Example" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="what-formats-do-i-need-to-produce-and-why.html"/>
+<link rel="prev" href="here-is-the-putting-of-a-figure-inside-a-newtheorem.html"/>
+<link rel="next" href="but-i-want-it-to-do.html"/>
 
 <script src="libs/header-attrs-2.3/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
@@ -144,23 +144,48 @@ MathJax.Hub.Config({
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title"><span style="font-size:150%; margin-bottom:0">ClavertonDown Example</span></h1>
-<p class="author" style="font-size:120%; margin-bottom:0"><em>Emma Cliffe, Skills Centre: MASH, University of Bath</em></p>
-<p class="date" style="font-size:120%; margin-bottom:0"><em>August 2020</em></p>
+<div id="repeating-environments" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Repeating environments</h1>
+<p>Sometimes I would like to repeat a definition from earlier and have it numbered the same. This now works as expected in all formats including the numbering of the environment. However, the numbering of <em>things inside the environment</em> will probably be wrong so take care. Tell us if this is important to you as it is low priority at the moment.</p>
+<p>Inbuilt using own numbering</p>
+
+<div id="thm:thm1" class="bookdown-theorem" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">
+<span class="thm:thm1" custom-style="NameStyle"><strong>Theorem 2.1:  (Foo)  </strong></span>
+<div style="font-style:italic">
+<p>This is a theorem environment already provided by Bookdown. It still works as before.</p>
 </div>
-<div id="introduction" class="section level1 unnumbered">
-<h1>Introduction</h1>
-<p>ClavertonDown is aimed at staff at the University of Bath which is located on Claverton Down. It uses knitr, RMarkdown and Bookdown and aims to produce a system for creating sets of lecture notes in a variety of formats, including those which are technically accessible and those which are often preferred by disabled students. We aim for the system to be usable in both pure and applied mathematical settings. Requests to adapt the system or the outputs of the system to meet these goals will be considered by MASH. The main contact email address is <a href="mailto:mash-access@bath.ac.uk" class="email">mash-access@bath.ac.uk</a> but you should use the Team set up by the Centre for Learning and Teaching for support in the first instance.</p>
-<p>This document is <strong>also</strong> a work in progress. Like everything right now!</p>
+</div>
+<p>Inbuilt using other inbuilt numbering</p>
+
+<div id="prp:prp1" class="bookdown-proposition" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">
+<span class="prp:prp1" custom-style="NameStyle"><strong>Proposition 2.2:  (Thingy we need for <a href="theorems-and-stuff.html#thm:thm1">2.1</a>)  </strong></span>
+<div style="font-style:italic">
+<p>However, in this system you can now</p>
+<ul>
+<li>Change the numbering system of the inbuilt environments - this is done in the file _bookdown.yml. Please see the file in the same folder as this file.</li>
+<li>Reference other environments within names. Notice that you need to use a double backslash.</li>
+</ul>
+</div>
+</div>
+<p>Newtheorem using other inbuilt numbering</p>
+
+<div class="Definitions" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;" custom-style="DefinitionStyle">
+<span class="Definitions" custom-style="NameStyle"><strong> Definitions 2.2:  </strong></span>
+<p>
+<p>You can create new numbered theorem types. Unlike inbuilt environments, for them to be numbered in all formats they <em>must</em> have a label. If you forget then they won’t be numbered in any format <em>except</em> for PDF and then your numbering won’t match. I might try and fix this at some point. You can number them alone or with other inbuilt or newtheorem environments.</p>
+<p>You need to have predefined the type, the numbering and made any changes to the standard print style in the file _bookdown.yml. Please see the file in the same folder as this file.</p>
+Take care not to reuse the inbuilt numbering labels with your new theorems! This will lead to odd things happening. The inbuilt labels to avoid are: thm, lem, cor, prp, cnj, def, exm, exr, fig, tab and eq.
+</p>
+</div>
+<p>I still need to test the other combinations. Please tell me if it is broken.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="what-formats-do-i-need-to-produce-and-why.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="here-is-the-putting-of-a-figure-inside-a-newtheorem.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="but-i-want-it-to-do.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
