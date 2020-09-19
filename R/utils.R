@@ -74,14 +74,14 @@ eng_theorem = function(options) {
     h7 = h8 = '\n'
     s1 = s2 = ''
   } else {
-  s1 = '<p>'
-  s2 = '</p>'
+  s1 = '<div>'
+  s2 = '</div>'
   if(type == 'definition')
-      h7 = sprintf('<%s class="bookdown-%s" id="%s" custom-style="DefinitionStyle" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;">', h1, type, label)
+      h7 = sprintf('<%s class="bookdown-%s" custom-style="DefinitionStyle" id="%s">', h1, type, label)
     else if(type == 'example' || type == 'exercise')
-      h7 = sprintf('<%s class="bookdown-%s" id="%s" custom-style="ExampleStyle" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;">', h1, type, label)
+      h7 = sprintf('<%s class="bookdown-%s" custom-style="ExampleStyle" id="%s">', h1, type, label)
     else{
-      h7 = sprintf('<%s class="bookdown-%s" id="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">', h1, type, label)
+      h7 = sprintf('<%s class="bookdown-%s" custom-style="TheoremStyle" id="%s">', h1, type, label)
       #This approach breaks WCAG level 2.1 AA when there is a list inside the theorem
       #s1 = '<p><em>'
       s1 = '<div style="font-style:italic">'
@@ -154,16 +154,16 @@ eng_newtheorem = function(options) {
     h7 = h8 = '\n'
     s1 = s2 = ''
   }else{
-    s1 = '<p>'
-    s2 = '</p>'
+    s1 = '<div>'
+    s2 = '</div>'
     if(stringr::str_detect(tolower(env), 'proof') || stringr::str_detect(tolower(env), 'solution') || stringr::str_detect(tolower(env), 'soln') || stringr::str_detect(tolower(env), 'remark'))
-      h7 = sprintf('<%s class="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;" custom-style="ProofStyle">', h1, env)
+      h7 = sprintf('<%s class="%s" custom-style="ProofStyle">', h1, env)
     else if(stringr::str_detect(tolower(env),'example') || stringr::str_detect(tolower(env), 'exercise'))
-      h7 = sprintf('<%s class="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: lavenderblush; border-left-style: solid; border-color: mediumorchid; padding-left: 0.5em;" custom-style="ExampleStyle">', h1, env)
+      h7 = sprintf('<%s class="%s" custom-style="ExampleStyle">', h1, env)
     else if(stringr::str_detect(tolower(env), 'definition') || stringr::str_detect(tolower(env), 'defn'))
-      h7 = sprintf('<%s class="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;" custom-style="DefinitionStyle">', h1, env)
+      h7 = sprintf('<%s class="%s" custom-style="DefinitionStyle">', h1, env)
     else{
-      h7 = sprintf('<%s class="%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">', h1, env)
+      h7 = sprintf('<%s class="%s" custom-style="TheoremStyle">', h1, env)
       #This approach breaks WCAG level 2.1 AA when there is a list inside the theorem
       #s1 = '<p><em>'
       s1 = '<div style="font-style:italic">'
@@ -243,7 +243,7 @@ eng_proof = function(options) {
     h7 = h8 = '\n'
     } else {
     #A proof can't have a label so it doesn't need an id. The id that was here was working in html, in, one browser, but not in epub as it was being set to a label that could contain all kinds of things which, unlike eng_theorem's label, is not appropriate
-    h7 = sprintf('<%s class="bookdown-%s" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: seashell; border-left-style: solid; border-color: darkkhaki; padding-left: 0.5em;" custom-style="ProofStyle">', h2, type)
+    h7 = sprintf('<%s class="bookdown-%s" custom-style="ProofStyle">', h2, type)
     h8 = sprintf('</%s>', h2)
     }
 

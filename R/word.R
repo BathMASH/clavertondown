@@ -13,7 +13,8 @@ markdown_clav = function(
     # to be numbered globally from 1 to n
     new_theorems = load_config()[['new_theorems']]
     number_by = load_config()[['number_by']]
-    process_markdown(input_file, from, pandoc_args, !number_sections, new_theorems, number_by)
+    style_with = load_config()[['style_with']]
+    process_markdown(input_file, from, pandoc_args, !number_sections, new_theorems, number_by, style_with)
     if (is.function(pre)) pre(metadata, input_file, ...)
   }
   post = config$post_processor

@@ -15,8 +15,9 @@ html_chapters_clav = function(
     if (is.function(post)) output = post(metadata, input, output, clean, verbose)
     new_theorems = load_config()[['new_theorems']]
     number_by = load_config()[['number_by']]
+    style_with = load_config()[['style_with']]
     bookdown:::move_files_html(output, lib_dir)
-    output2 = split_chapters_clav(output, page_builder, number_sections, split_by, split_bib, new_theorems, number_by)
+    output2 = split_chapters_clav(output, page_builder, number_sections, split_by, split_bib, new_theorems, number_by, style_with)
     if (file.exists(output) && !same_path(output, output2)) file.remove(output)
     bookdown:::move_files_html(output2, lib_dir)
     output2
@@ -47,6 +48,7 @@ html_clav = function(
     if (is.function(post)) output = post(metadata, input, output, clean, verbose)
     new_theorems = load_config()[['new_theorems']]
     number_by = load_config()[['number_by']]
+    style_with = load_config()[['style_with']]
     x = read_utf8(output)
     x = bookdown:::clean_html_tags(x)
     x = bookdown:::restore_appendix_html(x, remove = FALSE)
@@ -55,7 +57,7 @@ html_clav = function(
     print("Resolved new theorems")
     x = resolve_alt_tags(x)
     x = resolve_refs_html(x, global = !number_sections, new_theorems, number_by)
-        new_theorems_unnumbered = new_theorems[new_theorems == "---"]
+    new_theorems_unnumbered = new_theorems[new_theorems == "---"]
     #print("Unnumbered:")
     #print(new_theorems_unnumbered)
     new_theorems_numbered = new_theorems[new_theorems != "---"]
@@ -71,6 +73,10 @@ html_clav = function(
 
     x = resolve_repeated_ids(x, new_reg_label_types, new_theorems, number_by)
     print("Resolved references")
+
+    # Turn colour off if needed
+    x = remove_colours(x, style_with["colouroff"][[1]])
+
     print(knitr:::opts_knit$get('header.title'))
     write_utf8(x, output)
     bookdown:::move_files_html(output, lib_dir)
@@ -118,7 +124,7 @@ tufte_clav = function(..., number_sections = FALSE) {
 }
 
 
-split_chapters_clav = function(output, build = bookdown:::build_chapter, number_sections, split_by, split_bib, new_theorems, number_by, ...) {
+split_chapters_clav = function(output, build = bookdown:::build_chapter, number_sections, split_by, split_bib, new_theorems, number_by, style_with, ...) {
 
   use_rmd_names = split_by == 'rmd'
   split_level = switch(
@@ -196,6 +202,17 @@ split_chapters_clav = function(output, build = bookdown:::build_chapter, number_
   if (any(c(i1, i2, i3, i4, i5, i6) == 0)) {
     x = resolve_new_theorems(x, global = !number_sections, new_theorems, number_by)
     x = resolve_refs_html(x, !number_sections, new_theorems, number_by)
+    new_theorems_unnumbered = new_theorems[new_theorems == "---"]
+    new_theorems_numbered = new_theorems[new_theorems != "---"]
+    new_theorem_abbr = c(theorem_abbr, new_theorems_numbered)
+    new_label_names_math = c(label_names_math, setNames(names(new_theorems_numbered), unlist(new_theorems_numbered, use.names=FALSE)))
+    new_label_names = c(list(fig = 'Figure ', tab = 'Table ', eq = 'Equation '), new_label_names_math)
+    new_label_types = names(new_label_names)
+    new_reg_label_types = paste(new_label_types, collapse = '|')
+    new_reg_label_types = paste(new_reg_label_types, 'ex', sep = '|')
+    x = resolve_repeated_ids(x, new_reg_label_types, new_theorems, number_by)
+    x = remove_colours(x, style_with["colouroff"][[1]])
+
     x = bookdown:::add_chapter_prefix(x)
     write_utf8(x, output)
     return(output)
@@ -220,6 +237,18 @@ split_chapters_clav = function(output, build = bookdown:::build_chapter, number_
 
   html_body = resolve_new_theorems(html_body, !number_sections, new_theorems, number_by)
   html_body = resolve_refs_html(html_body, !number_sections, new_theorems, number_by)
+
+  new_theorems_unnumbered = new_theorems[new_theorems == "---"]
+  new_theorems_numbered = new_theorems[new_theorems != "---"]
+  new_theorem_abbr = c(theorem_abbr, new_theorems_numbered)
+  new_label_names_math = c(label_names_math, setNames(names(new_theorems_numbered), unlist(new_theorems_numbered, use.names=FALSE)))
+  new_label_names = c(list(fig = 'Figure ', tab = 'Table ', eq = 'Equation '), new_label_names_math)
+  new_label_types = names(new_label_names)
+  new_reg_label_types = paste(new_label_types, collapse = '|')
+  new_reg_label_types = paste(new_reg_label_types, 'ex', sep = '|')
+  html_body = resolve_repeated_ids(html_body, new_reg_label_types, new_theorems, number_by)
+  print(style_with)
+  html_body = remove_colours(html_body, style_with["colouroff"][[1]])
 
   # do not split the HTML file
   if (split_level == 0) {
@@ -549,5 +578,15 @@ resolve_repeated_ids = function(x, new_reg_label_types, new_theorems, number_by)
 	}
   }
 
+  x
+}
+
+remove_colours = function(x, colouroff) {
+
+  if(length(colouroff) > 0)
+    for(i in 1:length(colouroff))
+      # We should be able to find strings like i" custom-style="...Style" and replace them with i"
+      # This will remove colour in HTML, Gitbook, EPub and Word. LaTeX formats don't have colour in the first place
+      x = gsub(sprintf('%s" custom-style="[-/[:alpha:]]+Style"',colouroff[[i]]), sprintf('%s"',colouroff[[i]]), x)
   x
 }
