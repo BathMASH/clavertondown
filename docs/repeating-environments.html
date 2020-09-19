@@ -91,6 +91,43 @@ MathJax.Hub.Config({
   .book .book-summary ul.summary li a, .book .book-summary ul.summary li.active>a, .book .book-body .page-wrapper .page-inner section.normal a {
   color: blue;
   }
+
+  [custom-style=DefinitionStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: AliceBlue;
+    border-left-style: solid;
+    border-color: CadetBlue;
+    padding-left: 0.5em;
+  }
+
+  [custom-style=TheoremStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: honeydew;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+  }
+
+  [custom-style=ProofStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: seashell;
+    border-left-style: solid;
+    border-color: darkkhaki;
+    padding-left: 0.5em;
+  }
+
+  [custom-style=ExampleStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: lavenderblush;
+    border-left-style: solid;
+    border-color: mediumorchid;
+    padding-left: 0.5em;
+  }
+
 </style>
 
 </head>
@@ -149,7 +186,7 @@ MathJax.Hub.Config({
 <p>Sometimes I would like to repeat a definition from earlier and have it numbered the same. This now works as expected in all formats including the numbering of the environment. However, the numbering of <em>things inside the environment</em> will probably be wrong so take care. Tell us if this is important to you as it is low priority at the moment.</p>
 <p>Inbuilt using own numbering</p>
 
-<div id="thm:thm1" class="bookdown-theorem" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">
+<div  class="bookdown-theorem" custom-style="TheoremStyle">
 <span class="thm:thm1" custom-style="NameStyle"><strong>Theorem 2.1:  (Foo)  </strong></span>
 <div style="font-style:italic">
 <p>This is a theorem environment already provided by Bookdown. It still works as before.</p>
@@ -157,7 +194,7 @@ MathJax.Hub.Config({
 </div>
 <p>Inbuilt using other inbuilt numbering</p>
 
-<div id="prp:prp1" class="bookdown-proposition" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: honeydew; border-left-style: solid; border-color: darkseagreen; padding-left: 0.5em;" custom-style="TheoremStyle">
+<div  class="bookdown-proposition" custom-style="TheoremStyle">
 <span class="prp:prp1" custom-style="NameStyle"><strong>Proposition 2.2:  (Thingy we need for <a href="theorems-and-stuff.html#thm:thm1">2.1</a>)  </strong></span>
 <div style="font-style:italic">
 <p>However, in this system you can now</p>
@@ -169,13 +206,13 @@ MathJax.Hub.Config({
 </div>
 <p>Newtheorem using other inbuilt numbering</p>
 
-<div class="Definitions" style="margin-bottom: 1.5em; margin-top:1.5em; background-color: AliceBlue; border-left-style: solid; border-color: CadetBlue; padding-left: 0.5em;" custom-style="DefinitionStyle">
+<div class="Definitions" custom-style="DefinitionStyle">
 <span class="Definitions" custom-style="NameStyle"><strong> Definitions 2.2:  </strong></span>
-<p>
+<div>
 <p>You can create new numbered theorem types. Unlike inbuilt environments, for them to be numbered in all formats they <em>must</em> have a label. If you forget then they won’t be numbered in any format <em>except</em> for PDF and then your numbering won’t match. I might try and fix this at some point. You can number them alone or with other inbuilt or newtheorem environments.</p>
 <p>You need to have predefined the type, the numbering and made any changes to the standard print style in the file _bookdown.yml. Please see the file in the same folder as this file.</p>
-Take care not to reuse the inbuilt numbering labels with your new theorems! This will lead to odd things happening. The inbuilt labels to avoid are: thm, lem, cor, prp, cnj, def, exm, exr, fig, tab and eq.
-</p>
+<p>Take care not to reuse the inbuilt numbering labels with your new theorems! This will lead to odd things happening. The inbuilt labels to avoid are: thm, lem, cor, prp, cnj, def, exm, exr, fig, tab and eq.</p>
+</div>
 </div>
 <p>I still need to test the other combinations. Please tell me if it is broken.</p>
 </div>

@@ -5,6 +5,7 @@ new_theorems:
   Definitions: Def
   Example: ---
   Proof: ---
+  Examples: ---
 number_by:
   prp: thm
   Def: def
@@ -12,3 +13,4 @@ style_with:
   plain: ["Definitions"]
   definition: []
   remark: ["Proof"]
+  colouroff: ["Examples"]
