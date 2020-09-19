@@ -9,9 +9,6 @@ classoption: a4paper
 fontsize: 10pt
 geometry: margin=2.5cm
 output:
-  clavertondown::epub_clav:
-    toc: false
-    pandoc_args: --default-image-extension=svg
   clavertondown::gitbook_clav:
     split_by: section
     config:
@@ -20,6 +17,9 @@ output:
     pandoc_args: --default-image-extension=svg
   clavertondown::html_clav:
     toc: true
+    pandoc_args: --default-image-extension=svg
+  clavertondown::epub_clav:
+    toc: false
     pandoc_args: --default-image-extension=svg
   clavertondown::word_clav:
     toc: true
