@@ -282,17 +282,17 @@ resolve_refs_latex = function(x, new_reg_label_types, new_theorems, number_by) {
 	#then it is that counter that we need to mess about with. Can we even access this information?
 	stringr::str_split("aabcc", "b")[[1]][[1]]
       	whatami = stringr::str_split(stringr::str_remove(x[[locs[[i]]-2]],'\\\\BeginKnitrBlock\\{'),'\\}',n=2)[[1]][[1]]
-	#print(whatami)
-	mycounter = ''
+	print(whatami)
+	mycounter = character(0)
 	#Create list of all of the theorem types
 	new_theorem_abbr = c(theorem_abbr,new_theorems)
 	#print(new_theorem_abbr)
 	mycounter = names(new_theorem_abbr[match(number_by[new_theorem_abbr[whatami][[1]]],new_theorem_abbr)])
 	#Numbered as itself
-	if(is.na(mycounter))
+	if(length(mycounter)==0)
 	  mycounter = whatami
 	#print(mycounter)
-      	if(whatami == '')
+      	if(length(whatami) == 0)
           stop('There is a problem with a repeated environment.')
       	x[[locs[[i]]-3]] = stringr::str_c(x[[locs[[i]]-3]],sprintf('\\begingroup\\renewcommand{\\the%s}{%s}', mycounter, gsub(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), '\\\\ref{\\1}', actuallabs[[i]])))
       	#Remove the duplicate label

@@ -9,6 +9,14 @@ classoption: a4paper
 fontsize: 10pt
 geometry: margin=2.5cm
 output:
+  clavertondown::pdf_clav:
+    latex_engine: pdflatex
+    dev: pdf
+    keep_tex: true
+    fig_caption: false
+    toc: false
+  clavertondown::epub_clav:
+    toc: false
   clavertondown::gitbook_clav:
     split_by: section
     config:
@@ -19,14 +27,6 @@ output:
     number_sections: true
     keep_md: true
   clavertondown::html_clav:
-    toc: false
-  clavertondown::epub_clav:
-    toc: false
-  clavertondown::pdf_clav:
-    latex_engine: pdflatex
-    dev: pdf
-    keep_tex: true
-    fig_caption: false
     toc: false
 ---
 
