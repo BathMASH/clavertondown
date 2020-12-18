@@ -289,10 +289,10 @@ resolve_refs_latex = function(x, new_reg_label_types, new_theorems, number_by) {
 	#print(new_theorem_abbr)
 	mycounter = names(new_theorem_abbr[match(number_by[new_theorem_abbr[whatami][[1]]],new_theorem_abbr)])
 	#Numbered as itself
-	if(length(mycounter)==0)
+	if(length(mycounter)==0 || is.na(mycounter))
 	  mycounter = whatami
 	#print(mycounter)
-      	if(length(whatami) == 0)
+      	if(length(whatami) == 0 || is.na(mycounter))
           stop('There is a problem with a repeated environment.')
       	x[[locs[[i]]-3]] = stringr::str_c(x[[locs[[i]]-3]],sprintf('\\begingroup\\renewcommand{\\the%s}{%s}', mycounter, gsub(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), '\\\\ref{\\1}', actuallabs[[i]])))
       	#Remove the duplicate label
