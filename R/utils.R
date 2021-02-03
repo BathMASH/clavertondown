@@ -113,8 +113,11 @@ eng_newtheorem = function(options) {
   label = paste(env, options$label, sep = ':')
   # html.before2 = sprintf('%s (\\#%s) ', env, label)
   html.before2 = ''
+  latex.unnu = ''
   if (knitr::is_latex_output()) {
      html.before2 = paste(html.before2, sprintf('(\\#%s) ', label))
+     if(startsWith(options$label,"unnamed-chunk-"))
+        latex.unnu = '*'
   } else {
     if(startsWith(options$label,"unnamed-chunk-"))
 	html.before2 = paste(html.before2, sprintf('%s: ', env))
@@ -179,9 +182,13 @@ eng_newtheorem = function(options) {
     else
       h8 = sprintf('<p>&squ;</p></%s>', h1)
 
+  #We need to change the env name if this is a numbered environment which does not have a label.
+  #But. We don't know whether the environment is numbered or not at this point so this has to be done in resolve_new_theorems
+  #Which, as noted above, lives in html.R even though that probably is nonsensical.
+
   sprintf(
-    '\\BeginKnitrBlock{%s}%s%s%s<%s class="%s" custom-style="NameStyle"><strong>%s</strong></%s>%s%s%s%s%s%s\\EndKnitrBlock{%s}',
-    env, l1, h3, h7, h2, env, html.before2, h2, s1, code, s2, h6, h8, h4, env
+    '\\BeginKnitrBlock{%s%s}%s%s%s<%s class="%s" custom-style="NameStyle"><strong>%s</strong></%s>%s%s%s%s%s%s\\EndKnitrBlock{%s%s}',
+    env, latex.unnu, l1, h3, h7, h2, env, html.before2, h2, s1, code, s2, h6, h8, h4, env, latex.unnu
   )
 
 #Code before the issue with the block2 engine in knitr

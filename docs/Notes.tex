@@ -6,8 +6,8 @@
   10pt,
   english,
   a4paper]{article}
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
@@ -45,7 +45,8 @@
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=2.5cm]{geometry}
-\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
 \makeatletter
@@ -78,7 +79,10 @@
   \usepackage{polyglossia}
   \setmainlanguage[]{english}
 \else
-  \usepackage[shorthands=off,main=english]{babel}
+  \usepackage[main=english]{babel}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
 \fi
 \ifluatex
   \usepackage{selnolig}  % disable illegal ligatures
@@ -90,31 +94,30 @@
 
 \usepackage{amsthm}
 \theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{theorem*}{Theorem}\newtheorem{theorem}{Theorem}[section]
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
+\newtheorem*{definition*}{Definition}\newtheorem{definition}{Definition}[section]
 \theoremstyle{plain}
-\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{proposition*}{Proposition}\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{Definitions*}{Definitions}\newtheorem{Definitions}[definition]{Definitions}
 \theoremstyle{plain}
-\newtheorem{Definitions}[definition]{Definitions}
+\newtheorem*{lemma*}{Lemma}\newtheorem{lemma}{Lemma}[section]
 \theoremstyle{plain}
-\newtheorem{lemma}{Lemma}[section]
+\newtheorem*{corollary*}{Corollary}\newtheorem{corollary}{Corollary}[section]
 \theoremstyle{plain}
-\newtheorem{corollary}{Corollary}[section]
-\theoremstyle{plain}
-\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem*{conjecture*}{Conjecture}\newtheorem{conjecture}{Conjecture}[section]
 \theoremstyle{definition}
-\newtheorem{example}{Example}[section]
+\newtheorem*{example*}{Example}\newtheorem{example}{Example}[section]
 \theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[section]
-\newtheorem{Thought}{Thought}[section]
+\newtheorem*{exercise*}{Exercise}\newtheorem{exercise}{Exercise}[section]
+\newtheorem*{Thought*}{Thought}\newtheorem{Thought}{Thought}[section]
 \theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-\newtheorem*{solution}{Solution}
-\newtheorem*{Example}{Example}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{solution*}{Solution}
+\newtheorem*{Example*}{Example}
 \theoremstyle{remark}
-\newtheorem*{Proof}{Proof}
-\newtheorem*{Examples}{Examples}
+\newtheorem*{Proof*}{Proof}
+\newtheorem*{Examples*}{Examples}
 \let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
 \begin{document}
 \maketitle
@@ -264,7 +267,7 @@ However, in this system you can now
 \end{itemize}
 \EndKnitrBlock{proposition}
 
-\BeginKnitrBlock{Proof}[Of theorem \ref{thm:thm1}]
+\BeginKnitrBlock{Proof*}[Of theorem \ref{thm:thm1}]
 {\iffalse{} (\#Proof:unnamed-chunk-1) \fi{}}
 You can make new unnumbered theorem environments. You can call them whatever you like. They work kind of like the inbuilt ones but the environment is always newtheorem and the env defines the type.
 
@@ -272,7 +275,7 @@ You need to have predefined the type and made any changes to the standard print 
 
 You can't control what things look like in the other formats as they have been designed with a variety of accessibility features. If you don't like how they look then maybe contact us and ask about it. It might be something we can think about changing or allowing author control or, it might not.
 \qed
-\EndKnitrBlock{Proof}
+\EndKnitrBlock{Proof*}
 
 \BeginKnitrBlock{proof}[Proof of theorem \ref{thm:thm1}]
 \iffalse{} {Proof (Proof of theorem \ref{thm:thm1}). } \fi{}
@@ -297,10 +300,30 @@ Take care not to reuse the inbuilt numbering labels with your new theorems! This
 References still work in the same way as in Bookdown. Now go to theorem \ref{thm:thm1} or proposition \ref{prp:prp1}.
 
 Here is some text which is not part of the below example.
-\BeginKnitrBlock{Examples}
+\BeginKnitrBlock{Examples*}
 {\iffalse{} (\#Examples:unnamed-chunk-4) \fi{}}You can turn off the colour and padding in html, ePub and Word for any newtheorem or inbuilt theorem type. You do this in the \_bookdown.yml file by adding the theorem name to the colouroff style\_with list.
-\EndKnitrBlock{Examples}
+\EndKnitrBlock{Examples*}
 Here is some text which is not part of the above example.
+
+\hypertarget{but-i-want-to-number-some-of-them}{%
+\subsection{But I want to number some of them\ldots{}}\label{but-i-want-to-number-some-of-them}}
+
+\BeginKnitrBlock{Definitions*}
+{\iffalse{} \label{Def:unnamed-chunk-5} \fi{}}This is unnumbered in all formats
+\EndKnitrBlock{Definitions*}
+
+\BeginKnitrBlock{Definitions}
+{\label{Def:def3}}This should be definitions 2.3 in all formats
+\EndKnitrBlock{Definitions}
+
+\hypertarget{out-of-interest}{%
+\subsubsection{Out of interest\ldots{}}\label{out-of-interest}}
+
+What happens if I try to number an environment I have specifically declared to be unnumbered? e.g.~using \{newtheorem, env=`Examples', label=``argh''\}
+
+This will fail to compile for PDF and it will produce ``Examples (\#Examples:argh)'' as the title in other formats.
+
+The only real benefit to be gained from specifically declaring an environment to be unnumbered is that you are less likely to accidentally number an instance of it!
 
 \hypertarget{figures-inside-other-environments}{%
 \section{Figures inside other environments}\label{figures-inside-other-environments}}
@@ -311,14 +334,14 @@ Here is some text which is not part of the above example.
 \begin{figure}
 \centering
 \includegraphics[width=0.6\textwidth,height=\textheight]{./Notes_files/figures/cars-plot-1.pdf}
-\caption{\label{fig:cars1}This is title and the caption}
+\caption{\label{fig:cars1}This is title and a caption with a reference \ref{thm:thm1} inside it}
 \end{figure}
 
 \hypertarget{here-is-the-putting-of-a-figure-inside-another-built-in-environment}{%
 \subsection{Here is the putting of a figure inside another built in environment}\label{here-is-the-putting-of-a-figure-inside-another-built-in-environment}}
 
 \BeginKnitrBlock{example}
-{\label{exm:unnamed-chunk-5} }Here is an example.
+{\label{exm:unnamed-chunk-6} }Here is an example.
 
 \begin{figure}
 \centering
@@ -334,15 +357,15 @@ This is a test. So, you need an empty line before and after the above for it to 
 
 Here we are going to do something a bit more impressive with the automatic creation of alternative image formats. This is only useful to you if you are using R to generate graphs etc.
 
-\BeginKnitrBlock{Example}
-{\iffalse{} (\#\url{Example:unnamed-chunk-6}) \fi{}}An example in which we have autogenerated a useful description of the scatterplot for a person who cannot see it, using BrailleR. To see the content of the long description if you view the HTML in Firefox and right click you can request it.
+\BeginKnitrBlock{Example*}
+{\iffalse{} (\#\url{Example:unnamed-chunk-7}) \fi{}}An example in which we have autogenerated a useful description of the scatterplot for a person who cannot see it, using BrailleR. To see the content of the long description if you view the HTML in Firefox and right click you can request it.
 
 \begin{figure}
 \centering
 \includegraphics[width=0.6\textwidth,height=\textheight]{./Notes_files/figures/cars-plot-1.pdf}
 \caption{\label{fig:cars3}More cars things}
 \end{figure}
-\EndKnitrBlock{Example}
+\EndKnitrBlock{Example*}
 
 \hypertarget{repeating-environments}{%
 \section{Repeating environments}\label{repeating-environments}}

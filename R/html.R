@@ -360,7 +360,7 @@ split_chapters_clav = function(output, build = bookdown:::build_chapter, number_
 
 #' Resolve newtheorems introduced by the user which are using a renderer which does not know the label, only the env name
 # If someone has chosen to call their newtheorem Example or example then we have a problem the source of which I cannot find but which I presume to be Pandoc
-# as by the time we are postprocessing it is already 'too late'. Hence, there is some odd code in the below to deal with this case. 
+# as by the time we are postprocessing it is already 'too late'. Hence, there is some odd code in the below to deal with this case.
 resolve_new_theorems = function(content, global = FALSE, new_theorems, number_by){
   if(length(new_theorems) > 0){
     for(i in 1:length(new_theorems)){

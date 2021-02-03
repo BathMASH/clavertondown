@@ -1,6 +1,13 @@
 %\usepackage[english,shorthands=off]{babel}
 \usepackage{etoolbox}
 \usepackage{spverbatim}
+\makeatletter
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\@ifpackageloaded{adjustbox}{}{\usepackage[Export]{adjustbox}}
+\makeatother
+\floatplacement{figure}{H}
+\newcommand{\scalefactor}{1.0}
+\adjustboxset*{min width=\scalefactor\width,max width=\linewidth}
 \renewcommand{\familydefault}{phv}
 \fontfamily{phv}\selectfont
 \renewcommand{\em}{\bf}\renewcommand{\textit}{\textbf}\renewcommand{\emph}{\textbf}\renewcommand{\it}{\bf}\renewcommand{\itshape}{\bf}

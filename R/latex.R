@@ -115,7 +115,12 @@ pdf_clav = function(
   config
 }
 
-
+# Because newtheorems env is its name we run into the problem that you might want e.g. Definitions numbered except for in some cases. So, we need to enable
+# this on the fly. This already works in the html by simply not supplying a label. We need to make that work in the PDF as well. 
+# In order to facilitate this _all_ unnumbered env names in the LaTeX code will have a *
+# This is because we need eng_newtheorem to do the lifting of dealing with deciding what is labeled and what isn't. We do not want to put this off
+# until resolve_new_theorems but, at the time eng_newtheorem runs we don't know which are the environments which can be numbered and which are not.
+# We should double check that labeling an UNnumbered env does something sensible (e.g. doesn't number it in any format or errors)
 restore_block2 = function(x, global = FALSE, new_theorems_numbered, new_theorems_unnumbered, new_theorem_abbr, new_label_names, number_by, style_with) {
   #print(new_theorems)
   new_number_by = setNames(unlist(new_theorems_numbered, use.name=FALSE), unlist(new_theorems_numbered, use.names=FALSE))
@@ -149,8 +154,13 @@ restore_block2 = function(x, global = FALSE, new_theorems_numbered, new_theorems
       #print(noncounters_abbrLoc)
 
       #The envs which are going to share their counter
+      #And their unnumbered equivalents
       theorem_counters_defs = sprintf(
-        '%s\\newtheorem{%s}{%s}%s', theorem_style(names(aligned_abbr[counters_abbrLoc]),style_with), names(aligned_abbr[counters_abbrLoc]),
+        '%s\\newtheorem*{%s*}{%s}\\newtheorem{%s}{%s}%s',
+	theorem_style(names(aligned_abbr[counters_abbrLoc]),style_with),
+	names(aligned_abbr[counters_abbrLoc]),
+	str_trim(vapply(aligned_abbr[counters_abbrLoc], new_label_prefix, character(1), USE.NAMES = FALSE)),
+	names(aligned_abbr[counters_abbrLoc]),
       	str_trim(vapply(aligned_abbr[counters_abbrLoc], new_label_prefix, character(1), USE.NAMES = FALSE)),
       	if (global) '' else {
            if (length(grep('^\\\\chapter[*]?', x))) '[chapter]' else '[section]'
@@ -158,14 +168,25 @@ restore_block2 = function(x, global = FALSE, new_theorems_numbered, new_theorems
       )
 
       #The envs which share a counter, these pick up their names from the original theorem_abbr using the aligned locations
+      #And their unnumbered equivalents
       theorem_counted_defs = sprintf(
-        '%s\\newtheorem{%s}[%s]{%s}', theorem_style(names(new_theorem_abbr[duplicated_abbrLoc]),style_with), names(new_theorem_abbr[duplicated_abbrLoc]), names(aligned_abbr[duplicated_abbrLoc]),
+        '%s\\newtheorem*{%s*}{%s}\\newtheorem{%s}[%s]{%s}',
+	theorem_style(names(new_theorem_abbr[duplicated_abbrLoc]),style_with),
+	names(new_theorem_abbr[duplicated_abbrLoc]),
+      	str_trim(vapply(new_theorem_abbr[duplicated_abbrLoc], new_label_prefix, character(1), USE.NAMES = FALSE)),
+	names(new_theorem_abbr[duplicated_abbrLoc]),
+	names(aligned_abbr[duplicated_abbrLoc]),
       	str_trim(vapply(new_theorem_abbr[duplicated_abbrLoc], new_label_prefix, character(1), USE.NAMES = FALSE))
       )
 
       #The envs which use their own counter and do not share it
+      #And their unnumbered equivalents
       theorem_rest_defs = sprintf(
-        '%s\\newtheorem{%s}{%s}%s', theorem_style(names(aligned_abbr[noncounters_abbrLoc]),style_with), names(aligned_abbr[noncounters_abbrLoc]),
+        '%s\\newtheorem*{%s*}{%s}\\newtheorem{%s}{%s}%s',
+	theorem_style(names(aligned_abbr[noncounters_abbrLoc]),style_with),
+	names(aligned_abbr[noncounters_abbrLoc]),
+	str_trim(vapply(aligned_abbr[noncounters_abbrLoc], new_label_prefix, character(1), USE.NAMES = FALSE)),
+	names(aligned_abbr[noncounters_abbrLoc]),
       	str_trim(vapply(aligned_abbr[noncounters_abbrLoc], new_label_prefix, character(1), USE.NAMES = FALSE)),
 	if (global) '' else {
 	   if (length(grep('^\\\\chapter[*]?', x))) '[chapter]' else '[section]'
@@ -178,7 +199,7 @@ restore_block2 = function(x, global = FALSE, new_theorems_numbered, new_theorems
       #print(new_label_names_math2)
       proof_envs = setdiff(names(new_label_names_math2), 'proof')
       proof_defs = sprintf(
-        '%s\\newtheorem*{%s}{%s}', theorem_style(proof_envs,style_with), proof_envs,
+        '%s\\newtheorem*{%s*}{%s}', theorem_style(proof_envs,style_with), proof_envs,
       	gsub('^\\s+|[.]\\s*$', '', vapply(proof_envs, new_label_prefix, character(1), new_label_names_math2))
     	)
       x = append(x, c('\\usepackage{amsthm}', theorem_counters_defs, theorem_counted_defs, theorem_rest_defs, proof_defs), i - 1)
@@ -217,6 +238,9 @@ theorem_style = function(env,style_with) {
   styles
 }
 
+# We want to maximise the size of any images in the large/clear print. This is mainly achieved in the file Clear.tex using adjustbox 
+# We also want to hold their position in these formats, Pandoc sets this document wide to htpb and we want to change that to !H, which requires the extra dependency float, which may or may not already be present from the author (if they wanted to hold htpb in the standard print). So, we need to insert \usepackage{float} if it isn't already there and then add \floatplacement{figure}{H} after it. This needs to happen in the 'user' part of the preamble.
+# So, let us try: \makeatletter \@ifpackageloaded{float}{}{\usepackage{float}} \makeatother \floatplacement{figure}{H} inserted before \begin{document} but, looking at the code below that means that we actually want this in Clear.tex and have made the change there. 
 revise_latex_alts = function(x,pointsize) {
   clearfile = clavertondown_file('templates','Clear.tex')
   clearstring = paste(read_utf8(clearfile), collapse = "\n")
@@ -225,6 +249,7 @@ revise_latex_alts = function(x,pointsize) {
   x = gsub('\\{report\\}','\\{extreport\\}', x)
   x = gsub('\\\\begin\\{document\\}', sprintf('\n\n%s\n\n\\\\begin\\{document\\}', clearstring), x)
   x = gsub('\\d+pt,',sprintf('%spt,',pointsize),x)
+  x = gsub('\\{\\\\scalefactor\\}\\{1.0\\}',sprintf('\\{\\\\scalefactor\\}\\{%s\\}',as.numeric(pointsize)/10.0),x)
   x
 }
 

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3.3 Here is the putting of a figure inside a newtheorem | ClavertonDown Example</title>
   <meta name="description" content="3.3 Here is the putting of a figure inside a newtheorem | ClavertonDown Example" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3.3 Here is the putting of a figure inside a newtheorem | ClavertonDown Example" />
   <meta property="og:type" content="book" />
@@ -33,7 +33,7 @@
 <link rel="prev" href="here-is-the-putting-of-a-figure-inside-another-built-in-environment.html"/>
 <link rel="next" href="repeating-environments.html"/>
 
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +51,14 @@
 
 
 
+<script type="text/x-mathjax-config">
+MathJax.Hub.Register.MessageHook("End Math", function (msg) {
+  var nodes = Array.from(msg[1].querySelectorAll('.MJX_Assistive_MathML [id]'));
+  while (nodes.length) {
+    nodes.shift().removeAttribute('id');
+  }
+}, 20);
+</script>
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
   "fast-preview": {disabled: true},
@@ -221,7 +229,13 @@ MathJax.Hub.Config({
 <li class="chapter" data-level="1.1" data-path="why-do-we-still-supply-inaccessible-pdfs.html"><a href="why-do-we-still-supply-inaccessible-pdfs.html"><i class="fa fa-check"></i><b>1.1</b> Why do we still supply inaccessible PDFs?</a></li>
 <li class="chapter" data-level="1.2" data-path="do-i-really-have-to-put-all-this-on-moodle.html"><a href="do-i-really-have-to-put-all-this-on-moodle.html"><i class="fa fa-check"></i><b>1.2</b> Do I really have to put all this on Moodle?</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="theorems-and-stuff.html"><a href="theorems-and-stuff.html"><i class="fa fa-check"></i><b>2</b> Theorems and stuff</a></li>
+<li class="chapter" data-level="2" data-path="theorems-and-stuff.html"><a href="theorems-and-stuff.html"><i class="fa fa-check"></i><b>2</b> Theorems and stuff</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="but-i-want-to-number-some-of-them.html"><a href="but-i-want-to-number-some-of-them.html"><i class="fa fa-check"></i><b>2.1</b> But I want to number some of them…</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="but-i-want-to-number-some-of-them.html"><a href="but-i-want-to-number-some-of-them.html#out-of-interest"><i class="fa fa-check"></i><b>2.1.1</b> Out of interest…</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="figures-inside-other-environments.html"><a href="figures-inside-other-environments.html"><i class="fa fa-check"></i><b>3</b> Figures inside other environments</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="here-is-a-figure.html"><a href="here-is-a-figure.html"><i class="fa fa-check"></i><b>3.1</b> Here is a figure</a></li>

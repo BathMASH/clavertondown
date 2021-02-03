@@ -20,12 +20,6 @@ output:
       download: [["Notes.html", "HTML page"], ["Notes.pdf","Standard print PDF"], ["NotesClear.pdf","Clear print PDF"], ["NotesLarge.pdf","Large print PDF"], ["Notes.docx","Accessible Word document"], ["Notes.epub","Accessible EPub book" ]]
       sharing: no
     pandoc_args: --default-image-extension=svg
-  clavertondown::html_clav:
-    toc: true
-    pandoc_args: --default-image-extension=svg
-  clavertondown::epub_clav:
-    toc: true
-    pandoc_args: --default-image-extension=svg
   clavertondown::pdf_clav:
     latex_engine: pdflatex
     keep_tex: true
@@ -33,6 +27,12 @@ output:
     toc: true
     extra_dependencies: ["float"]
     pandoc_args: --default-image-extension=pdf
+  clavertondown::epub_clav:
+    toc: false
+    pandoc_args: --default-image-extension=svg
+  clavertondown::html_clav:
+    toc: true
+    pandoc_args: --default-image-extension=svg
 header-includes:
   - \newcommand{\BOO}{BOO}
 ---
@@ -147,17 +147,31 @@ Here is some text which is not part of the below example.
 \BeginKnitrBlock{Examples}<div class="Examples" custom-style="ExampleStyle"><span class="Examples" custom-style="NameStyle"><strong> Examples: </strong></span><div>You can turn off the colour and padding in html, ePub and Word for any newtheorem or inbuilt theorem type. You do this in the _bookdown.yml file by adding the theorem name to the colouroff style_with list.</div></div>\EndKnitrBlock{Examples}
 Here is some text which is not part of the above example.
 
+## But I want to number some of them...
+
+\BeginKnitrBlock{Definitions}<div class="Definitions" custom-style="DefinitionStyle"><span class="Definitions" custom-style="NameStyle"><strong> Definitions: </strong></span><div>This is unnumbered in all formats</div></div>\EndKnitrBlock{Definitions}
+
+\BeginKnitrBlock{Definitions}<div class="Definitions" custom-style="DefinitionStyle"><span class="Definitions" custom-style="NameStyle"><strong> Definitions (\#Definitions:def3) </strong></span><div>This should be definitions 2.3 in all formats</div></div>\EndKnitrBlock{Definitions}
+
+### Out of interest...
+
+What happens if I try to number an environment I have specifically declared to be unnumbered? e.g. using {newtheorem, env='Examples', label="argh"}
+
+This will fail to compile for PDF and it will produce "Examples (#Examples:argh)" as the title in other formats. 
+
+The only real benefit to be gained from specifically declaring an environment to be unnumbered is that you are less likely to accidentally number an instance of it!
+
 # Figures inside other environments
 
 ## Here is a figure
 
 
 
-![(\#fig:cars1)This is title and the caption](./Notes_files/figures/cars-plot-1 "This is the alternative text"){width="60%"}
+![(\#fig:cars1)This is title and a caption with a reference \@ref(thm:thm1) inside it](./Notes_files/figures/cars-plot-1 "This is the alternative text"){width="60%"}
 
 ## Here is the putting of a figure inside another built in environment
 
-\BeginKnitrBlock{example}<div class="bookdown-example" custom-style="ExampleStyle" id="exm:unnamed-chunk-5"><span class="exm:unnamed-chunk-5" custom-style="NameStyle"><strong>(\#exm:unnamed-chunk-5) </strong></span><div>Here is an example.
+\BeginKnitrBlock{example}<div class="bookdown-example" custom-style="ExampleStyle" id="exm:unnamed-chunk-6"><span class="exm:unnamed-chunk-6" custom-style="NameStyle"><strong>(\#exm:unnamed-chunk-6) </strong></span><div>Here is an example.
 
 ![(\#fig:cars2)Something to do with cars](./Notes_files/figures/cars-plot-1   "Some more meaningful alternative text?"){width="60%"}
 

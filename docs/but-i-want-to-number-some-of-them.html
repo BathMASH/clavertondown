@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4 Repeating environments | ClavertonDown Example</title>
-  <meta name="description" content="4 Repeating environments | ClavertonDown Example" />
+  <title>2.1 But I want to number some of them… | ClavertonDown Example</title>
+  <meta name="description" content="2.1 But I want to number some of them… | ClavertonDown Example" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4 Repeating environments | ClavertonDown Example" />
+  <meta property="og:title" content="2.1 But I want to number some of them… | ClavertonDown Example" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4 Repeating environments | ClavertonDown Example" />
+  <meta name="twitter:title" content="2.1 But I want to number some of them… | ClavertonDown Example" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="here-is-the-putting-of-a-figure-inside-a-newtheorem.html"/>
-<link rel="next" href="but-i-want-it-to-do.html"/>
+<link rel="prev" href="theorems-and-stuff.html"/>
+<link rel="next" href="figures-inside-other-environments.html"/>
 
 <script src="libs/header-attrs-2.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
@@ -268,48 +268,37 @@ MathJax.Hub.Config({
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="repeating-environments" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Repeating environments</h1>
-<p>Sometimes I would like to repeat a definition from earlier and have it numbered the same. This now works as expected in all formats including the numbering of the environment. However, the numbering of <em>things inside the environment</em> will probably be wrong so take care. Tell us if this is important to you as it is low priority at the moment.</p>
-<p>Inbuilt using own numbering</p>
-
-<div  class="bookdown-theorem" custom-style="TheoremStyle">
-<span class="thm:thm1" custom-style="NameStyle"><strong>Theorem 2.1:  (Foo)  </strong></span>
-<div style="font-style:italic">
-<p>This is a theorem environment already provided by Bookdown. It still works as before.</p>
-</div>
-</div>
-<p>Inbuilt using other inbuilt numbering</p>
-
-<div  class="bookdown-proposition" custom-style="TheoremStyle">
-<span class="prp:prp1" custom-style="NameStyle"><strong>Proposition 2.2:  (Thingy we need for <a href="theorems-and-stuff.html#thm:thm1">2.1</a>)  </strong></span>
-<div style="font-style:italic">
-<p>However, in this system you can now</p>
-<ul>
-<li>Change the numbering system of the inbuilt environments - this is done in the file _bookdown.yml. Please see the file in the same folder as this file.</li>
-<li>Reference other environments within names. Notice that you need to use a double backslash.</li>
-</ul>
-</div>
-</div>
-<p>Newtheorem using other inbuilt numbering</p>
+<div id="but-i-want-to-number-some-of-them" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> But I want to number some of them…</h2>
 
 <div class="Definitions" custom-style="DefinitionStyle">
-<span class="Definitions" custom-style="NameStyle"><strong> Definitions 2.2:  </strong></span>
+<span class="Definitions" custom-style="NameStyle"><strong> Definitions: </strong></span>
 <div>
-<p>You can create new numbered theorem types. Unlike inbuilt environments, for them to be numbered in all formats they <em>must</em> have a label. If you forget then they won’t be numbered in any format <em>except</em> for PDF and then your numbering won’t match. I might try and fix this at some point. You can number them alone or with other inbuilt or newtheorem environments.</p>
-<p>You need to have predefined the type, the numbering and made any changes to the standard print style in the file _bookdown.yml. Please see the file in the same folder as this file.</p>
-<p>Take care not to reuse the inbuilt numbering labels with your new theorems! This will lead to odd things happening. The inbuilt labels to avoid are: thm, lem, cor, prp, cnj, def, exm, exr, fig, tab and eq.</p>
+This is unnumbered in all formats
 </div>
 </div>
-<p>I still need to test the other combinations. Please tell me if it is broken.</p>
+
+<div class="Definitions" custom-style="DefinitionStyle">
+<span class="Definitions" custom-style="NameStyle"><strong> Definitions 2.3:  </strong></span>
+<div>
+This should be definitions 2.3 in all formats
 </div>
+</div>
+<div id="out-of-interest" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Out of interest…</h3>
+<p>What happens if I try to number an environment I have specifically declared to be unnumbered? e.g. using {newtheorem, env=‘Examples’, label=“argh”}</p>
+<p>This will fail to compile for PDF and it will produce “Examples (#Examples:argh)” as the title in other formats.</p>
+<p>The only real benefit to be gained from specifically declaring an environment to be unnumbered is that you are less likely to accidentally number an instance of it!</p>
+</div>
+</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="here-is-the-putting-of-a-figure-inside-a-newtheorem.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="but-i-want-it-to-do.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="theorems-and-stuff.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="figures-inside-other-environments.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

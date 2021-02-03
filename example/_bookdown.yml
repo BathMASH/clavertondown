@@ -10,7 +10,7 @@ number_by:
   prp: thm
   Def: def
 style_with:
-  plain: ["Definitions"]
+  plain: ["Definitions", "definition"]
   definition: []
   remark: ["Proof"]
   colouroff: ["Examples"]
