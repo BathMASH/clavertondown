@@ -246,8 +246,10 @@ eng_proof = function(options) {
     h4 = options$html.after %n% ''
     #h5 = options$html.before2 %n% ''
     h6 = options$html.after2 %n% ''
+    latex.unnu = ''
     if (knitr::is_latex_output()) {
     h7 = h8 = '\n'
+    latex.unnu = '*'
     } else {
     #A proof can't have a label so it doesn't need an id. The id that was here was working in html, in, one browser, but not in epub as it was being set to a label that could contain all kinds of things which, unlike eng_theorem's label, is not appropriate
     h7 = sprintf('<%s class="bookdown-%s" custom-style="ProofStyle">', h2, type)
@@ -256,14 +258,13 @@ eng_proof = function(options) {
 
   if(stringr::str_detect(tolower(type), 'proof'))
     if(knitr::is_latex_output())
-      h6 = ''
+      h6 = latex.unnu = ''
     else
       h8 = sprintf('<p>&squ;</p></%s>', h2)
 
-
     sprintf(
-	'\\BeginKnitrBlock{%s}%s%s%s%s<p>%s</p>%s%s%s\\EndKnitrBlock{%s}',
-    	type, l1, h3, h7, html.before2, code, h6, h8, h4, type
+	'\\BeginKnitrBlock{%s%s}%s%s%s%s<p>%s</p>%s%s%s\\EndKnitrBlock{%s%s}',
+    	type, latex.unnu, l1, h3, h7, html.before2, code, h6, h8, h4, type, latex.unnu
   	)
 }
 

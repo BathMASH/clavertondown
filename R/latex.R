@@ -121,6 +121,11 @@ pdf_clav = function(
 # This is because we need eng_newtheorem to do the lifting of dealing with deciding what is labeled and what isn't. We do not want to put this off
 # until resolve_new_theorems but, at the time eng_newtheorem runs we don't know which are the environments which can be numbered and which are not.
 # We should double check that labeling an UNnumbered env does something sensible (e.g. doesn't number it in any format or errors)
+
+# Forgot that bookdown hard encodes the UNnumbered remark and solution environments and that the above means that they have become remark* and solution*
+# this is fixed in eng_proof in utils. NOTE THAT proof is also a hardcoded UNnumbered environment but it ALREADY exists from AMS and we need to keep it
+# unstarred. 
+
 restore_block2 = function(x, global = FALSE, new_theorems_numbered, new_theorems_unnumbered, new_theorem_abbr, new_label_names, number_by, style_with) {
   #print(new_theorems)
   new_number_by = setNames(unlist(new_theorems_numbered, use.name=FALSE), unlist(new_theorems_numbered, use.names=FALSE))
