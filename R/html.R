@@ -443,6 +443,9 @@ reg_label_types = paste(label_types, collapse = '|')
 # compatibility with bookdown <= 0.4.7: ex was the prefix for Example; now it's exm
 reg_label_types = paste(reg_label_types, 'ex', sep = '|')
 
+# given a label, e.g. fig:foo, figure out the appropriate prefix
+# This is the old version of the function from bookdown, they changed the return type in some way recently which I might need to look into
+label_prefix = function(type, dict = label_names) bookdown:::i18n('label', type, dict)
 
 parse_fig_labels = function(content, global = FALSE,
 new_theorems = list(), number_by = list()
@@ -521,13 +524,13 @@ new_theorems = list(), number_by = list()
         labs[[i]] = character(length(lab))
         next
       }
-      labs[[i]] = paste0(bookdown:::label_prefix(type), num, ': ')
+      labs[[i]] = paste0(label_prefix(type), num, ': ')
       k = max(figs[figs <= i])
       content[k] = paste(c(content[k], sprintf('<span id="%s"></span>', lab)), collapse = '')
     }, tab = {
       if (length(grep('^<caption', content[i - 0:1])) == 0) next
       labs[[i]] = sprintf(
-        '<span id="%s">%s</span>', lab, paste0(bookdown:::label_prefix(type), num, ': ')
+        '<span id="%s">%s</span>', lab, paste0(label_prefix(type), num, ': ')
       )
     }, eq = {
       labs[[i]] = sprintf('\\tag{%s}', num)
@@ -536,7 +539,7 @@ new_theorems = list(), number_by = list()
         '(<span class="math display")', sprintf('\\1 id="%s"', lab), content[k]
       )
     }, {
-      labs[[i]] = paste0(bookdown:::label_prefix(type), num, ': ')
+      labs[[i]] = paste0(label_prefix(type), num, ': ')
     })
   }
 

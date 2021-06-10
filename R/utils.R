@@ -204,7 +204,7 @@ eng_proof = function(options) {
     code = one_string(options$code);
     type = options$type %n% 'proof'
     if(is.null(type)) return(code)
-    label = bookdown:::label_prefix(type, label_names_math2)
+    label = label_prefix(type, label_names_math2)
     html.before2 = sprintf('(\\#%s) ', label)
     name = options$name;
     to_md = output_md()
