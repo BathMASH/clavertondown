@@ -1,0 +1,19 @@
+\babel@toc {english}{}
+\contentsline {section}{Introduction}{1}{section*.2}
+\contentsline {section}{\numberline {1}What formats do I need to produce and why?}{2}{section.1}
+\contentsline {subsection}{\numberline {1.1}Why do we still supply inaccessible PDFs?}{4}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}Do I really have to put all this on Moodle?}{5}{subsection.1.2}
+\contentsline {section}{\numberline {2}Theorems and stuff}{6}{section.2}
+\contentsline {subsection}{\numberline {2.1}But I want to number some of them\ldots {}}{10}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}Out of interest\ldots {}}{10}{subsubsection.2.1.1}
+\contentsline {section}{\numberline {3}Figures inside other environments}{12}{section.3}
+\contentsline {subsection}{\numberline {3.1}Here is a figure}{12}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Here is the putting of a figure inside another built in environment}{12}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Here is the putting of a figure inside a newtheorem}{13}{subsection.3.3}
+\contentsline {section}{\numberline {4}Repeating environments}{15}{section.4}
+\contentsline {section}{\numberline {5}But\ldots {} I want it to do\ldots {}}{17}{section.5}
+\contentsline {section}{\numberline {6}LaTeX newcommands, usepackages etc.}{17}{section.6}
+\contentsline {section}{\numberline {7}Great. How do I use this thing?}{18}{section.7}
+\contentsline {subsection}{\numberline {7.1}Installing ClavertonDown}{18}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Using ClavertonDown for the first time}{19}{subsection.7.2}
+\contentsline {section}{\numberline {8}Can I tell people not at Claverton Down about this?}{20}{section.8}

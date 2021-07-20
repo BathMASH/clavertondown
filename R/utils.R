@@ -160,13 +160,13 @@ eng_newtheorem = function(options) {
     s1 = '<div>'
     s2 = '</div>'
     if(stringr::str_detect(tolower(env), 'proof') || stringr::str_detect(tolower(env), 'solution') || stringr::str_detect(tolower(env), 'soln') || stringr::str_detect(tolower(env), 'remark'))
-      h7 = sprintf('<%s class="%s" custom-style="ProofStyle">', h1, env)
+      h7 = sprintf('<%s class="%s" custom-style="ProofStyle" id="%s">', h1, env, label)
     else if(stringr::str_detect(tolower(env),'example') || stringr::str_detect(tolower(env), 'exercise'))
-      h7 = sprintf('<%s class="%s" custom-style="ExampleStyle">', h1, env)
+      h7 = sprintf('<%s class="%s" custom-style="ExampleStyle" id="%s">', h1, env, label)
     else if(stringr::str_detect(tolower(env), 'definition') || stringr::str_detect(tolower(env), 'defn'))
-      h7 = sprintf('<%s class="%s" custom-style="DefinitionStyle">', h1, env)
+      h7 = sprintf('<%s class="%s" custom-style="DefinitionStyle" id="%s">', h1, env, label)
     else{
-      h7 = sprintf('<%s class="%s" custom-style="TheoremStyle">', h1, env)
+      h7 = sprintf('<%s class="%s" custom-style="TheoremStyle" id="%s">', h1, env, label)
       #This approach breaks WCAG level 2.1 AA when there is a list inside the theorem
       #s1 = '<p><em>'
       s1 = '<div style="font-style:italic">'

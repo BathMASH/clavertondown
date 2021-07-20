@@ -20,13 +20,22 @@
 
 <title>Test 004: New theorems, numbering and styles</title>
 
-<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
 <script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="libs/navigation-1.1/tabsets.js"></script>
 
 
@@ -186,7 +195,7 @@ You can create new theorem types
 </div>
 </div>
 
-<div class="Proof" custom-style="ProofStyle">
+<div  class="Proof" custom-style="ProofStyle">
 <span class="Proof" custom-style="NameStyle"><strong> Proof: (Of theorem <a href="#thm:thm1">1.1</a>) </strong></span>
 <div>
 Here is a proof
@@ -213,42 +222,42 @@ Bookdown is needed for things like theorems and internal references
 </div>
 </div>
 
-<div class="Thought" custom-style="TheoremStyle">
+<div id="tho:tho1" class="Thought" custom-style="TheoremStyle">
 <span class="Thought" custom-style="NameStyle"><strong> Thought 1.1:  (Bar of <a href="#thm:thm1">1.1</a>) </strong></span>
 <div style="font-style:italic">
 You can create new theorem types
 </div>
 </div>
 
-<div class="Defns" custom-style="DefinitionStyle">
+<div  class="Defns" custom-style="DefinitionStyle">
 <span class="Defns" custom-style="NameStyle"><strong> Defns: </strong></span>
 <div>
 You can create new unumbered theorem types
 </div>
 </div>
 
-<div class="Nugget" custom-style="TheoremStyle">
+<div id="nug:nug1" class="Nugget" custom-style="TheoremStyle">
 <span class="Nugget" custom-style="NameStyle"><strong> Nugget 1.2:  </strong></span>
 <div style="font-style:italic">
 You can create new theorem types
 </div>
 </div>
 
-<div class="Example" custom-style="ExampleStyle">
+<div  class="Example" custom-style="ExampleStyle">
 <span class="Example" custom-style="NameStyle"><strong> Example: </strong></span>
 <div>
 An example
 </div>
 </div>
 
-<div class="Solution" custom-style="ProofStyle">
+<div id="sol:sol1" class="Solution" custom-style="ProofStyle">
 <span class="Solution" custom-style="NameStyle"><strong> Solution 1.1:  </strong></span>
 <div>
 You can create new theorem types
 </div>
 </div>
 
-<div class="Exercises" custom-style="ExampleStyle">
+<div  class="Exercises" custom-style="ExampleStyle">
 <span class="Exercises" custom-style="NameStyle"><strong> Exercises: </strong></span>
 <div>
 Here is a question
@@ -280,7 +289,7 @@ Here is a definition
 </div>
 </div>
 
-<div class="Thought" custom-style="TheoremStyle">
+<div  class="Thought" custom-style="TheoremStyle">
 <span class="Thought" custom-style="NameStyle"><strong> Thought 1.1:  (Bar of <a href="#thm:thm1">1.1</a>) </strong></span>
 <div style="font-style:italic">
 You can create new theorem types
@@ -288,7 +297,7 @@ You can create new theorem types
 </div>
 Now an actual new thing:
 
-<div class="Thought" custom-style="TheoremStyle">
+<div id="tho:tho2" class="Thought" custom-style="TheoremStyle">
 <span class="Thought" custom-style="NameStyle"><strong> Thought 2.1:  </strong></span>
 <div style="font-style:italic">
 Stuff and nonsense

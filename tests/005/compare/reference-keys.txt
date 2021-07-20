@@ -1,0 +1,3 @@
+here-is-a-figure
+here-is-the-putting-of-a-figure-inside-another-built-in-environment
+here-is-the-putting-of-a-figure-inside-a-newtheorem

@@ -6,8 +6,8 @@
   17pt,
   english,
   a4paper]{extarticle}
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
@@ -45,7 +45,8 @@
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=2.5cm]{geometry}
-\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
 \makeatletter
@@ -76,7 +77,10 @@
   \usepackage{polyglossia}
   \setmainlanguage[]{english}
 \else
-  \usepackage[shorthands=off,main=english]{babel}
+  \usepackage[main=english]{babel}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
 \fi
 \ifluatex
   \usepackage{selnolig}  % disable illegal ligatures
@@ -88,38 +92,45 @@
 
 \usepackage{amsthm}
 \theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{Thought}{Thought}[section]
+\newtheorem*{theorem*}{Theorem}\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{Thought*}{Thought}\newtheorem{Thought}{Thought}[section]
 \theoremstyle{definition}
-\newtheorem{proposition}[theorem]{Proposition}
-\newtheorem{Nugget}[Thought]{Nugget}
+\newtheorem*{proposition*}{Proposition}\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{Nugget*}{Nugget}\newtheorem{Nugget}[Thought]{Nugget}
 \theoremstyle{plain}
-\newtheorem{lemma}{Lemma}[section]
+\newtheorem*{lemma*}{Lemma}\newtheorem{lemma}{Lemma}[section]
 \theoremstyle{plain}
-\newtheorem{corollary}{Corollary}[section]
+\newtheorem*{corollary*}{Corollary}\newtheorem{corollary}{Corollary}[section]
 \theoremstyle{plain}
-\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem*{conjecture*}{Conjecture}\newtheorem{conjecture}{Conjecture}[section]
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
+\newtheorem*{definition*}{Definition}\newtheorem{definition}{Definition}[section]
 \theoremstyle{definition}
-\newtheorem{example}{Example}[section]
+\newtheorem*{example*}{Example}\newtheorem{example}{Example}[section]
 \theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[section]
-\newtheorem{Solution}{Solution}[section]
+\newtheorem*{exercise*}{Exercise}\newtheorem{exercise}{Exercise}[section]
+\newtheorem*{Solution*}{Solution}\newtheorem{Solution}{Solution}[section]
 \theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-\newtheorem*{solution}{Solution}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{solution*}{Solution}
 \theoremstyle{plain}
-\newtheorem*{Defns}{Defns}
-\newtheorem*{Proof}{Proof}
-\newtheorem*{Exercises}{Exercises}
-\newtheorem*{Example}{Example}
+\newtheorem*{Defns*}{Defns}
+\newtheorem*{Proof*}{Proof}
+\newtheorem*{Exercises*}{Exercises}
+\newtheorem*{Example*}{Example}
 \let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
 
 
 %\usepackage[english,shorthands=off]{babel}
 \usepackage{etoolbox}
 \usepackage{spverbatim}
+\makeatletter
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\@ifpackageloaded{adjustbox}{}{\usepackage[Export]{adjustbox}}
+\makeatother
+\floatplacement{figure}{H}
+\newcommand{\scalefactor}{1.7}
+\adjustboxset*{min width=\scalefactor\width,max width=\linewidth}
 \renewcommand{\familydefault}{phv}
 \fontfamily{phv}\selectfont
 \renewcommand{\em}{\bf}\renewcommand{\textit}{\textbf}\renewcommand{\emph}{\textbf}\renewcommand{\it}{\bf}\renewcommand{\itshape}{\bf}
@@ -175,9 +186,9 @@ Here is some more boring text in between.
 {\label{prp:prp1} \iffalse (Thingy we need for \ref{thm:thm1}) \fi{} }You can create new theorem types
 \EndKnitrBlock{proposition}
 
-\BeginKnitrBlock{Proof}[Of theorem \ref{thm:thm1}]
+\BeginKnitrBlock{Proof*}[Of theorem \ref{thm:thm1}]
 {\iffalse{} (\#Proof:unnamed-chunk-2) \fi{}}Here is a proof\qed
-\EndKnitrBlock{Proof}
+\EndKnitrBlock{Proof*}
 
 \BeginKnitrBlock{proof}[Proof of theorem \ref{thm:thm1}]
 \iffalse{} {Proof (Proof of theorem \ref{thm:thm1}). } \fi{}
@@ -193,42 +204,42 @@ Here is a proof
 {\label{tho:tho1}}You can create new theorem types
 \EndKnitrBlock{Thought}
 
-\BeginKnitrBlock{Defns}
+\BeginKnitrBlock{Defns*}
 {\iffalse{} (\#Defns:unnamed-chunk-4) \fi{}}You can create new unumbered theorem types
-\EndKnitrBlock{Defns}
+\EndKnitrBlock{Defns*}
 
 \BeginKnitrBlock{Nugget}
 {\label{nug:nug1}}You can create new theorem types
 \EndKnitrBlock{Nugget}
 
-\BeginKnitrBlock{Example}
+\BeginKnitrBlock{Example*}
 {\iffalse{} (\#\url{Example:unnamed-chunk-5}) \fi{}}An example
-\EndKnitrBlock{Example}
+\EndKnitrBlock{Example*}
 
 \BeginKnitrBlock{Solution}
 {\label{sol:sol1}}You can create new theorem types
 \EndKnitrBlock{Solution}
 
-\BeginKnitrBlock{Exercises}
+\BeginKnitrBlock{Exercises*}
 {\iffalse{} (\#Exercises:unnamed-chunk-6) \fi{}}Here is a question
-\EndKnitrBlock{Exercises}
+\EndKnitrBlock{Exercises*}
 
-\BeginKnitrBlock{solution}
+\BeginKnitrBlock{solution*}
 \iffalse{} {Solution. } \fi{}
 
 Test
-\EndKnitrBlock{solution}
+\EndKnitrBlock{solution*}
 
 \hypertarget{testing-the-reference-link-back}{%
 \section{Testing the reference link back}\label{testing-the-reference-link-back}}
 
 Now go to theorem \ref{thm:thm1} or thought \ref{tho:tho1}
 
-\BeginKnitrBlock{solution}
+\BeginKnitrBlock{solution*}
 \iffalse{} {Solution. } \fi{}
 
 Test
-\EndKnitrBlock{solution}
+\EndKnitrBlock{solution*}
 \begingroup\renewcommand{\thedefinition}{\ref{def:truth}}
 \BeginKnitrBlock{definition}
 { }Here is a definition

@@ -9,16 +9,6 @@ classoption: a4paper
 fontsize: 10pt
 geometry: margin=2.5cm
 output:
-  clavertondown::word_clav:
-    toc: true
-    number_sections: true
-    keep_md: true
-  clavertondown::pdf_clav:
-    latex_engine: pdflatex
-    dev: pdf
-    keep_tex: true
-    fig_caption: false
-    toc: true
   clavertondown::gitbook_clav:
     split_by: section
     config:
@@ -28,6 +18,16 @@ output:
     toc: true
   clavertondown::epub_clav:
     toc: true
+  clavertondown::pdf_clav:
+    latex_engine: pdflatex
+    dev: pdf
+    keep_tex: true
+    fig_caption: false
+    toc: true
+  clavertondown::word_clav:
+    toc: true
+    number_sections: true
+    keep_md: true
 ---
 # Testing some theorem stuff
 

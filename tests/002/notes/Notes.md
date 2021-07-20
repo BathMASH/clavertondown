@@ -13,9 +13,9 @@ output:
     toc: true
     number_sections: true
     keep_md: true
-  clavertondown::epub_clav:
-    toc: true
   clavertondown::html_clav:
+    toc: true
+  clavertondown::epub_clav:
     toc: true
   clavertondown::pdf_clav:
     latex_engine: pdflatex

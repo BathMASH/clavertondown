@@ -6,8 +6,8 @@
   17pt,
   english,
   a4paper]{extarticle}
+\usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
@@ -45,7 +45,8 @@
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=2.5cm]{geometry}
-\usepackage{longtable,booktabs}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
 \makeatletter
@@ -76,7 +77,10 @@
   \usepackage{polyglossia}
   \setmainlanguage[]{english}
 \else
-  \usepackage[shorthands=off,main=english]{babel}
+  \usepackage[main=english]{babel}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
 \fi
 \ifluatex
   \usepackage{selnolig}  % disable illegal ligatures
@@ -88,32 +92,39 @@
 
 \usepackage{amsthm}
 \theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{theorem*}{Theorem}\newtheorem{theorem}{Theorem}[section]
 \theoremstyle{plain}
-\newtheorem{lemma}{Lemma}[section]
+\newtheorem*{lemma*}{Lemma}\newtheorem{lemma}{Lemma}[section]
 \theoremstyle{plain}
-\newtheorem{corollary}{Corollary}[section]
+\newtheorem*{corollary*}{Corollary}\newtheorem{corollary}{Corollary}[section]
 \theoremstyle{plain}
-\newtheorem{proposition}{Proposition}[section]
+\newtheorem*{proposition*}{Proposition}\newtheorem{proposition}{Proposition}[section]
 \theoremstyle{plain}
-\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem*{conjecture*}{Conjecture}\newtheorem{conjecture}{Conjecture}[section]
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
+\newtheorem*{definition*}{Definition}\newtheorem{definition}{Definition}[section]
 \theoremstyle{definition}
-\newtheorem{example}{Example}[section]
+\newtheorem*{example*}{Example}\newtheorem{example}{Example}[section]
 \theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[section]
+\newtheorem*{exercise*}{Exercise}\newtheorem{exercise}{Exercise}[section]
 \theoremstyle{remark}
-\newtheorem{Exercise}{Exercise}[section]
+\newtheorem*{Exercise*}{Exercise}\newtheorem{Exercise}{Exercise}[section]
 \theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-\newtheorem*{solution}{Solution}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{solution*}{Solution}
 \let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
 
 
 %\usepackage[english,shorthands=off]{babel}
 \usepackage{etoolbox}
 \usepackage{spverbatim}
+\makeatletter
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\@ifpackageloaded{adjustbox}{}{\usepackage[Export]{adjustbox}}
+\makeatother
+\floatplacement{figure}{H}
+\newcommand{\scalefactor}{1.7}
+\adjustboxset*{min width=\scalefactor\width,max width=\linewidth}
 \renewcommand{\familydefault}{phv}
 \fontfamily{phv}\selectfont
 \renewcommand{\em}{\bf}\renewcommand{\textit}{\textbf}\renewcommand{\emph}{\textbf}\renewcommand{\it}{\bf}\renewcommand{\itshape}{\bf}
