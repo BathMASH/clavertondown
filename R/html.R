@@ -484,10 +484,14 @@ new_theorems = list(), number_by = list()
   new_reg_label_types = paste(new_reg_label_types, 'ex', sep = '|')
   #print(c('new_reg_label_types: ', new_reg_label_types), quote=FALSE)
     
-  # look for (#fig:label) or (#tab:label) and replace them with Figure/Table x.x
-  #m = gregexpr(sprintf('\\(#((%s):[-/[:alnum:]]+)\\)', reg_label_types), content)
+  # look for (#fig:label), (#tab:label) and (#eq:label) and replace them with Figure/Table x.x or tag
+  #OLD m = gregexpr(sprintf('\\(#((%s):[-/[:alnum:]]+)\\)', reg_label_types), content)
+  # deal with ebook eq issues (it will contain \ like (\#eq:label))
+  content = gsub('\\(\\\\#eq:', '\\(#eq:', content)
+
   m = gregexpr(sprintf('\\(#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), content)
   labs = regmatches(content, m)
+
   #cntr = new_counters(label_types, chaps)  # chapter counters
   cntr = bookdown:::new_counters(new_label_types, chaps)  # chapter counters
   figs = grep('^<div class="figure', content)

@@ -63,6 +63,7 @@ process_markdown = function(input_file, from, pandoc_args, global, new_theorems,
   #Need to do the next thing or the newtheorems will not be picked up in the label list
   x = resolve_new_theorems(x, global = !number_sections, new_theorems, number_by)
   figs = parse_fig_labels(x, global, new_theorems, number_by)
+  
   # resolve cross-references and update the Markdown input file
   content = read_utf8(input_file)
   content = resolve_new_theorems(content, global = !number_sections, new_theorems, number_by)
