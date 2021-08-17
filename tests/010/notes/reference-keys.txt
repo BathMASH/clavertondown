@@ -1,0 +1,5 @@
+figures-generated-by-r
+saved-and-then-included
+here-is-a-figure
+figure-inside-another-built-in-environment
+generated-and-included

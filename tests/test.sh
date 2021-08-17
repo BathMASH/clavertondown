@@ -53,4 +53,13 @@ if diff -r -q -a -X "exclude" ./008/notes ./008/compare; then
         echo "UNCHANGED"
 fi
 
+echo -n "009: "
+if diff -r -q -a -X "exclude" ./009/notes ./009/compare; then
+        echo "UNCHANGED"
+fi
+echo -n "008: "
+if diff -r -q -a -X "exclude" ./010/notes ./010/compare; then
+        echo "UNCHANGED"
+fi
+
 

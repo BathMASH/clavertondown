@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Test 009: Aligning styles between PDF and nonPDF" />
+<meta property="og:type" content="book" />
+
+
+
+
+
+<meta name="author" content="Emma Cliffe, Skills Centre: MASH, University of Bath" />
+
+
+
+<meta name="description" content="Test 009: Aligning styles between PDF and nonPDF">
+
+<title>Test 009: Aligning styles between PDF and nonPDF</title>
+
+<script src="libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+</style>
+
+<style type="text/css">
+  a {
+   color: blue;
+  }
+
+  [custom-style=DefinitionStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: AliceBlue;
+    border-left-style: solid;
+    border-color: CadetBlue;
+    padding-left: 0.5em;
+  }
+
+  [custom-style=TheoremStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: honeydew;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+  }
+
+  [custom-style=ProofStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: seashell;
+    border-left-style: solid;
+    border-color: darkkhaki;
+    padding-left: 0.5em;
+  }
+
+  [custom-style=ExampleStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: lavenderblush;
+    border-left-style: solid;
+    border-color: mediumorchid;
+    padding-left: 0.5em;
+  }
+
+  [data-custom-style=DefinitionStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: AliceBlue;
+    border-left-style: solid;
+    border-color: CadetBlue;
+    padding-left: 0.5em;
+  }
+
+  [data-custom-style=TheoremStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: honeydew;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+  }
+
+  [data-custom-style=ProofStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: seashell;
+    border-left-style: solid;
+    border-color: darkkhaki;
+    padding-left: 0.5em;
+  }
+
+  [data-custom-style=ExampleStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: lavenderblush;
+    border-left-style: solid;
+    border-color: mediumorchid;
+    padding-left: 0.5em;
+  }
+
+  
+</style>
+
+</head>
+
+<body>
+
+<div class="container-fluid main-container">
+
+
+<!--bookdown:title:start-->
+<div id="header">
+<h1 class="title">Test 009: Aligning styles between PDF and nonPDF</h1>
+<h4 class="author"><em>Emma Cliffe, Skills Centre: MASH, University of Bath</em></h4>
+<h4 class="date"><em>August 2020</em></h4>
+</div>
+<!--bookdown:title:end-->
+
+<!--bookdown:toc:start-->
+<!--bookdown:toc:end-->
+
+<!--bookdown:body:start-->
+<div id="problem" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Problem</h1>
+<p>The styles in HTML are an attempt to colour code based on the type of enviroment. Since the user can define any number of these we have to… guess… to try and align colours. We have four HTML styles:</p>
+<ul>
+<li>DefinitionStyle</li>
+<li>ExampleStyle</li>
+<li>TheoremStyle</li>
+<li>ProofStyle</li>
+</ul>
+<p>Our assignment is NOT currently based, at all, on the PDF styling specified by the author, or any other information like e.g. numberwith. LaTeX styling, while originally intended to broadly correspond to semantic type is not used this way by authors due to the fonts which are imposed in standard LaTeX. So, the three styles in LaTeX:</p>
+<ul>
+<li>Plain</li>
+<li>Definition</li>
+<li>Remark</li>
+</ul>
+<p>are used to impose the authors visual preferences mostly with respect to font, font attributes and layout.</p>
+</div>
+<div id="there-are-two-different-issues-here" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> There are two different issues here</h1>
+<ul>
+<li><p>Case 1 (HTML output): Author makes a newtheorem and it defaults to TheoremStyle but might not be a theorem. Author has styled the newtheorem in LaTeX.
+Try: To use numberwith information e.g. if a new environment is numbered with definitions AND has fallen through the best guessing assign style of what it is numbered with
+Try: Failing the above, where a style_with is specified try Definition styling -&gt; DefinitionStyle; remark styling -&gt; ExampleStyle; plain styling -&gt; TheoremStyle</p></li>
+<li><p>Case 2 (PDF output): Author makes a newtheorem and I make a best guess at the HTML styling. Author has not styled the newtheorem in LaTeX.
+Try: DefinitionStyle -&gt; the style of definition environment (either inbuilt or as reassigned by user); ExampleStyle -&gt; the style of example environment (either inbuilt or as reassigned by user); TheoremStyle -&gt; the style of theorem env (ditto); ProofStyle -&gt; remark (I think that proof style is hard-coded?)</p></li>
+</ul>
+<!--chapter:end:index.Rmd-->
+</div>
+<!--bookdown:body:end-->
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+</body>
+</html>
