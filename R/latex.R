@@ -245,7 +245,8 @@ theorem_style = function(env,style_with) {
 
 # We want to maximise the size of any images in the large/clear print. This is mainly achieved in the file Clear.tex using adjustbox 
 # We also want to hold their position in these formats, Pandoc sets this document wide to htpb and we want to change that to !H, which requires the extra dependency float, which may or may not already be present from the author (if they wanted to hold htpb in the standard print). So, we need to insert \usepackage{float} if it isn't already there and then add \floatplacement{figure}{H} after it. This needs to happen in the 'user' part of the preamble.
-# So, let us try: \makeatletter \@ifpackageloaded{float}{}{\usepackage{float}} \makeatother \floatplacement{figure}{H} inserted before \begin{document} but, looking at the code below that means that we actually want this in Clear.tex and have made the change there. 
+# So, let us try: \makeatletter \@ifpackageloaded{float}{}{\usepackage{float}} \makeatother \floatplacement{figure}{H} inserted before \begin{document} but, looking at the code below that means that we actually want this in Clear.tex and have made the change there.
+# If you use R to generate an image without saving and then floating it then no native width and height are set in the includegraphics. If you change the width and height in the R snippet then this is used to _generate a different size pdf image_ NOT to adapt the width and height in includegraphics. This means that when we try to use scaling and adjusting there is no width and height set so Bad Things happen in clear and large print. ALL includegraphics in clear and large print MUST have a width AND height set. Luckily we know that adjustbox is present so when we find such things in the below we can set width=\Width and height=\Height. Note the capitalisation and reread the adjustbox manual if you aren't sure. 
 revise_latex_alts = function(x,pointsize) {
   clearfile = clavertondown_file('templates','Clear.tex')
   clearstring = paste(read_utf8(clearfile), collapse = "\n")
@@ -255,6 +256,7 @@ revise_latex_alts = function(x,pointsize) {
   x = gsub('\\\\begin\\{document\\}', sprintf('\n\n%s\n\n\\\\begin\\{document\\}', clearstring), x)
   x = gsub('\\d+pt,',sprintf('%spt,',pointsize),x)
   x = gsub('\\{\\\\scalefactor\\}\\{1.0\\}',sprintf('\\{\\\\scalefactor\\}\\{%s\\}',as.numeric(pointsize)/10.0),x)
+  x = gsub('\\\\includegraphics\\{', '\\\\includegraphics\\[width=\\\\Width,height=\\\\Height\\]\\{', x);
   x
 }
 
