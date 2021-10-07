@@ -13,8 +13,6 @@ output:
     toc: true
     number_sections: true
     keep_md: true
-  clavertondown::html_clav:
-    toc: true
   clavertondown::gitbook_clav:
     split_by: section
     config:
@@ -25,6 +23,8 @@ output:
     dev: pdf
     keep_tex: true
     fig_caption: false
+    toc: true
+  clavertondown::html_clav:
     toc: true
   clavertondown::epub_clav:
     toc: true

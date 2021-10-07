@@ -17,13 +17,6 @@ output:
   clavertondown::html_clav:
     toc: true
     pandoc_args: --default-image-extension=svg
-  clavertondown::pdf_clav:
-    latex_engine: pdflatex
-    keep_tex: true
-    fig_caption: true
-    toc: true
-    extra_dependencies: ["float"]
-    pandoc_args: --default-image-extension=pdf
   clavertondown::gitbook_clav:
     split_by: section
     config:
@@ -33,6 +26,13 @@ output:
   clavertondown::epub_clav:
     toc: false
     pandoc_args: --default-image-extension=svg
+  clavertondown::pdf_clav:
+    latex_engine: pdflatex
+    keep_tex: true
+    fig_caption: true
+    toc: true
+    extra_dependencies: ["float"]
+    pandoc_args: --default-image-extension=pdf
 header-includes:
   - \newcommand{\BOO}{BOO}
 ---

@@ -9,6 +9,16 @@ classoption: a4paper
 fontsize: 10pt
 geometry: margin=2.5cm
 output:
+  clavertondown::word_clav:
+    toc: true
+    number_sections: true
+    keep_md: true
+  clavertondown::html_clav:
+    toc: true
+    fig_caption: true
+    keep_md: true
+  clavertondown::epub_clav:
+    toc: false
   clavertondown::gitbook_clav:
     split_by: section
     self_contained: no
@@ -22,16 +32,6 @@ output:
     keep_md: true
     fig_caption: true
     toc: true
-  clavertondown::word_clav:
-    toc: true
-    number_sections: true
-    keep_md: true
-  clavertondown::html_clav:
-    toc: true
-    fig_caption: true
-    keep_md: true
-  clavertondown::epub_clav:
-    toc: false
 ---
 
 # Section 1

@@ -2,6 +2,8 @@ what-formats-do-i-need-to-produce-and-why
 why-do-we-still-supply-inaccessible-pdfs
 do-i-really-have-to-put-all-this-on-moodle
 theorems-and-stuff
+but-i-want-to-number-some-of-them
+out-of-interest
 figures-inside-other-environments
 here-is-a-figure
 here-is-the-putting-of-a-figure-inside-another-built-in-environment
@@ -13,6 +15,3 @@ great.-how-do-i-use-this-thing
 installing-clavertondown
 using-clavertondown-for-the-first-time
 can-i-tell-people-not-at-claverton-down-about-this
-but-i-want-to-number-some-of-them
-out-of-interest-what-happens-if
-out-of-interest
