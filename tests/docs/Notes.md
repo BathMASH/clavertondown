@@ -14,11 +14,8 @@ output:
     number_sections: true
     keep_md: true
     pandoc_args: --default-image-extension=svg
-  clavertondown::gitbook_clav:
-    split_by: section
-    config:
-      download: [["Notes.html", "HTML page"], ["Notes.pdf","Standard print PDF"], ["NotesClear.pdf","Clear print PDF"], ["NotesLarge.pdf","Large print PDF"], ["Notes.docx","Accessible Word document"], ["Notes.epub","Accessible EPub book" ]]
-      sharing: no
+  clavertondown::html_clav:
+    toc: true
     pandoc_args: --default-image-extension=svg
   clavertondown::pdf_clav:
     latex_engine: pdflatex
@@ -27,8 +24,11 @@ output:
     toc: true
     extra_dependencies: ["float"]
     pandoc_args: --default-image-extension=pdf
-  clavertondown::html_clav:
-    toc: true
+  clavertondown::gitbook_clav:
+    split_by: section
+    config:
+      download: [["Notes.html", "HTML page"], ["Notes.pdf","Standard print PDF"], ["NotesClear.pdf","Clear print PDF"], ["NotesLarge.pdf","Large print PDF"], ["Notes.docx","Accessible Word document"], ["Notes.epub","Accessible EPub book" ]]
+      sharing: no
     pandoc_args: --default-image-extension=svg
   clavertondown::epub_clav:
     toc: false
