@@ -290,3 +290,74 @@ str_trim = function(x) gsub('^\\s+|\\s+$', '', x)
 # manipulate internal options
 opts = knitr:::new_defaults(list(config = list()))
 
+# This should _only_ intercept the hardcoded theorem types of bookdown and no other fenced environments
+# There is a problem with the fact that you can include engines inside fences but you can't include engines inside engines.
+# What should we do in this case?
+# Also, you can include any number of fenced divs inside a fenced div so we have to make sure that we find the correct ending.
+# Actually, if you include others within then the outer one would need to have more than three : . ALSO, you cannot include
+# fenced divs inside engines so we can just ignore this case and document that the user has to deal with this. Because, we cannot. 
+# This is annoyingly hard. In that it cannot be done simple substitutions as we need a 'stack'. 
+# Either we do it this way by intercepting and leave the actual file unchanged or we change this to a one time transform like
+# that in bookdown which goes the other way. The simpler way. Blah. Whichever we decide/can do the same actual code needs to
+# exist.
+# I believe that this now intercepts, we have to decide how to use it now... 
+# The only sensible decision is for the to be something that the user runs once, on each of their input files, inspects the output etc.
+# Can we create something which will do this nice and neatly? Store the originals somewhere and reset up the directory ready to go?
+# Also, this should be in utils and we should remove all of the remmants of other attempts.
+# The main reason that this is the only sensible way is that the two formats ARE NOT interchangeable and presumably someone is moving
+# to clavertondown because they want to do something which bookdown does not do. As soon as they do that they can't go back. And, they
+# may already have done something in bookdown that cannot be converted to clavertondown because of how clavertondown works. 
+intercept_theorems = function(input_file){
+  x = read_utf8(input_file)
+
+  # Look for all ::: {, ``` and ::: and store the locations
+  m = gregexpr('(::::* \\{|::::*\\{|```|::::*|:::)',x)
+  positions = regmatches(x, m)
+  matches = list()
+  locs = list()
+  for (i in seq_along(positions)){
+    if(length(match <- positions[[i]]) == 0) next
+    #This is where the things of interest are
+    matches = c(matches,match)
+    locs = c(locs,i)
+  }
+  #print(matches)
+  # Find those of interest, if there isn't a ``` before the next ::: then convert  
+  i = 1
+  while(i <= length(matches)){
+    #print(matches[[i]])
+    #print(x[[locs[[i]]]])
+    if(matches[[i]] == ':::{' || matches[[i]] == '::: {'){
+      print("Located a fenced div")
+      # If there is a ``` then report a warning and skip on
+      if(matches[[i+1]] == '```'){
+        print("Warning: We cannot convert fenced divs which contain knitr engines. You need to deal with this conversion by hand, please see clavertondown documentation or consider sticking with bookdown.")
+      }else{
+        # convert this and then convert the next :::
+	# We actually need to CHECK if this is a hardencoded theorem and only replace the end if it is... 
+	if(grepl('.(theorem|lemma|corollary|proposition|conjecture|definition|example|exercise|hypothesis|proof|remark|solution)',x[[locs[[i]]]])){
+	  x[[locs[[i]]]] = gsub(sprintf('::: \\{.([[:alnum:]]+)[:blank:]?\\#?'), sprintf('``` \\{\\1 '),x[[locs[[i]]]])
+	  x[[locs[[i+1]]]] = gsub(':::','```',x[[locs[[i+1]]]])
+	  print("This is a bookdown fenced div theorem it is safe to convert to clavertondown, converting:")
+	  print(x[[locs[[i]]]])
+	  print(x[[locs[[i+1]]]])
+	}else{
+	  print("This is not a hard coded bookdown theorem environment so we do not convert it.")
+	  print(x[[locs[[i]]]])
+	  print(x[[locs[[i+1]]]])
+	}
+      }
+    }else{
+      if(matches[[i]] == '::::{' || matches[[i]] == ':::: {'){
+        if(grepl('(::::+ \\{.(theoremlemma|corollary|proposition|conjecture|definition|example|exercise|hypothesis|proof|remark|solution)|::::+\\{.(theorem|lemma|corollary|proposition|conjecture|definition|example|exercise|hypothesis|proof|remark|solution))', x[[locs[[i]]]])){
+	  print("Located a fenced div")
+          print("Warning: You have a bookdown theorem environment which is defined using :::: or more colons. This suggests that there is a fenced div inside this theorem environment. We cannot convert fenced div theorems which contain fenced divs to knitr engines. You need to deal with this conversion by hand, please see clavertondown documentation or consider sticking with bookdown.");
+	}
+      }
+    }
+    i = i+1  
+  } 
+
+  #temp = with_ext('temp','.Rmdd')
+  #write_utf8(x,temp)
+}
