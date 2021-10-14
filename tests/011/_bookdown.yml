@@ -1,0 +1,14 @@
+book_filename: "Notes"
+output_dir: "notes"
+new_theorems:
+  Thought: tho
+  Nugget: nug
+  Solution: sol
+  Wonder: ---
+  Proof: ---
+number_by:
+  nug: thm
+style_with:
+  plain: []
+  definition: ["Wonder","proposition"]
+  remark: ["Proof"]
