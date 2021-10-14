@@ -307,7 +307,7 @@ opts = knitr:::new_defaults(list(config = list()))
 # The main reason that this is the only sensible way is that the two formats ARE NOT interchangeable and presumably someone is moving
 # to clavertondown because they want to do something which bookdown does not do. As soon as they do that they can't go back. And, they
 # may already have done something in bookdown that cannot be converted to clavertondown because of how clavertondown works. 
-intercept_theorems = function(input_file){
+intercept_theorems = function(input_file,output = NULL){
   x = read_utf8(input_file)
 
   # Look for all ::: {, ``` and ::: and store the locations
@@ -357,7 +357,11 @@ intercept_theorems = function(input_file){
     }
     i = i+1  
   } 
-
-  #temp = with_ext('temp','.Rmdd')
-  #write_utf8(x,temp)
+  # return the text or write to output file
+  if (is.null(output)){
+   print(x)
+  }else{
+   temp = with_ext(output,'.Rmd')   
+   write_utf8(x, temp)
+  }
 }
