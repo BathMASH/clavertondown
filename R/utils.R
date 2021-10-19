@@ -307,61 +307,88 @@ opts = knitr:::new_defaults(list(config = list()))
 # The main reason that this is the only sensible way is that the two formats ARE NOT interchangeable and presumably someone is moving
 # to clavertondown because they want to do something which bookdown does not do. As soon as they do that they can't go back. And, they
 # may already have done something in bookdown that cannot be converted to clavertondown because of how clavertondown works. 
-intercept_theorems = function(input_file,output = NULL){
-  x = read_utf8(input_file)
+intercept_theorems = function(input_dir){
 
-  # Look for all ::: {, ``` and ::: and store the locations
-  m = gregexpr('(::::* \\{|::::*\\{|```|::::*|:::)',x)
-  positions = regmatches(x, m)
-  matches = list()
-  locs = list()
-  for (i in seq_along(positions)){
-    if(length(match <- positions[[i]]) == 0) next
-    #This is where the things of interest are
-    matches = c(matches,match)
-    locs = c(locs,i)
+  # Make a new directory bookdownOriginal in input_dir
+  # If this already exists then bail and warn
+  bookdown_original = paste(input_dir, "/bookdownOriginal",sep='')
+  if(file.exists(bookdown_original)){
+    stop("Error: You should not run this function multiple times on the same input. Your originals are in bookdownOriginal. Moving, renaming or deleting this directory will enable you to run this function again. We do not recommend deleting the directory.");
   }
-  #print(matches)
-  # Find those of interest, if there isn't a ``` before the next ::: then convert  
-  i = 1
-  while(i <= length(matches)){
-    #print(matches[[i]])
-    #print(x[[locs[[i]]]])
-    if(matches[[i]] == ':::{' || matches[[i]] == '::: {'){
-      print("Located a fenced div")
-      # If there is a ``` then report a warning and skip on
-      if(matches[[i+1]] == '```'){
-        print("Warning: We cannot convert fenced divs which contain knitr engines. You need to deal with this conversion by hand, please see clavertondown documentation or consider sticking with bookdown.")
-      }else{
-        # convert this and then convert the next :::
-	# We actually need to CHECK if this is a hardencoded theorem and only replace the end if it is... 
-	if(grepl('.(theorem|lemma|corollary|proposition|conjecture|definition|example|exercise|hypothesis|proof|remark|solution)',x[[locs[[i]]]])){
-	  x[[locs[[i]]]] = gsub(sprintf('::: \\{.([[:alnum:]]+)[:blank:]?\\#?'), sprintf('``` \\{\\1 '),x[[locs[[i]]]])
-	  x[[locs[[i+1]]]] = gsub(':::','```',x[[locs[[i+1]]]])
-	  print("This is a bookdown fenced div theorem it is safe to convert to clavertondown, converting:")
-	  print(x[[locs[[i]]]])
-	  print(x[[locs[[i+1]]]])
-	}else{
-	  print("This is not a hard coded bookdown theorem environment so we do not convert it.")
-	  print(x[[locs[[i]]]])
-	  print(x[[locs[[i+1]]]])
-	}
-      }
-    }else{
-      if(matches[[i]] == '::::{' || matches[[i]] == ':::: {'){
-        if(grepl('(::::+ \\{.(theoremlemma|corollary|proposition|conjecture|definition|example|exercise|hypothesis|proof|remark|solution)|::::+\\{.(theorem|lemma|corollary|proposition|conjecture|definition|example|exercise|hypothesis|proof|remark|solution))', x[[locs[[i]]]])){
-	  print("Located a fenced div")
-          print("Warning: You have a bookdown theorem environment which is defined using :::: or more colons. This suggests that there is a fenced div inside this theorem environment. We cannot convert fenced div theorems which contain fenced divs to knitr engines. You need to deal with this conversion by hand, please see clavertondown documentation or consider sticking with bookdown.");
-	}
-      }
+
+  # Copy ALL files including subdirectories, recursively, into bookdownOriginal - preserving a copy
+  temp_bookdown_original = paste(tempdir(), "/bookdownOriginal",sep='')
+  dir.create(temp_bookdown_original)
+  # Copy into a temporary directory first as recursion does not ignore the copy to location
+  copying1 = file.copy(input_dir,temp_bookdown_original,overwrite=TRUE,recursive=TRUE,copy.date=TRUE)
+  copying2 = file.copy(temp_bookdown_original,input_dir,overwrite=TRUE,recursive=TRUE,copy.date=TRUE)
+  # Delete the temporary directory so it isn't hanging around and so that you can run this more than once in a session
+  unlink(temp_bookdown_original, recursive = TRUE)
+
+  # Check that copying action did not report any problems, if it did then bail and warn
+  if(!(copying1 && copying2))
+    stop("Error: Failed to fully copy your originals into a bookdownOriginals subdirectory hence we have abandoned the attempt to rewrite your files. Please look at cause of problem and delete partial copy directory bookdownOriginal before trying again.")
+
+  # For each file.Rmd in the input_dir run the below and overwrite in the same location 
+  for(input_file in list.files(input_dir,pattern=".Rmd")){
+    input_file_loc = paste(input_dir,input_file,sep='')    
+    print(sprintf("-----------Processing file %s-----------",input_file_loc))
+    x = read_utf8(input_file_loc)
+
+    # Look for all ::: {, ``` and ::: and store the locations
+    m = gregexpr('(::::* \\{|::::*\\{|```|::::*|:::)',x)
+    positions = regmatches(x, m)
+    matches = list()
+    locs = list()
+    for (i in seq_along(positions)){
+    	if(length(match <- positions[[i]]) == 0) next
+    	#This is where the things of interest are
+    	matches = c(matches,match)
+    	locs = c(locs,i)
     }
-    i = i+1  
-  } 
-  # return the text or write to output file
-  if (is.null(output)){
-   print(x)
-  }else{
-   temp = with_ext(output,'.Rmd')   
-   write_utf8(x, temp)
+    #print(matches)
+    # Find those of interest, if there isn't a ``` before the next ::: then convert  
+    i = 1
+    while(i <= length(matches)){
+      #print(matches[[i]])
+      #print(x[[locs[[i]]]])
+      if(matches[[i]] == ':::{' || matches[[i]] == '::: {'){
+        print("Located a fenced div")
+      	# If there is a ``` then report a warning and skip on
+      	if(matches[[i+1]] == '```'){
+          print("Warning: We cannot convert fenced divs which contain knitr engines. You need to deal with this conversion by hand, please see clavertondown documentation or consider sticking with bookdown.")
+      	}else{
+          # convert this and then convert the next :::
+	  # We actually need to CHECK if this is a hardencoded theorem and only replace the end if it is... 
+	  if(grepl('.(theorem|lemma|corollary|proposition|conjecture|definition|example|exercise|hypothesis|proof|remark|solution)',x[[locs[[i]]]])){
+	    x[[locs[[i]]]] = gsub(sprintf('::: \\{.([[:alnum:]]+)[:blank:]?\\#?'), sprintf('``` \\{\\1 '),x[[locs[[i]]]])
+	    x[[locs[[i+1]]]] = gsub(':::','```',x[[locs[[i+1]]]])
+	    print("This is a bookdown fenced div theorem it is safe to convert to clavertondown, converting:")
+	    print(x[[locs[[i]]]])
+	    print(x[[locs[[i+1]]]])
+	  }else{
+	    print("This is not a hard coded bookdown theorem environment so we do not convert it.")
+	    print(x[[locs[[i]]]])
+	    print(x[[locs[[i+1]]]])
+	  }
+      	}
+      }else{
+        if(matches[[i]] == '::::{' || matches[[i]] == ':::: {'){
+          if(grepl('(::::+ \\{.(theorem|lemma|corollary|proposition|conjecture|definition|example|exercise|hypothesis|proof|remark|solution)|::::+\\{.(theorem|lemma|corollary|proposition|conjecture|definition|example|exercise|hypothesis|proof|remark|solution))', x[[locs[[i]]]])){
+	    print("Located a fenced div")
+            print("Warning: You have a bookdown theorem environment which is defined using :::: or more colons. This suggests that there is a fenced div inside this theorem environment. We cannot convert fenced div theorems which contain fenced divs to knitr engines. You need to deal with this conversion by hand, please see clavertondown documentation or consider sticking with bookdown.");
+	  }
+      	}
+      }
+      i = i+1  
+    }
+  write_utf8(x, input_file_loc)
   }
+  # return the text or write to output file
+  #if (is.null(output)){
+  # print(x)
+  #}else{
+  # temp = with_ext(output,'.Rmd')   
+  #write_utf8(x, temp)
+  #}
 }
