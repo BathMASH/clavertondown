@@ -138,8 +138,9 @@ restore_block2 = function(x, global = FALSE, new_theorems_numbered, new_theorems
   if (is.na(i)) return(x)
   if (length(grep('\\\\(Begin|End)KnitrBlock', tail(x, -i))))
     x = append(x, '\\let\\BeginKnitrBlock\\begin \\let\\EndKnitrBlock\\end', i - 1)
-  new_all_math_env = c(names(new_theorem_abbr), names(label_names_math2))
-  if (length(grep(sprintf('^\\\\BeginKnitrBlock\\{(%s)\\}', paste(new_all_math_env, collapse = '|')), x)) &&
+  new_all_math_env = c(names(new_theorem_abbr), names(label_names_math2), names(new_theorems_unnumbered))
+  if ((length(grep(sprintf('^\\\\BeginKnitrBlock\\{(%s)\\}', paste(new_all_math_env, collapse = '|')), x)) ||
+       length(grep(sprintf('^\\\\BeginKnitrBlock\\{(%s)\\*\\}', paste(new_all_math_env, collapse = '|')), x))) &&
       length(grep('^\\s*\\\\newtheorem\\{theorem\\}', head(x, i))) == 0) {
       print("Writing out the newtheorem statements")
       #This array aligns to theorem_abbr but has those sharing a counter replaced by the env they share the counter with
