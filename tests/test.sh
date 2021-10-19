@@ -122,6 +122,17 @@ else
     diff -r -a -X "exclude" -I "<script" -I "<meta" ./011/notes ./011/compare
 fi
 
+echo "------------- 012 ------------- "
+if diff -r -q -a -X "exclude" -I "<script" -I "<meta" ./012/notes ./012/compare; then
+    echo "NO IMPORTANT CHANGES"
+    if diff -r -q -a -X "exclude" ./012/notes ./012/compare; then
+	echo "NO CHANGES TO SCRIPTS OR META"
+fi
+else
+    diff -r -a -X "exclude" -I "<script" -I "<meta" ./012/notes ./012/compare
+fi
+
+
 
 # echo -n "002: "
 # if diff -r -q -a -X "exclude" ./002/notes ./002/compare; then
