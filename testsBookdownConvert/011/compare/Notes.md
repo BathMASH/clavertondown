@@ -1,0 +1,200 @@
+---
+title: "Test 011: A fenced div environment in the new format used by bookdown"
+author: 'Emma Cliffe, Skills Centre: MASH, University of Bath'
+date: 'August 2020'
+site: bookdown::bookdown_site
+lang: en
+documentclass: article
+classoption: a4paper
+fontsize: 10pt
+geometry: margin=2.5cm
+output:
+  clavertondown::word_clav:
+    toc: false
+    number_sections: true
+    keep_md: true
+  clavertondown::html_clav:
+    toc: false
+    keep_md: true
+  clavertondown::pdf_clav:
+    latex_engine: pdflatex
+    dev: pdf
+    keep_tex: true
+    fig_caption: false
+    toc: false
+  clavertondown::epub_clav:
+    toc: false
+  bookdown::pdf_book:
+    latex_engine: pdflatex
+    dev: pdf
+    keep_tex: true
+    fig_caption: false
+    toc: false
+  bookdown::gitbook:
+    split_by: section
+    config:
+      download: [["Notes.html", "HTML page"], ["Notes.pdf","Standard print PDF"], ["NotesClear.pdf","Clear print PDF"], ["NotesLarge.pdf","Large print PDF"], ["Notes.docx","Accessible Word document"], ["Notes.epub","Accessible EPub book" ]]
+      sharing: no
+  clavertondown::gitbook_clav:
+    split_by: section
+    config:
+      download: [["Notes.html", "HTML page"], ["Notes.pdf","Standard print PDF"], ["NotesClear.pdf","Clear print PDF"], ["NotesLarge.pdf","Large print PDF"], ["Notes.docx","Accessible Word document"], ["Notes.epub","Accessible EPub book" ]]
+      sharing: no
+---
+
+# Blah
+
+We should be able to intersect a fenced div WHEN:
+
+* It corresponds to an internal and static list of Bookdown theorem types OR
+* It has been declared by a clavertondown user in the _bookdown.yml file as a newtheorem type
+
+NO other fenced divs should be disturbed.
+
+Further, this should continue to function as expected in ALL clavertondown formats and not just HTML and PDF as in Bookdown. 
+
+# What needs to happen
+
+Fenced div: 
+
+::: {.theorem #pyth1 name="Pythagorean theorem"}
+For a right triangle, if $c$ denotes the length of the hypotenuse
+and $a$ and $b$ denote the lengths of the other two sides, we have
+
+$$a^2 + b^2 = c^2$$
+:::
+
+should result in exactly the same output as
+
+\BeginKnitrBlock{theorem}\iffalse{-91-80-121-116-104-97-103-111-114-101-97-110-32-116-104-101-111-114-101-109-93-}\fi{}<div class="bookdown-theorem" custom-style="TheoremStyle" id="thm:pyth2"><span class="thm:pyth2" custom-style="NameStyle"><strong><span id="thm:pyth2"></span>Theorem 2.1   \iffalse (Pythagorean theorem) \fi{} </strong></span><div style="font-style:italic">For a right triangle, if $c$ denotes the length of the hypotenuse
+and $a$ and $b$ denote the lengths of the other two sides, we have
+
+$$a^2 + b^2 = c^2$$</div></div>\EndKnitrBlock{theorem}
+
+but other fenced divs INCLUDING those which use user defined clavertondown environments SHOULD NOT convert. We are not opening this up as a format due to the fundamental differences.
+
+Hence the below will NOT convert
+
+::: {.Nugget #def1}
+For a right triangle, if $c$ denotes the length of the hypotenuse
+and $a$ and $b$ denote the lengths of the other two sides, we have
+
+$$a^2 + b^2 = c^2$$
+
+```r
+1+2
+```
+
+```
+## [1] 3
+```
+:::
+
+but should have been encoded as
+
+\BeginKnitrBlock{Nugget}<div class="Nugget" custom-style="TheoremStyle" id="nug:def1"><span class="Nugget" custom-style="NameStyle"><strong> Nugget 2.2:  </strong></span><div style="font-style:italic">For a right triangle, if $c$ denotes the length of the hypotenuse
+and $a$ and $b$ denote the lengths of the other two sides, we have
+
+$$a^2 + b^2 = c^2$$</div></div>\EndKnitrBlock{Nugget}
+
+but that would not be backwards compatibility at this point. That would be new functionality. 
+
+The following should not convert:
+:::: {.theorem #pyth1 name="Pythagorean theorem"}
+For a right triangle, if $c$ denotes the length of the hypotenuse
+and $a$ and $b$ denote the lengths of the other two sides, we have
+
+$$a^2 + b^2 = c^2$$
+::::
+
+
+There is an added problem. It is feasible, but I haven't tested it, that an engine based code environment can be embedded in a fenced div environment in the new bookdown approach. For backwards compatibility we need to honour this if needed. It isn't possible in the engine based method to put an engine environment inside another so this functionality cannot be added to standard clavertondown environments - as they are intersepted by knitr rather than Pandoc. It is therefore feasible that this new syntax may become the favoured syntax within clavertondown. So, we have to be really careful here. 
+
+We also need to keep all the things we have added working to - which DO NOT work in Bookdown in the new fenced div approach. 
+
+# How to achieve this?
+
+Fenced divs in Pandoc are HTML transformable but not LaTeX/PDF transformable. But, in Pandoc these specific fenced divs ARE transformable to LaTeX (but, I assume, not others). This means that we should look at the latex.R code in the new Bookdown as they must be intercepting at this point. 
+
+This does lead to the obvious question: Why only LaTeX/PDF, why not also make it work in EPub and Word? Is there something fundamental I have missed that means these can't be intercepted in this case? 
+
+* EPub is basically HTML, maybe it works more or less but they haven't tested it/fixed some small things. Try to not intercept it. 
+* Word is a different matter.
+
+# Things to note immediately
+
+Out the box we have the text and in the right style but we have lost everything else. The latter is unsurprising but the former is odd. 
+
+Actually, this is true only in HTML so this is less odd. 
+
+# This is a custom Lua filter
+
+Okay, so what happens is there is a new function called common_format_config. This does a few things but the one we care about right now is that it passes ALL control of what happens in LaTeX AND HTML to a custom Lua script for Pandoc. 
+
+This is not great. It replicates the same hard-encoding that we see in Bookdown but now we are outside of a situation where we can realistically do anything about it. They have definitely gone further down the hard-encoding route - and further away from being able to do any of the things that our user base wants e.g. with respect to numbering. There is nothing which isn't a terrible hackfest if we go in the Lua direction. 
+It is here that the begins turn up for the LaTeX and there is hard-encoded assumptions about the LaTeX you can get out. 
+
+So, we aren't going to do that. That means that we need to intercept and change what is happening BEFORE we get to Pandoc. What are the options? 
+
+We need to define a preprocessor... There are examples of this in word and ebook formats already. Basically, as a 'simple' first fix we are just going to rewrite the markdown. So, we should be able to intercept at this point?
+
+Yes, we can. It rewrites from Rmd to md. BUT, we can't just replace : with ` etc. This is 'too late' already. Instead we have to ... do what the engine does? Is there really no way to rewrite and then re-trigger the engines? 
+
+# Testing all the hard encoded bookdown envs
+
+::: {.theorem}
+Theorem
+:::
+
+::: {.lemma}
+Lemma
+:::
+
+::: {.corollary}
+Corollary
+:::
+
+::: {.proposition}
+Proposition
+:::
+
+::: {.conjecture}
+Conjecture
+:::
+
+::: {.definition}
+Definition
+:::
+
+::: {.example}
+Example
+:::
+
+::: {.exercise}
+Exercise
+:::
+
+::: {.hypothesis}
+Hypothesis
+:::
+
+::: {.proof}
+Proof
+:::
+
+::: {.solution}
+Solution
+:::
+
+::: {.remark}
+Remark
+:::
+
+And this shouldn't work:
+
+:::: {.remark}
+Thing that shouldn't convert
+::::
+
+<!--chapter:end:index.Rmd-->
+

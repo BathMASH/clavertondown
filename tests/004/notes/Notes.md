@@ -9,10 +9,8 @@ classoption: a4paper
 fontsize: 10pt
 geometry: margin=2.5cm
 output:
-  clavertondown::word_clav:
+  clavertondown::html_clav:
     toc: true
-    number_sections: true
-    keep_md: true
   clavertondown::gitbook_clav:
     split_by: section
     config:
@@ -24,8 +22,10 @@ output:
     keep_tex: true
     fig_caption: false
     toc: true
-  clavertondown::html_clav:
+  clavertondown::word_clav:
     toc: true
+    number_sections: true
+    keep_md: true
   clavertondown::epub_clav:
     toc: true
 ---
