@@ -9,6 +9,7 @@ epub_clav = function(
   new_theorems = load_config()[['new_theorems']]
   number_by = load_config()[['number_by']]
   style_with = load_config()[['style_with']]
+  classify_as = load_config()[['classify_as']]
   args = c(
     pandoc_args,
     if (number_sections) '--number-sections',
@@ -30,7 +31,7 @@ epub_clav = function(
     knitr = rmarkdown::knitr_options_html(fig_width, fig_height, NULL, FALSE, dev),
     pandoc = rmarkdown::pandoc_options(epub_version, from, args, ext = '.epub'),
     pre_processor = function(metadata, input_file, runtime, knit_meta, files_dir, output_dir) {
-      process_markdown(input_file, from, args, !number_sections, new_theorems, number_by, style_with)
+      process_markdown(input_file, from, args, !number_sections, new_theorems, number_by, style_with, classify_as)
       NULL
     },
     post_processor = function(metadata, input, output, clean, verbose) {
@@ -51,7 +52,7 @@ move_output = function(output) {
   output2
 }
 
-process_markdown = function(input_file, from, pandoc_args, global, new_theorems, number_by, style_with, to_md = output_md()) {
+process_markdown = function(input_file, from, pandoc_args, global, new_theorems, number_by, style_with, classify_as, to_md = output_md()) {
   intermediate_html = with_ext(input_file, 'tmp.html')
   on.exit(file.remove(intermediate_html), add = TRUE)
   rmarkdown::pandoc_convert(
@@ -77,7 +78,7 @@ process_markdown = function(input_file, from, pandoc_args, global, new_theorems,
   )
 
   content = remove_colours(content, style_with["colouroff"][[1]])
-
+  content = fix_classifications(content, classify_as)
 
   if (!to_md) {
     i = xfun::prose_index(content)

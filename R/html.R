@@ -16,8 +16,9 @@ html_chapters_clav = function(
     new_theorems = load_config()[['new_theorems']]
     number_by = load_config()[['number_by']]
     style_with = load_config()[['style_with']]
+    classify_as = load_config()[['classify_as']]
     bookdown:::move_files_html(output, lib_dir)
-    output2 = split_chapters_clav(output, page_builder, number_sections, split_by, split_bib, new_theorems, number_by, style_with)
+    output2 = split_chapters_clav(output, page_builder, number_sections, split_by, split_bib, new_theorems, number_by, style_with, classify_as)
     if (file.exists(output) && !same_path(output, output2)) file.remove(output)
     bookdown:::move_files_html(output2, lib_dir)
     output2
@@ -49,6 +50,7 @@ html_clav = function(
     new_theorems = load_config()[['new_theorems']]
     number_by = load_config()[['number_by']]
     style_with = load_config()[['style_with']]
+    classify_as = load_config()[['classify_as']]
     x = read_utf8(output)
     x = bookdown:::clean_html_tags(x)
     x = bookdown:::restore_appendix_html(x, remove = FALSE)
@@ -76,6 +78,9 @@ html_clav = function(
 
     # Turn colour off if needed
     x = remove_colours(x, style_with["colouroff"][[1]])
+
+    # Fix style classifications as per author
+    x = fix_classifications(x, classify_as)
 
     print(knitr:::opts_knit$get('header.title'))
     write_utf8(x, output)
@@ -124,7 +129,7 @@ tufte_clav = function(..., number_sections = FALSE) {
 }
 
 
-split_chapters_clav = function(output, build = bookdown:::build_chapter, number_sections, split_by, split_bib, new_theorems, number_by, style_with, ...) {
+split_chapters_clav = function(output, build = bookdown:::build_chapter, number_sections, split_by, split_bib, new_theorems, number_by, style_with, classify_as, ...) {
 
   use_rmd_names = split_by == 'rmd'
   split_level = switch(
@@ -212,6 +217,7 @@ split_chapters_clav = function(output, build = bookdown:::build_chapter, number_
     new_reg_label_types = paste(new_reg_label_types, 'ex', sep = '|')
     x = resolve_repeated_ids(x, new_reg_label_types, new_theorems, number_by)
     x = remove_colours(x, style_with["colouroff"][[1]])
+    x = fix_classifications(x, classify_as)
 
     x = bookdown:::add_chapter_prefix(x)
     write_utf8(x, output)
@@ -247,8 +253,9 @@ split_chapters_clav = function(output, build = bookdown:::build_chapter, number_
   new_reg_label_types = paste(new_label_types, collapse = '|')
   new_reg_label_types = paste(new_reg_label_types, 'ex', sep = '|')
   html_body = resolve_repeated_ids(html_body, new_reg_label_types, new_theorems, number_by)
-  print(style_with)
+  #print(style_with)
   html_body = remove_colours(html_body, style_with["colouroff"][[1]])
+  html_body = fix_classifications(html_body, classify_as)
 
   # do not split the HTML file
   if (split_level == 0) {
@@ -595,5 +602,21 @@ remove_colours = function(x, colouroff) {
       # We should be able to find strings like i" custom-style="...Style" and replace them with i"
       # This will remove colour in HTML, Gitbook, EPub and Word. LaTeX formats don't have colour in the first place
       x = gsub(sprintf('%s" custom-style="[-/[:alpha:]]+Style"',colouroff[[i]]), sprintf('%s"',colouroff[[i]]), x)
+  x
+}
+
+
+fix_classifications = function(x, classify_as){
+  if(length(classify_as) > 0)
+    for(class in names(classify_as)){
+      # This loops through any of the nameStyle classifications allowed
+      print(class)
+      if(length(classify_as[[class]]) > 0)
+        for(i in 1:length(classify_as[[class]])){
+	  # I am looking for class="bookdown-thingi" OR class="thingi" and then after that I will find custom-style="something" and I want the something to be changed to class 
+	  #print(classify_as[[class]][i])
+	  x = gsub(sprintf('%s" custom-style="(Theorem|Definition|Example|Proof)+Style"',classify_as[[class]][i]), sprintf('%s" custom-style="%s"',classify_as[[class]][i],class), x)
+	}
+     }
   x
 }

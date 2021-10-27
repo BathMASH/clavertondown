@@ -90,6 +90,30 @@
 \author{Emma Cliffe, Skills Centre: MASH, University of Bath}
 \date{August 2020}
 
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem*{theorem*}{Theorem}\newtheorem{theorem}{Theorem}[section]
+\theoremstyle{plain}
+\newtheorem*{lemma*}{Lemma}\newtheorem{lemma}{Lemma}[section]
+\theoremstyle{plain}
+\newtheorem*{corollary*}{Corollary}\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{plain}
+\newtheorem*{proposition*}{Proposition}\newtheorem{proposition}{Proposition}[section]
+\theoremstyle{plain}
+\newtheorem*{conjecture*}{Conjecture}\newtheorem{conjecture}{Conjecture}[section]
+\theoremstyle{definition}
+\newtheorem*{definition*}{Definition}\newtheorem{definition}{Definition}[section]
+\theoremstyle{definition}
+\newtheorem*{example*}{Example}\newtheorem{example}{Example}[section]
+\theoremstyle{definition}
+\newtheorem*{exercise*}{Exercise}\newtheorem{exercise}{Exercise}[section]
+\theoremstyle{remark}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{solution*}{Solution}
+\newtheorem*{Notation*}{Notation}
+\newtheorem*{Remarks*}{Remarks}
+\newtheorem*{Sketch Proof*}{Sketch Proof}
+\let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
 \begin{document}
 \maketitle
 
@@ -101,13 +125,13 @@ The styles in HTML are an attempt to colour code based on the type of enviroment
 \begin{itemize}
 \tightlist
 \item
-  DefinitionStyle
+  ProofStyle: (P\textbar p)roof(s), (S\textbar s)olution(s), (S\textbar s)oln(s), (R\textbar r)emark(s) and anything including these words; if not then one of the below
 \item
-  ExampleStyle
+  ExampleStyle: (E\textbar e)xample(s), (E\textbar e)xercise(s) and anything including these words; if not then one of the below
 \item
-  TheoremStyle
+  DefinitionStyle: (D\textbar d)efinition(s), (D\textbar d)efn(s) and anything including these words; if not then defaults to the below
 \item
-  ProofStyle
+  TheoremStyle: Everything else - but should definitely include (T\textbar t)heorem(s), (L\textbar l)emma(s), (C\textbar c)orollar(y\textbar ies), (P\textbar p)roposition(s), (C\textbar c)onjecture(s).
 \end{itemize}
 
 Our assignment is NOT currently based, at all, on the PDF styling specified by the author, or any other information like e.g.~numberwith. LaTeX styling, while originally intended to broadly correspond to semantic type is not used this way by authors due to the fonts which are imposed in standard LaTeX. So, the three styles in LaTeX:
@@ -124,17 +148,75 @@ Our assignment is NOT currently based, at all, on the PDF styling specified by t
 
 are used to impose the authors visual preferences mostly with respect to font, font attributes and layout.
 
-\hypertarget{there-are-two-different-issues-here}{%
-\section{There are two different issues here}\label{there-are-two-different-issues-here}}
+\hypertarget{actual-user-story}{%
+\section{Actual user story}\label{actual-user-story}}
+
+I thought I could give the same appearance to my Notation, Remarks and Sketch Proof environments by styling them all with style\_with remark. But, in HTML, Remarks and Sketch Proof are both pink with roman text (which I expected since it matches the Bookdown Remark), whereas my Notation environment is green with italic text (colours judged by eye in sepia mode, but the point is they look different).
 
 \begin{itemize}
+\tightlist
 \item
-  Case 1 (HTML output): Author makes a newtheorem and it defaults to TheoremStyle but might not be a theorem. Author has styled the newtheorem in LaTeX.
-  Try: To use numberwith information e.g.~if a new environment is numbered with definitions AND has fallen through the best guessing assign style of what it is numbered with
-  Try: Failing the above, where a style\_with is specified try Definition styling -\textgreater{} DefinitionStyle; remark styling -\textgreater{} ExampleStyle; plain styling -\textgreater{} TheoremStyle
+  This happened because Remarks and Sketch Proof were recognised and classified but notation wasn't.
 \item
-  Case 2 (PDF output): Author makes a newtheorem and I make a best guess at the HTML styling. Author has not styled the newtheorem in LaTeX.
-  Try: DefinitionStyle -\textgreater{} the style of definition environment (either inbuilt or as reassigned by user); ExampleStyle -\textgreater{} the style of example environment (either inbuilt or as reassigned by user); TheoremStyle -\textgreater{} the style of theorem env (ditto); ProofStyle -\textgreater{} remark (I think that proof style is hard-coded?)
+  I can never cover all bases
+\item
+  The same author does not use plain and definition style to distinguish by type as the styling with italics is not something wanted.
+\item
+  It is not the style choice that is important here. It is consistency of styling within style\_with classes. It is somewhat ambiguous what is expected here. If the author had also put theorem and proposition into remark style I presume that he would still have expected notation to be the same colour as the remark type envs. The author knows that things styled the same in PDF turn different colours in HTML and thinks it is useful.
 \end{itemize}
+
+So\ldots{} I can either:
+
+\begin{itemize}
+\tightlist
+\item
+  Give the author direct control over which class of HTML to place each thing in
+\item
+  Try to guess what is wanted using additional information provided by style\_with (but we know from experience that this is usually syntactic) and/or number\_by (likely to be less misleading)
+\item
+  Try to infer based on text analysis
+\item
+  Use a combination of the above
+\end{itemize}
+
+The easiest is clearly the first. While I am at it I can give the user control over the use of italics in the HTML.
+
+\hypertarget{thoughts}{%
+\subsection{Thoughts}\label{thoughts}}
+
+The only requirements we have in the code are:
+
+\begin{itemize}
+\tightlist
+\item
+  Retain backwards compatibility with clavertondown in terms of style\_with and colouroff
+\item
+  Make sure that whatever I do happens BEFORE colouroff is instigated because I am changing the style classification? Actually, WAIT, colouroff should work on the name not on the classification. Check this. Actually, colouroff simply removes the customstyle completely so it doesn't really matter. It will matter when it comes to switching italics off within the customstyles which use them.
+\end{itemize}
+
+\hypertarget{tests}{%
+\section{Tests}\label{tests}}
+
+\BeginKnitrBlock{theorem}
+{\label{thm:unnamed-chunk-1} }This is an inbuilt theorem.
+\EndKnitrBlock{theorem}
+
+\BeginKnitrBlock{remark*}
+\iffalse{} {Remark. } \fi{}
+
+This is an inbuilt remark.
+\EndKnitrBlock{remark*}
+
+\BeginKnitrBlock{Notation*}
+{\iffalse{} (\#Notation:unnamed-chunk-3) \fi{}}This is notation.
+\EndKnitrBlock{Notation*}
+
+\BeginKnitrBlock{Remarks*}
+{\iffalse{} (\#Remarks:unnamed-chunk-4) \fi{}}This is remarks.
+\EndKnitrBlock{Remarks*}
+
+\BeginKnitrBlock{Sketch Proof*}
+{\iffalse{} (\#Sketch Proof:unnamed-chunk-5) \fi{}}This is a sketch proof.\qed
+\EndKnitrBlock{Sketch Proof*}
 
 \end{document}

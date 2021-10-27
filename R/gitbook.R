@@ -28,6 +28,7 @@ gitbook_clav = function(
     new_theorems = load_config()[['new_theorems']]
     number_by = load_config()[['number_by']]
     style_with = load_config()[['style_with']]
+    classify_as = load_config()[['classify_as']]
     on.exit(bookdown:::write_search_data(), add = TRUE)
 
     # a hack to remove Pandoc's margin for code blocks since gitbook has already
@@ -38,7 +39,7 @@ gitbook_clav = function(
 
     bookdown:::move_files_html(output, lib_dir)
     output2 = split_chapters_clav(
-      output, bookdown:::gitbook_page, number_sections, split_by, split_bib, new_theorems, number_by, style_with, gb_config
+      output, bookdown:::gitbook_page, number_sections, split_by, split_bib, new_theorems, number_by, style_with, classify_as, gb_config
     )
     if (file.exists(output) && !same_path(output, output2)) file.remove(output)
     bookdown:::move_files_html(output2, lib_dir)

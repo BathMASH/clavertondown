@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Test 009: Aligning styles between PDF and nonPDF</title>
-  <meta name="description" content="Test 009: Aligning styles between PDF and nonPDF" />
+  <title>2.1 Thoughts | Test 009: Aligning styles between PDF and nonPDF</title>
+  <meta name="description" content="2.1 Thoughts | Test 009: Aligning styles between PDF and nonPDF" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Test 009: Aligning styles between PDF and nonPDF" />
+  <meta property="og:title" content="2.1 Thoughts | Test 009: Aligning styles between PDF and nonPDF" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Test 009: Aligning styles between PDF and nonPDF" />
+  <meta name="twitter:title" content="2.1 Thoughts | Test 009: Aligning styles between PDF and nonPDF" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="actual-user-story.html"/>
+<link rel="prev" href="actual-user-story.html"/>
+<link rel="next" href="tests.html"/>
 
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -246,35 +246,22 @@ MathJax.Hub.Config({
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title"><span style="font-size:150%; margin-bottom:0">Test 009: Aligning styles between PDF and nonPDF</span></h1>
-<p class="author" style="font-size:120%; margin-bottom:0"><em>Emma Cliffe, Skills Centre: MASH, University of Bath</em></p>
-<p class="date" style="font-size:120%; margin-bottom:0"><em>August 2020</em></p>
-</div>
-<div id="problem" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Problem</h1>
-<p>The styles in HTML are an attempt to colour code based on the type of enviroment. Since the user can define any number of these we have to… guess… to try and align colours. We have four HTML styles:</p>
+<div id="thoughts" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Thoughts</h2>
+<p>The only requirements we have in the code are:</p>
 <ul>
-<li>ProofStyle: (P|p)roof(s), (S|s)olution(s), (S|s)oln(s), (R|r)emark(s) and anything including these words; if not then one of the below</li>
-<li>ExampleStyle: (E|e)xample(s), (E|e)xercise(s) and anything including these words; if not then one of the below</li>
-<li>DefinitionStyle: (D|d)efinition(s), (D|d)efn(s) and anything including these words; if not then defaults to the below</li>
-<li>TheoremStyle: Everything else - but should definitely include (T|t)heorem(s), (L|l)emma(s), (C|c)orollar(y|ies), (P|p)roposition(s), (C|c)onjecture(s).</li>
+<li>Retain backwards compatibility with clavertondown in terms of style_with and colouroff</li>
+<li>Make sure that whatever I do happens BEFORE colouroff is instigated because I am changing the style classification? Actually, WAIT, colouroff should work on the name not on the classification. Check this. Actually, colouroff simply removes the customstyle completely so it doesn’t really matter. It will matter when it comes to switching italics off within the customstyles which use them.</li>
 </ul>
-<p>Our assignment is NOT currently based, at all, on the PDF styling specified by the author, or any other information like e.g. numberwith. LaTeX styling, while originally intended to broadly correspond to semantic type is not used this way by authors due to the fonts which are imposed in standard LaTeX. So, the three styles in LaTeX:</p>
-<ul>
-<li>Plain</li>
-<li>Definition</li>
-<li>Remark</li>
-</ul>
-<p>are used to impose the authors visual preferences mostly with respect to font, font attributes and layout.</p>
 </div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="actual-user-story.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="actual-user-story.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tests.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

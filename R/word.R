@@ -14,7 +14,8 @@ markdown_clav = function(
     new_theorems = load_config()[['new_theorems']]
     number_by = load_config()[['number_by']]
     style_with = load_config()[['style_with']]
-    process_markdown(input_file, from, pandoc_args, !number_sections, new_theorems, number_by, style_with)
+    classify_as = load_config()[['classify_as']]
+    process_markdown(input_file, from, pandoc_args, !number_sections, new_theorems, number_by, style_with, classify_as)
     if (is.function(pre)) pre(metadata, input_file, ...)
   }
   post = config$post_processor

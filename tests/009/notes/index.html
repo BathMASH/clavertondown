@@ -31,7 +31,7 @@
   
   
 
-<link rel="next" href="there-are-two-different-issues-here.html"/>
+<link rel="next" href="actual-user-story.html"/>
 
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -224,7 +224,11 @@ MathJax.Hub.Config({
 
 <ul class="summary">
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Problem</a></li>
-<li class="chapter" data-level="2" data-path="there-are-two-different-issues-here.html"><a href="there-are-two-different-issues-here.html"><i class="fa fa-check"></i><b>2</b> There are two different issues here</a></li>
+<li class="chapter" data-level="2" data-path="actual-user-story.html"><a href="actual-user-story.html"><i class="fa fa-check"></i><b>2</b> Actual user story</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="thoughts.html"><a href="thoughts.html"><i class="fa fa-check"></i><b>2.1</b> Thoughts</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="tests.html"><a href="tests.html"><i class="fa fa-check"></i><b>3</b> Tests</a></li>
 </ul>
 
       </nav>
@@ -251,10 +255,10 @@ MathJax.Hub.Config({
 <h1><span class="header-section-number">1</span> Problem</h1>
 <p>The styles in HTML are an attempt to colour code based on the type of enviroment. Since the user can define any number of these we have to… guess… to try and align colours. We have four HTML styles:</p>
 <ul>
-<li>DefinitionStyle</li>
-<li>ExampleStyle</li>
-<li>TheoremStyle</li>
-<li>ProofStyle</li>
+<li>ProofStyle: (P|p)roof(s), (S|s)olution(s), (S|s)oln(s), (R|r)emark(s) and anything including these words; if not then one of the below</li>
+<li>ExampleStyle: (E|e)xample(s), (E|e)xercise(s) and anything including these words; if not then one of the below</li>
+<li>DefinitionStyle: (D|d)efinition(s), (D|d)efn(s) and anything including these words; if not then defaults to the below</li>
+<li>TheoremStyle: Everything else - but should definitely include (T|t)heorem(s), (L|l)emma(s), (C|c)orollar(y|ies), (P|p)roposition(s), (C|c)onjecture(s).</li>
 </ul>
 <p>Our assignment is NOT currently based, at all, on the PDF styling specified by the author, or any other information like e.g. numberwith. LaTeX styling, while originally intended to broadly correspond to semantic type is not used this way by authors due to the fonts which are imposed in standard LaTeX. So, the three styles in LaTeX:</p>
 <ul>
@@ -270,7 +274,7 @@ MathJax.Hub.Config({
         </div>
       </div>
 
-<a href="there-are-two-different-issues-here.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="actual-user-story.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
