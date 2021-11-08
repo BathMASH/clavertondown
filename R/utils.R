@@ -84,9 +84,11 @@ eng_theorem = function(options) {
       h7 = sprintf('<%s class="bookdown-%s" custom-style="TheoremStyle" id="%s">', h1, type, label)
       #This approach breaks WCAG level 2.1 AA when there is a list inside the theorem
       #s1 = '<p><em>'
-      s1 = '<div style="font-style:italic">'
+      #s1 = '<div style="font-style:italic">'
       #s2 = '</em></p>'
-      s2 = '</div>'
+      #s2 = '</div>'
+      s1 = '<p>'
+      s2 = '</p>'
     }
     h8 = sprintf('</%s>', h1)
   }
@@ -169,9 +171,11 @@ eng_newtheorem = function(options) {
       h7 = sprintf('<%s class="%s" custom-style="TheoremStyle" id="%s">', h1, env, label)
       #This approach breaks WCAG level 2.1 AA when there is a list inside the theorem
       #s1 = '<p><em>'
-      s1 = '<div style="font-style:italic">'
+      #s1 = '<div style="font-style:italic">'
       #s2 = '</em></p>'
-      s2 = '</div>'
+      #s2 = '</div>'
+      s1 = '<p>'
+      s2 = '</p>'
       }
     h8 = sprintf('</%s>', h1)
   }
@@ -223,12 +227,12 @@ eng_proof = function(options) {
        } else {
        	 label1 = label; label2 = ''
        }
-       label = sprintf('<em>%s</em>%s', label1, label2)
+       label = sprintf('%s%s', label1, label2)
     } else {
-       label = sprintf('<em>%s</em>', label)
+       label = sprintf('%s', label)
     }
     html.before2 = sprintf(
-    '<span class="%s" custom-style="NameStyle">%s</span> ', type, label
+    '<span class="%s" custom-style="NameStyleItalics">%s</span> ', type, label
     )
     if (!to_md)
       html.before2 = paste('\\iffalse{}', html.before2, '\\fi{}')

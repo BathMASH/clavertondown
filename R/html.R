@@ -76,6 +76,9 @@ html_clav = function(
     x = resolve_repeated_ids(x, new_reg_label_types, new_theorems, number_by)
     print("Resolved references")
 
+    # Remove italics if needed
+    x = remove_italics(x, style_with["italicsoff"])
+
     # Turn colour off if needed
     x = remove_colours(x, style_with["colouroff"][[1]])
 
@@ -216,6 +219,7 @@ split_chapters_clav = function(output, build = bookdown:::build_chapter, number_
     new_reg_label_types = paste(new_label_types, collapse = '|')
     new_reg_label_types = paste(new_reg_label_types, 'ex', sep = '|')
     x = resolve_repeated_ids(x, new_reg_label_types, new_theorems, number_by)
+    x = remove_italics(x, style_with["italicsoff"])
     x = remove_colours(x, style_with["colouroff"][[1]])
     x = fix_classifications(x, classify_as)
 
@@ -254,6 +258,7 @@ split_chapters_clav = function(output, build = bookdown:::build_chapter, number_
   new_reg_label_types = paste(new_reg_label_types, 'ex', sep = '|')
   html_body = resolve_repeated_ids(html_body, new_reg_label_types, new_theorems, number_by)
   #print(style_with)
+  html_body = remove_italics(html_body, style_with["italicsoff"])
   html_body = remove_colours(html_body, style_with["colouroff"][[1]])
   html_body = fix_classifications(html_body, classify_as)
 
@@ -604,6 +609,21 @@ remove_colours = function(x, colouroff) {
       x = gsub(sprintf('%s" custom-style="[-/[:alpha:]]+Style"',colouroff[[i]]), sprintf('%s"',colouroff[[i]]), x)
   x
 }
+
+# The below and the above don't play well together... 
+# Actually, I the outcome of this is that if you turn colour off then you turn italics off since I have moved the italics into the styling
+# I don't think that I have a problem with that and I suspect that it is what people will expect to happen since
+# the purpose of colouroff was to make the included text look like that around it. 
+
+remove_italics = function(x, italicsoff) {
+
+  if(italicsoff == TRUE){
+    x = gsub('custom-style="NameStyleItalics"', 'custom-style="NameStyle"', x)
+    x = gsub('custom-style="TheoremStyle"', 'custom-style="TheoremStyleUpright"', x)
+    }
+  x
+}
+
 
 
 fix_classifications = function(x, classify_as){
