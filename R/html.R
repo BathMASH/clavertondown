@@ -616,8 +616,9 @@ remove_colours = function(x, colouroff) {
 # the purpose of colouroff was to make the included text look like that around it. 
 
 remove_italics = function(x, italicsoff) {
-
-  if(italicsoff == TRUE){
+  #print(is.null(italicsoff[[1]]));
+  # If the author hasn't set italics on OR off then we need to test for null so that the logic test is not carried out (as it can't be)
+  if(!is.null(italicsoff[[1]]) && italicsoff == TRUE){
     x = gsub('custom-style="NameStyleItalics"', 'custom-style="NameStyle"', x)
     x = gsub('custom-style="TheoremStyle"', 'custom-style="TheoremStyleUpright"', x)
     }
