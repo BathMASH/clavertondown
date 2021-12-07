@@ -621,6 +621,10 @@ remove_italics = function(x, italicsoff) {
   if(!is.null(italicsoff[[1]]) && italicsoff == TRUE){
     x = gsub('custom-style="NameStyleItalics"', 'custom-style="NameStyle"', x)
     x = gsub('custom-style="TheoremStyle"', 'custom-style="TheoremStyleUpright"', x)
+    }else{
+    #This looks like madness... but, we need to NOT have italics and have strong (not bold, as this will not carry through)
+    #in Word and Epub but honour the italics without strong if the author insists in HTML
+    x = gsub('custom-style="NameStyleItalics"><strong>(.*)</strong><', 'custom-style="NameStyleItalics">\\1<', x)
     }
   x
 }

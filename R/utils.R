@@ -232,7 +232,8 @@ eng_proof = function(options) {
        label = sprintf('%s', label)
     }
     html.before2 = sprintf(
-    '<span class="%s" custom-style="NameStyleItalics">%s</span> ', type, label
+    # We need to make this strong as well and then remove that if it is not supposed to be there?
+    '<span class="%s" custom-style="NameStyleItalics"><strong>%s</strong></span> ', type, label
     )
     if (!to_md)
       html.before2 = paste('\\iffalse{}', html.before2, '\\fi{}')
