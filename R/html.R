@@ -76,14 +76,15 @@ html_clav = function(
     x = resolve_repeated_ids(x, new_reg_label_types, new_theorems, number_by)
     print("Resolved references")
 
-    # Remove italics if needed
-    x = remove_italics(x, style_with["italicsoff"])
+    # The next three function calls need to come in this order or we won't end up matching the author most likely intention
+    # Fix style classifications as per author
+    x = fix_classifications(x, classify_as)
 
     # Turn colour off if needed
     x = remove_colours(x, style_with["colouroff"][[1]])
 
-    # Fix style classifications as per author
-    x = fix_classifications(x, classify_as)
+    # Remove italics if needed
+    x = remove_italics(x, style_with["italicsoff"])
 
     print(knitr:::opts_knit$get('header.title'))
     write_utf8(x, output)
@@ -219,9 +220,9 @@ split_chapters_clav = function(output, build = bookdown:::build_chapter, number_
     new_reg_label_types = paste(new_label_types, collapse = '|')
     new_reg_label_types = paste(new_reg_label_types, 'ex', sep = '|')
     x = resolve_repeated_ids(x, new_reg_label_types, new_theorems, number_by)
-    x = remove_italics(x, style_with["italicsoff"])
-    x = remove_colours(x, style_with["colouroff"][[1]])
     x = fix_classifications(x, classify_as)
+    x = remove_colours(x, style_with["colouroff"][[1]])
+    x = remove_italics(x, style_with["italicsoff"])
 
     x = bookdown:::add_chapter_prefix(x)
     write_utf8(x, output)
@@ -258,9 +259,9 @@ split_chapters_clav = function(output, build = bookdown:::build_chapter, number_
   new_reg_label_types = paste(new_reg_label_types, 'ex', sep = '|')
   html_body = resolve_repeated_ids(html_body, new_reg_label_types, new_theorems, number_by)
   #print(style_with)
-  html_body = remove_italics(html_body, style_with["italicsoff"])
+  html_body = fix_classifications(html_body, classify_as)  
   html_body = remove_colours(html_body, style_with["colouroff"][[1]])
-  html_body = fix_classifications(html_body, classify_as)
+  html_body = remove_italics(html_body, style_with["italicsoff"])  
 
   # do not split the HTML file
   if (split_level == 0) {
@@ -606,14 +607,10 @@ remove_colours = function(x, colouroff) {
     for(i in 1:length(colouroff))
       # We should be able to find strings like i" custom-style="...Style" and replace them with i"
       # This will remove colour in HTML, Gitbook, EPub and Word. LaTeX formats don't have colour in the first place
-      x = gsub(sprintf('%s" custom-style="[-/[:alpha:]]+Style"',colouroff[[i]]), sprintf('%s"',colouroff[[i]]), x)
+      # I don't want to remove namestyle, if I do then the remove italics stops working correctly
+      x = gsub(sprintf('%s" custom-style="(Theorem|Definition|Example|Proof)+Style"',colouroff[[i]]), sprintf('%s"',colouroff[[i]]), x)
   x
 }
-
-# The below and the above don't play well together... 
-# Actually, I the outcome of this is that if you turn colour off then you turn italics off since I have moved the italics into the styling
-# I don't think that I have a problem with that and I suspect that it is what people will expect to happen since
-# the purpose of colouroff was to make the included text look like that around it. 
 
 remove_italics = function(x, italicsoff) {
   #print(is.null(italicsoff[[1]]));

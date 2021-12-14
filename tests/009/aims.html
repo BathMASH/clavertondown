@@ -79,7 +79,7 @@ img {
     border-left-style: solid;
     border-color: darkseagreen;
     padding-left: 0.5em;
-    font-style: italic;
+    font-style: italic; 
   }
 
   [custom-style=TheoremStyleUpright] {
@@ -89,18 +89,17 @@ img {
     border-left-style: solid;
     border-color: darkseagreen;
     padding-left: 0.5em;
-    font-style: normal;
+    font-style: normal; 
   }
-
-  [custom-style=NameStyle]{
-    font-style: normal;
-    font-weight: bold;
-  }
-
-  [custom-style=NameStyleItalics]{
+  
+  [custom-style=NameStyleItalic] {
     font-style: italic;
   }
 
+  [custom-style=NameStyleStrong] {
+    font-style: normal;
+    font-weight: bold;
+  }
   
   [custom-style=ProofStyle] {
     margin-bottom: 1.5em;
@@ -138,16 +137,6 @@ img {
     padding-left: 0.5em;
   }
 
-  [data-custom-style=TheoremStyleUpright] {
-    margin-bottom: 1.5em;
-    margin-top:1.5em;
-    background-color: honeydew;
-    border-left-style: solid;
-    border-color: darkseagreen;
-    padding-left: 0.5em;
-    font-style: normal;
-  }
-  
   [data-custom-style=ProofStyle] {
     margin-bottom: 1.5em;
     margin-top:1.5em;
@@ -235,35 +224,35 @@ img {
 <h1><span class="header-section-number">3</span> Tests</h1>
 
 <div id="thm:unnamed-chunk-1" class="bookdown-theorem" custom-style="TheoremStyleUpright">
-<span class="thm:unnamed-chunk-1" custom-style="NameStyle"><strong>Theorem 3.1:  </strong></span>
-<p>
+<span class="thm:unnamed-chunk-1" custom-style="NameStyleStrong">Theorem 3.1:  </span>
+<div><!-- style="font-style:italic">-->
 This is an inbuilt theorem.
-</p>
+</div>
 </div>
 
 <div class="bookdown-remark" custom-style="ProofStyle">
- <span class="remark" custom-style="NameStyle"><strong>Remark. </strong></span> 
+ <span class="remark" custom-style="NameStyleItalic">Remark. </span> 
 <p>
 This is an inbuilt remark.
 </p>
 </div>
 
 <div  class="Notation" custom-style="ProofStyle">
-<span class="Notation" custom-style="NameStyle"><strong> Notation: </strong></span>
-<p>
+<span class="Notation" custom-style="NameStyleStrong">Notation: </span>
+<div> <!--style="font-style:italic">-->
 This is notation.
-</p>
+</div>
 </div>
 
 <div  class="Remarks" custom-style="ProofStyle">
-<span class="Remarks" custom-style="NameStyle"><strong> Remarks: </strong></span>
+<span class="Remarks" custom-style="NameStyleItalic">Remarks: </span>
 <div>
 This is remarks.
 </div>
 </div>
 
 <div  class="Sketch Proof" custom-style="ProofStyle">
-<span class="Sketch Proof" custom-style="NameStyle"><strong> Sketch Proof: </strong></span>
+<span class="Sketch Proof" custom-style="NameStyleStrong">Sketch Proof: </span>
 <div>
 This is a sketch proof.
 </div>

@@ -44,13 +44,13 @@ Some text to show us what the padding does or does not look like
 \BeginKnitrBlock{example}<div class="bookdown-example" id="exm:unnamed-chunk-2"><span class="exm:unnamed-chunk-2" custom-style="NameStyle"><strong><span id="exm:unnamed-chunk-2"></span>Example 2.1  </strong></span><div>Here is a test</div></div>\EndKnitrBlock{example}
 Some text to show us what the padding does or does not look like
 
-\BeginKnitrBlock{theorem}<div class="bookdown-theorem" custom-style="TheoremStyle" id="thm:unnamed-chunk-3"><span class="thm:unnamed-chunk-3" custom-style="NameStyle"><strong><span id="thm:unnamed-chunk-3"></span>Theorem 2.1  </strong></span><div style="font-style:italic">A theorem</div></div>\EndKnitrBlock{theorem}
+\BeginKnitrBlock{theorem}<div class="bookdown-theorem" custom-style="TheoremStyleUpright" id="thm:unnamed-chunk-3"><span class="thm:unnamed-chunk-3" custom-style="NameStyle"><strong><span id="thm:unnamed-chunk-3"></span>Theorem 2.1  </strong></span><p>A theorem</p></div>\EndKnitrBlock{theorem}
 
-\BeginKnitrBlock{proof}<div class="bookdown-proof" custom-style="ProofStyle">\iffalse{} <span class="proof" custom-style="NameStyle"><em>Proof. </em></span>  \fi{}<p>A proof</p><p>&squ;</p></div>\EndKnitrBlock{proof}
+\BeginKnitrBlock{proof}<div class="bookdown-proof" custom-style="ProofStyle">\iffalse{} <span class="proof" custom-style="NameStyle"><strong>Proof. </strong></span>  \fi{}<p>A proof</p><p>&squ;</p></div>\EndKnitrBlock{proof}
 
 ## Section 2.1
 
-\BeginKnitrBlock{Exercises}<div class="Exercises" ><span class="Exercises"><strong> Exercises: </strong></span><div>Some exercises</div></div>\EndKnitrBlock{Exercises}
+\BeginKnitrBlock{Exercises}<div class="Exercises" ><span class="Exercises" custom-style="NameStyle"><strong> Exercises: </strong></span><div>Some exercises</div></div>\EndKnitrBlock{Exercises}
 
 <!--chapter:end:index.Rmd-->
 

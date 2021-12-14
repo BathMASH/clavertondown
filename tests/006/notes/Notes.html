@@ -79,8 +79,29 @@ img {
     border-left-style: solid;
     border-color: darkseagreen;
     padding-left: 0.5em;
+    font-style: italic;
   }
 
+  [custom-style=TheoremStyleUpright] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: honeydew;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+    font-style: normal;
+  }
+
+  [custom-style=NameStyle]{
+    font-style: normal;
+    font-weight: bold;
+  }
+
+  [custom-style=NameStyleItalics]{
+    font-style: italic;
+  }
+
+  
   [custom-style=ProofStyle] {
     margin-bottom: 1.5em;
     margin-top:1.5em;
@@ -117,6 +138,16 @@ img {
     padding-left: 0.5em;
   }
 
+  [data-custom-style=TheoremStyleUpright] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: honeydew;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+    font-style: normal;
+  }
+  
   [data-custom-style=ProofStyle] {
     margin-bottom: 1.5em;
     margin-top:1.5em;
@@ -190,13 +221,13 @@ Here is a test
 
 <div id="thm:unnamed-chunk-3" class="bookdown-theorem" custom-style="TheoremStyle">
 <span class="thm:unnamed-chunk-3" custom-style="NameStyle"><strong>Theorem 2.1:  </strong></span>
-<div style="font-style:italic">
+<p>
 A theorem
-</div>
+</p>
 </div>
 
 <div class="bookdown-proof" custom-style="ProofStyle">
- <span class="proof" custom-style="NameStyle"><em>Proof. </em></span> 
+ <span class="proof" custom-style="NameStyleItalics">Proof. </span> 
 <p>
 A proof
 </p>
@@ -208,7 +239,7 @@ A proof
 <h2><span class="header-section-number">2.1</span> Section 2.1</h2>
 
 <div  class="Exercises">
-<span class="Exercises"><strong> Exercises: </strong></span>
+<span class="Exercises" custom-style="NameStyle"><strong> Exercises: </strong></span>
 <div>
 Some exercises
 </div>

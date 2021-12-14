@@ -105,16 +105,16 @@ You will notice that there are a variety of ways that theorem type environments 
 
 However, this doesn't mean we have got it right. Give us feedback. Ideally, get students to give feedback too. 
 
-\BeginKnitrBlock{theorem}\iffalse{-91-70-111-111-93-}\fi{}<div class="bookdown-theorem" custom-style="TheoremStyle" id="thm:thm1"><span class="thm:thm1" custom-style="NameStyle"><strong><span id="thm:thm1"></span>Theorem 2.1   \iffalse (Foo) \fi{} </strong></span><div style="font-style:italic">
+\BeginKnitrBlock{theorem}\iffalse{-91-70-111-111-93-}\fi{}<div class="bookdown-theorem" custom-style="TheoremStyleUpright" id="thm:thm1"><span class="thm:thm1" custom-style="NameStyle"><strong><span id="thm:thm1"></span>Theorem 2.1   \iffalse (Foo) \fi{} </strong></span><p>
 This is a theorem environment already provided by Bookdown. It still works as before.
-</div></div>\EndKnitrBlock{theorem}
+</p></div>\EndKnitrBlock{theorem}
 
-\BeginKnitrBlock{proposition}\iffalse{-91-84-104-105-110-103-121-32-119-101-32-110-101-101-100-32-102-111-114-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proposition" custom-style="TheoremStyle" id="prp:prp1"><span class="prp:prp1" custom-style="NameStyle"><strong><span id="prp:prp1"></span>Proposition 2.2   \iffalse (Thingy we need for <a href="#thm:thm1">2.1</a>) \fi{} </strong></span><div style="font-style:italic">
+\BeginKnitrBlock{proposition}\iffalse{-91-84-104-105-110-103-121-32-119-101-32-110-101-101-100-32-102-111-114-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proposition" custom-style="TheoremStyleUpright" id="prp:prp1"><span class="prp:prp1" custom-style="NameStyle"><strong><span id="prp:prp1"></span>Proposition 2.2   \iffalse (Thingy we need for <a href="#thm:thm1">2.1</a>) \fi{} </strong></span><p>
 However, in this system you can now 
 
 * Change the numbering system of the inbuilt environments - this is done in the file _bookdown.yml. Please see the file in the same folder as this file. 
 * Reference other environments within names. Notice that you need to use a double backslash.
-</div></div>\EndKnitrBlock{proposition}
+</p></div>\EndKnitrBlock{proposition}
 
 \BeginKnitrBlock{Proof}<div class="Proof" custom-style="ProofStyle" ><span class="Proof" custom-style="NameStyle"><strong> Proof:  (Of theorem <a href="#thm:thm1">2.1</a>) </strong></span><div>
 You can make new unnumbered theorem environments. You can call them whatever you like. They work kind of like the inbuilt ones but the environment is always newtheorem and the env defines the type. 
@@ -124,7 +124,7 @@ You need to have predefined the type and made any changes to the standard print 
 You can't control what things look like in the other formats as they have been designed with a variety of accessibility features. If you don't like how they look then maybe contact us and ask about it. It might be something we can think about changing or allowing author control or, it might not.
 </div><p>&squ;</p></div>\EndKnitrBlock{Proof}
 
-\BeginKnitrBlock{proof}\iffalse{-91-80-114-111-111-102-32-111-102-32-116-104-101-111-114-101-109-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proof" custom-style="ProofStyle">\iffalse{} <span class="proof" custom-style="NameStyle"><em>Proof</em> (Proof of theorem <a href="#thm:thm1">2.1</a>). </span>  \fi{}<p>
+\BeginKnitrBlock{proof}\iffalse{-91-80-114-111-111-102-32-111-102-32-116-104-101-111-114-101-109-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proof" custom-style="ProofStyle">\iffalse{} <span class="proof" custom-style="NameStyle"><strong>Proof (Proof of theorem <a href="#thm:thm1">2.1</a>). </strong></span>  \fi{}<p>
 Defining your own proof environment doesn't stop the inbuilt one working. 
 </p><p>&squ;</p></div>\EndKnitrBlock{proof}
 
@@ -144,7 +144,7 @@ Take care not to reuse the inbuilt numbering labels with your new theorems! This
 References still work in the same way as in Bookdown. Now go to theorem <a href="#thm:thm1">2.1</a> or proposition <a href="#prp:prp1">2.2</a>.
 
 Here is some text which is not part of the below example.
-\BeginKnitrBlock{Examples}<div class="Examples" ><span class="Examples"><strong> Examples: </strong></span><div>You can turn off the colour and padding in html, ePub and Word for any newtheorem or inbuilt theorem type. You do this in the _bookdown.yml file by adding the theorem name to the colouroff style_with list.</div></div>\EndKnitrBlock{Examples}
+\BeginKnitrBlock{Examples}<div class="Examples" ><span class="Examples" custom-style="NameStyle"><strong> Examples: </strong></span><div>You can turn off the colour and padding in html, ePub and Word for any newtheorem or inbuilt theorem type. You do this in the _bookdown.yml file by adding the theorem name to the colouroff style_with list.</div></div>\EndKnitrBlock{Examples}
 Here is some text which is not part of the above example.
 
 ## But I want to number some of them...
@@ -200,18 +200,18 @@ Sometimes I would like to repeat a definition from earlier and have it numbered 
 
 Inbuilt using own numbering
 
-\BeginKnitrBlock{theorem}\iffalse{-91-70-111-111-93-}\fi{}<div class="bookdown-theorem" custom-style="TheoremStyle" id="thm:thm1"><span class="thm:thm1" custom-style="NameStyle"><strong><span id="thm:thm1"></span>Theorem 2.1   \iffalse (Foo) \fi{} </strong></span><div style="font-style:italic">
+\BeginKnitrBlock{theorem}\iffalse{-91-70-111-111-93-}\fi{}<div class="bookdown-theorem" custom-style="TheoremStyleUpright" id="thm:thm1"><span class="thm:thm1" custom-style="NameStyle"><strong><span id="thm:thm1"></span>Theorem 2.1   \iffalse (Foo) \fi{} </strong></span><p>
 This is a theorem environment already provided by Bookdown. It still works as before.
-</div></div>\EndKnitrBlock{theorem}
+</p></div>\EndKnitrBlock{theorem}
 
 Inbuilt using other inbuilt numbering
 
-\BeginKnitrBlock{proposition}\iffalse{-91-84-104-105-110-103-121-32-119-101-32-110-101-101-100-32-102-111-114-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proposition" custom-style="TheoremStyle" id="prp:prp1"><span class="prp:prp1" custom-style="NameStyle"><strong><span id="prp:prp1"></span>Proposition 2.2   \iffalse (Thingy we need for <a href="#thm:thm1">2.1</a>) \fi{} </strong></span><div style="font-style:italic">
+\BeginKnitrBlock{proposition}\iffalse{-91-84-104-105-110-103-121-32-119-101-32-110-101-101-100-32-102-111-114-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proposition" custom-style="TheoremStyleUpright" id="prp:prp1"><span class="prp:prp1" custom-style="NameStyle"><strong><span id="prp:prp1"></span>Proposition 2.2   \iffalse (Thingy we need for <a href="#thm:thm1">2.1</a>) \fi{} </strong></span><p>
 However, in this system you can now 
 
 * Change the numbering system of the inbuilt environments - this is done in the file _bookdown.yml. Please see the file in the same folder as this file. 
 * Reference other environments within names. Notice that you need to use a double backslash.
-</div></div>\EndKnitrBlock{proposition}
+</p></div>\EndKnitrBlock{proposition}
 
 Newtheorem using other inbuilt numbering
 

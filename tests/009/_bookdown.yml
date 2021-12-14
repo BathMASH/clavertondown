@@ -10,7 +10,7 @@ style_with:
   definition: ["theorem"]
   remark: ["Notation", "Remarks", "Sketch Proof"]
   colouroff: []
-  italicsoff: []
+  italicsoff: TRUE
 classify_as:
   TheoremStyle: ["theorem"]
   DefinitionStyle: []

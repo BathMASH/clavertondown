@@ -135,6 +135,7 @@ MathJax.Hub.Config({
     border-left-style: solid;
     border-color: darkseagreen;
     padding-left: 0.5em;
+    font-style: italic;
   }
 
   .book.color-theme-2 .book-body .page-wrapper .page-inner section.normal [custom-style=TheoremStyle] {
@@ -144,6 +145,7 @@ MathJax.Hub.Config({
     border-left-style: solid;
     border-color: darkseagreen;
     padding-left: 0.5em;
+    font-style: italic;
   }
 
   .book.color-theme-1 .book-body .page-wrapper .page-inner section.normal [custom-style=TheoremStyle] {
@@ -153,8 +155,49 @@ MathJax.Hub.Config({
     border-left-style: solid;
     border-color: darkseagreen;
     padding-left: 0.5em;
+    font-style: italic;
   }
 
+  [custom-style=TheoremStyleUpright] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: honeydew;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+    font-style: normal;
+  }
+
+  .book.color-theme-2 .book-body .page-wrapper .page-inner section.normal [custom-style=TheoremStyleUpright] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: #182518;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+    font-style: normal;
+  }
+
+  .book.color-theme-1 .book-body .page-wrapper .page-inner section.normal [custom-style=TheoremStyleUpright] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: #f0fcea;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+    font-style: normal;
+  }
+
+  [custom-style=NameStyle]{
+    font-style: normal;
+    font-weight: bold;
+  }
+
+  [custom-style=NameStyleItalics]{
+    font-style: italic;
+  }
+
+  
   [custom-style=ProofStyle] {
     margin-bottom: 1.5em;
     margin-top:1.5em;
@@ -275,21 +318,21 @@ MathJax.Hub.Config({
 
 <div  class="bookdown-theorem" custom-style="TheoremStyle">
 <span class="thm:thm1" custom-style="NameStyle"><strong>Theorem 2.1:  (Foo)  </strong></span>
-<div style="font-style:italic">
-<p>This is a theorem environment already provided by Bookdown. It still works as before.</p>
-</div>
+<p>
+This is a theorem environment already provided by Bookdown. It still works as before.
+</p>
 </div>
 <p>Inbuilt using other inbuilt numbering</p>
 
 <div  class="bookdown-proposition" custom-style="TheoremStyle">
 <span class="prp:prp1" custom-style="NameStyle"><strong>Proposition 2.2:  (Thingy we need for <a href="theorems-and-stuff.html#thm:thm1">2.1</a>)  </strong></span>
-<div style="font-style:italic">
+<p>
 <p>However, in this system you can now</p>
 <ul>
 <li>Change the numbering system of the inbuilt environments - this is done in the file _bookdown.yml. Please see the file in the same folder as this file.</li>
 <li>Reference other environments within names. Notice that you need to use a double backslash.</li>
 </ul>
-</div>
+</p>
 </div>
 <p>Newtheorem using other inbuilt numbering</p>
 

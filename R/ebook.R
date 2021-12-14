@@ -78,10 +78,10 @@ process_markdown = function(input_file, from, pandoc_args, global, new_theorems,
   )
 
   # We always want to turn off the italics, this isn't really needed to turn off the italics as they aren't carried through but it is needed to change
-  # the styling to the non-italics style so that the right css kicks in. I hope. That then broke something else. Boo. 
-  content = remove_italics(content, TRUE)
-  content = remove_colours(content, style_with["colouroff"][[1]])
+  # the styling to the non-italics style so that the right css kicks in. 
   content = fix_classifications(content, classify_as)
+  content = remove_colours(content, style_with["colouroff"][[1]])
+  content = remove_italics(content, TRUE)  
 
   if (!to_md) {
     i = xfun::prose_index(content)

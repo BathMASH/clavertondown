@@ -135,6 +135,7 @@ MathJax.Hub.Config({
     border-left-style: solid;
     border-color: darkseagreen;
     padding-left: 0.5em;
+    font-style: italic;
   }
 
   .book.color-theme-2 .book-body .page-wrapper .page-inner section.normal [custom-style=TheoremStyle] {
@@ -144,6 +145,7 @@ MathJax.Hub.Config({
     border-left-style: solid;
     border-color: darkseagreen;
     padding-left: 0.5em;
+    font-style: italic;
   }
 
   .book.color-theme-1 .book-body .page-wrapper .page-inner section.normal [custom-style=TheoremStyle] {
@@ -153,8 +155,49 @@ MathJax.Hub.Config({
     border-left-style: solid;
     border-color: darkseagreen;
     padding-left: 0.5em;
+    font-style: italic;
   }
 
+  [custom-style=TheoremStyleUpright] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: honeydew;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+    font-style: normal;
+  }
+
+  .book.color-theme-2 .book-body .page-wrapper .page-inner section.normal [custom-style=TheoremStyleUpright] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: #182518;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+    font-style: normal;
+  }
+
+  .book.color-theme-1 .book-body .page-wrapper .page-inner section.normal [custom-style=TheoremStyleUpright] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: #f0fcea;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+    font-style: normal;
+  }
+
+  [custom-style=NameStyle]{
+    font-style: normal;
+    font-weight: bold;
+  }
+
+  [custom-style=NameStyleItalics]{
+    font-style: italic;
+  }
+
+  
   [custom-style=ProofStyle] {
     margin-bottom: 1.5em;
     margin-top:1.5em;
@@ -267,16 +310,16 @@ Here is an example.
 
 <div id="thm:thm1" class="bookdown-theorem" custom-style="TheoremStyle">
 <span class="thm:thm1" custom-style="NameStyle"><strong>Theorem 1.1:  (Foo)  </strong></span>
-<div style="font-style:italic">
+<p>
 Bookdown is needed for things like theorems and internal references
-</div>
+</p>
 </div>
 
 <div id="prp:prp1" class="bookdown-proposition" custom-style="TheoremStyle">
 <span class="prp:prp1" custom-style="NameStyle"><strong>Proposition 1.2:  (Thingy we need for <a href="index.html#thm:thm1">1.1</a>)  </strong></span>
-<div style="font-style:italic">
+<p>
 You can create new theorem types
-</div>
+</p>
 </div>
 
 <div  class="Proof" custom-style="ProofStyle">
@@ -290,7 +333,7 @@ Here is a proof
 </div>
 
 <div class="bookdown-proof" custom-style="ProofStyle">
- <span class="proof" custom-style="NameStyle"><em>Proof</em> (Proof of theorem <a href="index.html#thm:thm1">1.1</a>). </span> 
+ <span class="proof" custom-style="NameStyleItalics">Proof (Proof of theorem <a href="index.html#thm:thm1">1.1</a>). </span> 
 <p>
 Here is a proof
 </p>
@@ -301,16 +344,16 @@ Here is a proof
 
 <div id="prp:prp2" class="bookdown-proposition" custom-style="TheoremStyle">
 <span class="prp:prp2" custom-style="NameStyle"><strong>Proposition 1.3:  </strong></span>
-<div style="font-style:italic">
+<p>
 Bookdown is needed for things like theorems and internal references
-</div>
+</p>
 </div>
 
 <div id="tho:tho1" class="Thought" custom-style="TheoremStyle">
 <span class="Thought" custom-style="NameStyle"><strong> Thought 1.1:  (Bar of <a href="index.html#thm:thm1">1.1</a>) </strong></span>
-<div style="font-style:italic">
+<p>
 You can create new theorem types
-</div>
+</p>
 </div>
 
 <div  class="Defns" custom-style="DefinitionStyle">
@@ -322,9 +365,9 @@ You can create new unumbered theorem types
 
 <div id="nug:nug1" class="Nugget" custom-style="TheoremStyle">
 <span class="Nugget" custom-style="NameStyle"><strong> Nugget 1.2:  </strong></span>
-<div style="font-style:italic">
+<p>
 You can create new theorem types
-</div>
+</p>
 </div>
 
 <div  class="Example" custom-style="ExampleStyle">
@@ -349,7 +392,7 @@ Here is a question
 </div>
 
 <div class="bookdown-solution" custom-style="ProofStyle">
- <span class="solution" custom-style="NameStyle"><em>Solution. </em></span> 
+ <span class="solution" custom-style="NameStyleItalics">Solution. </span> 
 <p>
 Test
 </p>

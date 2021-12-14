@@ -37,6 +37,12 @@ else
     else
 	diff -r -a -X "exclude" -I "<script" -I "<meta" $test/notes $test/compare
     fi
+    echo "Do you want to replace the comparison files with the output from the most recent run? y/n"
+    read decision
+    if [ $decision == "y" ]; then
+	rm -r $test/compare
+	cp -r $test/notes $test/compare
+    fi
 fi
 echo $test
 echo "Do you want to continue? y/n"

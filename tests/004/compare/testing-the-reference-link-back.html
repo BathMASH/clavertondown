@@ -135,6 +135,7 @@ MathJax.Hub.Config({
     border-left-style: solid;
     border-color: darkseagreen;
     padding-left: 0.5em;
+    font-style: italic;
   }
 
   .book.color-theme-2 .book-body .page-wrapper .page-inner section.normal [custom-style=TheoremStyle] {
@@ -144,6 +145,7 @@ MathJax.Hub.Config({
     border-left-style: solid;
     border-color: darkseagreen;
     padding-left: 0.5em;
+    font-style: italic;
   }
 
   .book.color-theme-1 .book-body .page-wrapper .page-inner section.normal [custom-style=TheoremStyle] {
@@ -153,8 +155,49 @@ MathJax.Hub.Config({
     border-left-style: solid;
     border-color: darkseagreen;
     padding-left: 0.5em;
+    font-style: italic;
   }
 
+  [custom-style=TheoremStyleUpright] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: honeydew;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+    font-style: normal;
+  }
+
+  .book.color-theme-2 .book-body .page-wrapper .page-inner section.normal [custom-style=TheoremStyleUpright] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: #182518;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+    font-style: normal;
+  }
+
+  .book.color-theme-1 .book-body .page-wrapper .page-inner section.normal [custom-style=TheoremStyleUpright] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: #f0fcea;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+    font-style: normal;
+  }
+
+  [custom-style=NameStyle]{
+    font-style: normal;
+    font-weight: bold;
+  }
+
+  [custom-style=NameStyleItalics]{
+    font-style: italic;
+  }
+
+  
   [custom-style=ProofStyle] {
     margin-bottom: 1.5em;
     margin-top:1.5em;
@@ -247,7 +290,7 @@ MathJax.Hub.Config({
 <p>Now go to theorem <a href="index.html#thm:thm1">1.1</a> or thought <a href="index.html#tho:tho1">1.1</a></p>
 
 <div class="bookdown-solution" custom-style="ProofStyle">
- <span class="solution" custom-style="NameStyle"><em>Solution. </em></span> 
+ <span class="solution" custom-style="NameStyleItalics">Solution. </span> 
 <p>
 Test
 </p>
@@ -262,17 +305,17 @@ Here is a definition
 
 <div  class="Thought" custom-style="TheoremStyle">
 <span class="Thought" custom-style="NameStyle"><strong> Thought 1.1:  (Bar of <a href="index.html#thm:thm1">1.1</a>) </strong></span>
-<div style="font-style:italic">
+<p>
 You can create new theorem types
-</div>
+</p>
 </div>
 Now an actual new thing:
 
 <div id="tho:tho2" class="Thought" custom-style="TheoremStyle">
 <span class="Thought" custom-style="NameStyle"><strong> Thought 2.1:  </strong></span>
-<div style="font-style:italic">
+<p>
 Stuff and nonsense
-</div>
+</p>
 </div>
 
 </div>

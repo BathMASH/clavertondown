@@ -79,8 +79,29 @@ img {
     border-left-style: solid;
     border-color: darkseagreen;
     padding-left: 0.5em;
+    font-style: italic;
   }
 
+  [custom-style=TheoremStyleUpright] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: honeydew;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+    font-style: normal;
+  }
+
+  [custom-style=NameStyle]{
+    font-style: normal;
+    font-weight: bold;
+  }
+
+  [custom-style=NameStyleItalics]{
+    font-style: italic;
+  }
+
+  
   [custom-style=ProofStyle] {
     margin-bottom: 1.5em;
     margin-top:1.5em;
@@ -117,6 +138,16 @@ img {
     padding-left: 0.5em;
   }
 
+  [data-custom-style=TheoremStyleUpright] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: honeydew;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+    font-style: normal;
+  }
+  
   [data-custom-style=ProofStyle] {
     margin-bottom: 1.5em;
     margin-top:1.5em;
@@ -168,13 +199,13 @@ Definition
 
 <div id="thm:unnamed-chunk-2" class="bookdown-theorem" custom-style="TheoremStyle">
 <span class="thm:unnamed-chunk-2" custom-style="NameStyle"><strong>Theorem 1:  </strong></span>
-<div style="font-style:italic">
+<p>
 Theorem
-</div>
+</p>
 </div>
 
 <div class="bookdown-proof" custom-style="ProofStyle">
- <span class="proof" custom-style="NameStyle"><em>Proof. </em></span> 
+ <span class="proof" custom-style="NameStyleItalics">Proof. </span> 
 <p>
 Proof
 </p>

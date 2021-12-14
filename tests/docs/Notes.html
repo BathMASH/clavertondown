@@ -117,8 +117,29 @@ img {
     border-left-style: solid;
     border-color: darkseagreen;
     padding-left: 0.5em;
+    font-style: italic;
   }
 
+  [custom-style=TheoremStyleUpright] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: honeydew;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+    font-style: normal;
+  }
+
+  [custom-style=NameStyle]{
+    font-style: normal;
+    font-weight: bold;
+  }
+
+  [custom-style=NameStyleItalics]{
+    font-style: italic;
+  }
+
+  
   [custom-style=ProofStyle] {
     margin-bottom: 1.5em;
     margin-top:1.5em;
@@ -155,6 +176,16 @@ img {
     padding-left: 0.5em;
   }
 
+  [data-custom-style=TheoremStyleUpright] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: honeydew;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+    font-style: normal;
+  }
+  
   [data-custom-style=ProofStyle] {
     margin-bottom: 1.5em;
     margin-top:1.5em;
@@ -297,20 +328,20 @@ a window appears, click on Set main file.</li>
 
 <div id="thm:thm1" class="bookdown-theorem" custom-style="TheoremStyle">
 <span class="thm:thm1" custom-style="NameStyle"><strong>Theorem 2.1:  (Foo)  </strong></span>
-<div style="font-style:italic">
-<p>This is a theorem environment already provided by Bookdown. It still works as before.</p>
-</div>
+<p>
+This is a theorem environment already provided by Bookdown. It still works as before.
+</p>
 </div>
 
 <div id="prp:prp1" class="bookdown-proposition" custom-style="TheoremStyle">
 <span class="prp:prp1" custom-style="NameStyle"><strong>Proposition 2.2:  (Thingy we need for <a href="#thm:thm1">2.1</a>)  </strong></span>
-<div style="font-style:italic">
+<p>
 <p>However, in this system you can now</p>
 <ul>
 <li>Change the numbering system of the inbuilt environments - this is done in the file _bookdown.yml. Please see the file in the same folder as this file.</li>
 <li>Reference other environments within names. Notice that you need to use a double backslash.</li>
 </ul>
-</div>
+</p>
 </div>
 
 <div  class="Proof" custom-style="ProofStyle">
@@ -326,7 +357,7 @@ a window appears, click on Set main file.</li>
 </div>
 
 <div class="bookdown-proof" custom-style="ProofStyle">
- <span class="proof" custom-style="NameStyle"><em>Proof</em> (Proof of theorem <a href="#thm:thm1">2.1</a>). </span> 
+ <span class="proof" custom-style="NameStyleItalics">Proof (Proof of theorem <a href="#thm:thm1">2.1</a>). </span> 
 <p>
 Defining your own proof environment doesn’t stop the inbuilt one working.
 </p>
@@ -354,7 +385,7 @@ Defining your own proof environment doesn’t stop the inbuilt one working.
 Here is some text which is not part of the below example.
 
 <div  class="Examples">
-<span class="Examples"><strong> Examples: </strong></span>
+<span class="Examples" custom-style="NameStyle"><strong> Examples: </strong></span>
 <div>
 You can turn off the colour and padding in html, ePub and Word for any newtheorem or inbuilt theorem type. You do this in the _bookdown.yml file by adding the theorem name to the colouroff style_with list.
 </div>
@@ -431,21 +462,21 @@ This should be definitions 2.3 in all formats
 
 <div  class="bookdown-theorem" custom-style="TheoremStyle">
 <span class="thm:thm1" custom-style="NameStyle"><strong>Theorem 2.1:  (Foo)  </strong></span>
-<div style="font-style:italic">
-<p>This is a theorem environment already provided by Bookdown. It still works as before.</p>
-</div>
+<p>
+This is a theorem environment already provided by Bookdown. It still works as before.
+</p>
 </div>
 <p>Inbuilt using other inbuilt numbering</p>
 
 <div  class="bookdown-proposition" custom-style="TheoremStyle">
 <span class="prp:prp1" custom-style="NameStyle"><strong>Proposition 2.2:  (Thingy we need for <a href="#thm:thm1">2.1</a>)  </strong></span>
-<div style="font-style:italic">
+<p>
 <p>However, in this system you can now</p>
 <ul>
 <li>Change the numbering system of the inbuilt environments - this is done in the file _bookdown.yml. Please see the file in the same folder as this file.</li>
 <li>Reference other environments within names. Notice that you need to use a double backslash.</li>
 </ul>
-</div>
+</p>
 </div>
 <p>Newtheorem using other inbuilt numbering</p>
 

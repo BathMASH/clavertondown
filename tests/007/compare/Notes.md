@@ -38,9 +38,9 @@ Here is some normal text.
 
 \BeginKnitrBlock{definition}<div class="bookdown-definition" custom-style="DefinitionStyle" id="def:unnamed-chunk-1"><span class="def:unnamed-chunk-1" custom-style="NameStyle"><strong><span id="def:unnamed-chunk-1"></span>Definition 1  </strong></span><div>Definition</div></div>\EndKnitrBlock{definition}
 
-\BeginKnitrBlock{theorem}<div class="bookdown-theorem" custom-style="TheoremStyle" id="thm:unnamed-chunk-2"><span class="thm:unnamed-chunk-2" custom-style="NameStyle"><strong><span id="thm:unnamed-chunk-2"></span>Theorem 1  </strong></span><div style="font-style:italic">Theorem</div></div>\EndKnitrBlock{theorem}
+\BeginKnitrBlock{theorem}<div class="bookdown-theorem" custom-style="TheoremStyleUpright" id="thm:unnamed-chunk-2"><span class="thm:unnamed-chunk-2" custom-style="NameStyle"><strong><span id="thm:unnamed-chunk-2"></span>Theorem 1  </strong></span><p>Theorem</p></div>\EndKnitrBlock{theorem}
 
-\BeginKnitrBlock{proof}<div class="bookdown-proof" custom-style="ProofStyle">\iffalse{} <span class="proof" custom-style="NameStyle"><em>Proof. </em></span>  \fi{}<p>Proof</p><p>&squ;</p></div>\EndKnitrBlock{proof}
+\BeginKnitrBlock{proof}<div class="bookdown-proof" custom-style="ProofStyle">\iffalse{} <span class="proof" custom-style="NameStyle"><strong>Proof. </strong></span>  \fi{}<p>Proof</p><p>&squ;</p></div>\EndKnitrBlock{proof}
 
 \BeginKnitrBlock{example}<div class="bookdown-example" custom-style="ExampleStyle" id="exm:unnamed-chunk-4"><span class="exm:unnamed-chunk-4" custom-style="NameStyle"><strong><span id="exm:unnamed-chunk-4"></span>Example 1  </strong></span><div>Example</div></div>\EndKnitrBlock{example}
 
