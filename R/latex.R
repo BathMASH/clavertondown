@@ -315,9 +315,9 @@ resolve_refs_latex = function(x, new_reg_label_types, new_theorems, number_by) {
       if(dups[[i]] == TRUE){
         duplocs = c(duplocs,locs[[i]])
       	#This is where we need to insert the counter override... is there a way to do this so that we don't have to put anything after the theorem 
-      	print(x[[locs[[i]]-3]])
-	print(x[[locs[[i]]-2]])
-	print(x[[locs[[i]]-1]])
+      	#print(x[[locs[[i]]-3]])
+	#print(x[[locs[[i]]-2]])
+	#print(x[[locs[[i]]-1]])
       	#print(actuallabs[[i]])
       	#print(gsub(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), '\\\\ref{\\1}', actuallabs[[i]]))      
       	#We need to know what sort of environment this is so that we can override the numbering.
