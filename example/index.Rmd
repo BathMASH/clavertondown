@@ -3,7 +3,7 @@ title: "ClavertonDown Example"
 author: 'Emma Cliffe, Skills Centre: MASH, University of Bath'
 date: 'August 2020'
 site: bookdown::bookdown_site
-lang: en
+language: en
 documentclass: article
 classoption: a4paper
 fontsize: 10pt
@@ -14,17 +14,12 @@ output:
     number_sections: true
     keep_md: true
     pandoc_args: --default-image-extension=svg
-  clavertondown::html_clav:
-    toc: true
-    pandoc_args: --default-image-extension=svg
   clavertondown::gitbook_clav:
     split_by: section
+    keep_md: true
     config:
       download: [["Notes.html", "HTML page"], ["Notes.pdf","Standard print PDF"], ["NotesClear.pdf","Clear print PDF"], ["NotesLarge.pdf","Large print PDF"], ["Notes.docx","Accessible Word document"], ["Notes.epub","Accessible EPub book" ]]
       sharing: no
-    pandoc_args: --default-image-extension=svg
-  clavertondown::epub_clav:
-    toc: false
     pandoc_args: --default-image-extension=svg
   clavertondown::pdf_clav:
     latex_engine: pdflatex
@@ -33,6 +28,12 @@ output:
     toc: true
     extra_dependencies: ["float"]
     pandoc_args: --default-image-extension=pdf
+  clavertondown::html_clav:
+    toc: true
+    pandoc_args: --default-image-extension=svg
+  clavertondown::epub_clav:
+    toc: false
+    pandoc_args: --default-image-extension=svg
 header-includes:
   - \newcommand{\BOO}{BOO}
 ---
@@ -136,7 +137,6 @@ Defining your own proof environment doesn't stop the inbuilt one working.
 
 ```
 
-
 ```{definition}
 
 You can leave some things numbered on their own.
@@ -178,6 +178,42 @@ What happens if I try to number an environment I have specifically declared to b
 This will fail to compile for PDF and it will produce "Examples (#Examples:argh)" as the title in other formats. 
 
 The only real benefit to be gained from specifically declaring an environment to be unnumbered is that you are less likely to accidentally number an instance of it!
+
+## Colour has meaning
+
+The coloured styles for theorem-type environments in HTML, EPub and Word are an attempt to colour code based very broadly on the mathematical type of enviroment. This is to respond to feedback that clear visual markers of the start and end of theorems was important. For accessibility purposes the use of colour can also be used to facilitate cognitive processing and this is stronger if the choice of colour has meaning.   
+
+LaTeX styling, while originally intended to broadly correspond to semantic type is, in our decade or so of experience, not used this way by authors of lecture notes due to the fonts and styling which are imposed in standard LaTeX. So, the three styles in LaTeX:
+
+* Plain
+* Definition
+* Remark
+
+are used to impose the authors visual preferences mostly with respect to font, font attributes and layout. That is, they are usually syntactic choices, not semantic ones.  
+
+Hence, our assignment is NOT based, at all, on the PDF styling specified by the author, or any other information like e.g. numberwith. 
+
+Since the user can define any number of new theorem type environments we have to... guess... to try and align colours to broad types. We have four HTML styles:
+
+* ProofStyle: (P|p)roof(s), (S|s)olution(s), (S|s)oln(s), (R|r)emark(s) and anything including these words; if not then one of the below
+* ExampleStyle: (E|e)xample(s), (E|e)xercise(s) and anything including these words; if not then one of the below
+* DefinitionStyle: (D|d)efinition(s), (D|d)efn(s) and anything including these words; if not then defaults to the below
+* TheoremStyle: Everything else - but should definitely include (T|t)heorem(s), (L|l)emma(s), (C|c)orollar(y|ies), (P|p)roposition(s), (C|c)onjecture(s). 
+
+You might find this automatic sorting to be wrong or annoying. Also, we can't possibly guess what you might call things so lots of types which aren't theorem-like will end up with the default theorem colouring which isn't helpful. 
+
+This is an accessibility issue - the use of colour to highlight meaning helps with processing so we need to give you control to an extent.  
+
+### So...?
+
+We have given the author direct control over which class of HTML to place each theorem type in - both in built and new theorems. You can override our guesses. We have also given you control to turn off italics in the book HTML (the other accessible formats have this turned off already). 
+
+* To turn off italics change style_with -> italicsoff to TRUE in the _bookdown.yml file (or add this to a file you already have). You don't need to specify this, if you don't, for backwards compatibility, it will default to italicsoff is FALSE
+* To classify theorem types you can add, if you wish, a classify_as section to your _bookdown.yml. Again, you don't need to add this if you don't want to change anything. You can see an example of this in the _bookdown.yml file for this document in which the new theorem type Thought is classified as an example. If you remove this classification it will default to the theorem type and the below will change colour.  
+
+```{newtheorem, env='Thought'}
+Here is a thought. 
+```
 
 # Figures inside other environments
 

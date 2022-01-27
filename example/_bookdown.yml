@@ -1,5 +1,5 @@
 book_filename: "Notes"
-output_dir: "../docs"
+output_dir: "docs"
 new_theorems:
   Thought: Tho
   Definitions: Def
@@ -14,3 +14,9 @@ style_with:
   definition: []
   remark: ["Proof"]
   colouroff: ["Examples"]
+  italicsoff: FALSE
+classify_as:
+  TheoremStyle: []
+  DefinitionStyle: []
+  ExampleStyle: ["Thought"]
+  ProofStyle: []

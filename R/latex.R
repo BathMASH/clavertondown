@@ -30,6 +30,8 @@ pdf_clav = function(
     new_reg_label_types = paste(new_reg_label_types, 'ex', sep = '|')
     #This should be the numbered and the unnumbered new_theorems together in this as this function is from html.R
     x = resolve_new_theorems(read_utf8(f), global = !number_sections, new_theorems, number_by)
+    #Clean up labels that should not be there
+    x = clean_labels(x)
     #x = resolve_refs_latex(read_utf8(f), new_reg_label_types)
     #This should now only involve those theorems which are numbered
     x = resolve_refs_latex(x, new_reg_label_types, new_theorems, number_by)
@@ -215,12 +217,18 @@ restore_block2 = function(x, global = FALSE, new_theorems_numbered, new_theorems
   i3 = c(i3, if (length(i2 <- grep('^\\\\EndKnitrBlock\\{', x))) (i2 - 1)[x[i2 - 1] == ''])
   if (length(i3)) x = x[-i3]
 
-  r = '^(.*\\\\BeginKnitrBlock\\{[^}]+\\})(\\\\iffalse\\{-)([-0-9]+)(-\\}\\\\fi\\{\\})(.*)$'
-  if (length(i <- grep(r, x)) == 0) return(x)
+  #r = '^(.*\\\\BeginKnitrBlock\\{[^}]+\\})(\\\\iffalse\\{-)([-0-9]+)(-\\}\\\\fi\\{\\})(.*)$'
+  r = '^(.*\\\\BeginKnitrBlock\\{[^}]+\\})(BEGINSORTNAMEOUTMARKER-)([-0-9]+)(-ENDSORTNAMEOUTMARKER)(.*)$'
+  if (length(i <- grep(r, x)) == 0) {
+  print("I have destroyed the theorem names or I can't find them")
+  return(x)
+  }
   opts = sapply(strsplit(gsub(r, '\\3', x[i]), '-'), function(z) {
     intToUtf8(as.integer(z))
   }, USE.NAMES = FALSE)
   x[i] = paste0(gsub(r, '\\1', x[i]), opts, gsub(r, '\\5', x[i]))
+
+  x = clean_names(x)
   x
 }
 
@@ -307,14 +315,16 @@ resolve_refs_latex = function(x, new_reg_label_types, new_theorems, number_by) {
       if(dups[[i]] == TRUE){
         duplocs = c(duplocs,locs[[i]])
       	#This is where we need to insert the counter override... is there a way to do this so that we don't have to put anything after the theorem 
-      	#print(x[[locs[[i]]-3]])
+      	print(x[[locs[[i]]-3]])
+	print(x[[locs[[i]]-2]])
+	print(x[[locs[[i]]-1]])
       	#print(actuallabs[[i]])
       	#print(gsub(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), '\\\\ref{\\1}', actuallabs[[i]]))      
       	#We need to know what sort of environment this is so that we can override the numbering.
 	#Actually, this is more complicated, we do need to know this, but, if this environment is numbered with another environments counter
 	#then it is that counter that we need to mess about with. Can we even access this information?
 	stringr::str_split("aabcc", "b")[[1]][[1]]
-      	whatami = stringr::str_split(stringr::str_remove(x[[locs[[i]]-2]],'\\\\BeginKnitrBlock\\{'),'\\}',n=2)[[1]][[1]]
+	whatami = stringr::str_split(stringr::str_remove(x[[locs[[i]]-1]],'\\\\BeginKnitrBlock\\{'),'\\}',n=2)[[1]][[1]]
 	print(whatami)
 	mycounter = character(0)
 	#Create list of all of the theorem types
@@ -327,7 +337,7 @@ resolve_refs_latex = function(x, new_reg_label_types, new_theorems, number_by) {
 	#print(mycounter)
       	if(length(whatami) == 0 || is.na(mycounter))
           stop('There is a problem with a repeated environment.')
-      	x[[locs[[i]]-3]] = stringr::str_c(x[[locs[[i]]-3]],sprintf('\\begingroup\\renewcommand{\\the%s}{%s}', mycounter, gsub(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), '\\\\ref{\\1}', actuallabs[[i]])))
+      	x[[locs[[i]]-2]] = stringr::str_c(x[[locs[[i]]-2]],sprintf('\\begingroup\\renewcommand{\\the%s}{%s}', mycounter, gsub(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), '\\\\ref{\\1}', actuallabs[[i]])))
       	#Remove the duplicate label
       	#print(sprintf('\\(\\\\%s\\)',stringr::str_sub(actuallabs[[i]],3,-2)))
       	x[[locs[[i]]]] = stringr::str_remove(x[[locs[[i]]]],sprintf('\\(\\\\%s\\)',stringr::str_sub(actuallabs[[i]],3,-2)))
@@ -348,4 +358,15 @@ resolve_refs_latex = function(x, new_reg_label_types, new_theorems, number_by) {
   #This is the original
   x = gsub(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), '\\\\label{\\1}', x)
   x
+}
+
+clean_labels = function(content){
+  content = gsub('SHOULDIHAVEALABEL .* SHOULDIHAVEALABELEND', '', content)
+  content
+}
+
+clean_names = function(content){
+  content = gsub('BEGINSORTNAMEOUTMARKER-ENDSORTNAMEOUTMARKER','',content)
+  content = gsub('INBUILTREMOVEMESTART .* INBUILTREMOVEMEEND', '',content)
+  content
 }

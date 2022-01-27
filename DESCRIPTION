@@ -1,7 +1,7 @@
 Package: clavertondown
 Type: Package
 Title: Authoring accessible maths lecture notes with Bookdown and R Markdown
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: c(
     person("Cliffe", "Emma", role = c("aut", "cre"), email = "e.h.cliffe@bath.ac.uk"))
 Maintainer: Emma Cliffe <e.h.cliffe@bath.ac.uk>

@@ -44,26 +44,29 @@ eng_theorem = function(options) {
   label = paste(theorem_abbr[type], options$label, sep = ':')
   html.before2 = sprintf('(\\#%s) ', label)
   name = options$name;
-  to_md = output_md()
+  #to_md = output_md()
 
+  l1 = ''
   if(length(name) == 1) {
-    if (to_md) {
+    if (!knitr::is_latex_output()) {
       html.before2 = paste(html.before2, sprintf('(%s) ', name))
     } else {
       resolvedname = resolve_name_refs_latex(name)
       options$latex.options = sprintf('[%s]', resolvedname)
-      html.before2 = paste(html.before2, sprintf('\\iffalse (%s) \\fi{} ', name))
+      l1 = options$latex.options
+      html.before2 = paste(html.before2, sprintf('INBUILTREMOVEMESTART (%s) INBUILTREMOVEMEEND', name))
     }
   }
 
-  l1 = options$latex.options
   if (is.null(l1)) l1 = ''
   # protect environment options because Pandoc may escape the characters like
   # {}; when encoded in integers, they won't be escaped, but will need to
   # restore them later; see bookdown:::restore_block2
-  if (l1 != '') l1 = paste(
-    c('\\iffalse{', utf8ToInt(enc2utf8(l1)), '}\\fi{}'), collapse = '-'
+  l1 = paste(
+     #c('\\iffalse{', utf8ToInt(enc2utf8(l1)), '}\\fi{}'), collapse = '-'
+     c('BEGINSORTNAMEOUTMARKER', utf8ToInt(enc2utf8(l1)), 'ENDSORTNAMEOUTMARKER'), collapse = '-'
   )
+
   h1 = options$html.tag %n% 'div'
   h2 = options$html.tag %n% 'span'
   h3 = options$html.before %n% ''
@@ -127,25 +130,29 @@ eng_newtheorem = function(options) {
 	html.before2 = paste(html.before2, sprintf('%s (\\#%s) ', env, label))
   }
 
+  l1 = ''
   name = options$name;
   #to_md = output_md()
-  l1 = ''
   if (length(name) == 1) {
     if (knitr::is_latex_output()) {
        resolvedname = resolve_name_refs_latex(name)
-       #print("HERE")
-       #print(resolvedname)
-       l1 = sprintf('[%s]', resolvedname)
+       options$latex.options = sprintf('[%s]', resolvedname)
+       l1 = options$latex.options
     } else {
       html.before2 = paste(html.before2, sprintf('(%s) ', name))
     }
   }
-  if (l1 != '') l1 = paste(
-    c('\\iffalse{', utf8ToInt(enc2utf8(l1)), '}\\fi{}'), collapse = '-'
+
+  if (is.null(l1)) l1 = ''
+  #We need this to happen either way or we end up with a spurious newline that throws out dealing with the repeated envs
+  l1 = paste(
+     #c('\\iffalse{', utf8ToInt(enc2utf8(l1)), '}\\fi{}'), collapse = '-'
+     c('BEGINSORTNAMEOUTMARKER', utf8ToInt(enc2utf8(l1)), 'ENDSORTNAMEOUTMARKER'), collapse = '-'
   )
-  #This is going to label the numbered and the unnumbered. At this point we cannot determine the right action so we edit them all out and then in resolve theorems we allow the labels of the numbered theorems to stand (see html.R, of all places, for this function)
+
+#This is going to label the numbered and the unnumbered. At this point we cannot determine the right action so we edit them all out and then in resolve theorems we allow the labels of the numbered theorems to stand (see html.R, of all places, for this function)
   if (knitr::is_latex_output())
-     html.before2 = paste('\\iffalse{}', html.before2, '\\fi{}')
+     html.before2 = paste('SHOULDIHAVEALABEL ', html.before2, ' SHOULDIHAVEALABELEND')
    
   h1 = options$html.tag %n% 'div'
   h2 = options$html.tag %n% 'span'
@@ -211,13 +218,23 @@ eng_proof = function(options) {
     label = label_prefix(type, label_names_math2)
     html.before2 = sprintf('(\\#%s) ', label)
     name = options$name;
-    to_md = output_md()
+    #to_md = output_md()
 
+    l1 = ''
     if (length(name) == 1) {
-       if (!to_md){
+       if (knitr::is_latex_output()){
           resolvedname = resolve_name_refs_latex(name)
        	  options$latex.options = sprintf('[%s]', sub('[.]\\s*$', '', resolvedname))
-	  }else{
+    	  l1 = options$latex.options
+    	  if (is.null(l1)) l1 = ''
+    	  # protect environment options because Pandoc may escape the characters like
+    	  # {}; when encoded in integers, they won't be escaped, but will need to
+    	  # restore them later; see bookdown:::restore_block2
+    	  #if (l1 != '')
+    	  l1 = paste(
+    	  c('BEGINSORTNAMEOUTMARKER', utf8ToInt(enc2utf8(l1)), 'ENDSORTNAMEOUTMARKER'), collapse = '-'
+    	  )	  
+	}else{
 	  html.before2 = paste(html.before2, sprintf('(%s) ', name))
 	}
        r = '^(.+?)([[:punct:][:space:]]+)$'  # "Remark. " -> "Remark (Name). "
@@ -235,17 +252,13 @@ eng_proof = function(options) {
     # We need to make this strong as well and then remove that if it is not supposed to be there?
     '<span class="%s" custom-style="NameStyleItalics"><strong>%s</strong></span> ', type, label
     )
-    if (!to_md)
-      html.before2 = paste('\\iffalse{}', html.before2, '\\fi{}')
 
-    l1 = options$latex.options
-    if (is.null(l1)) l1 = ''
-    # protect environment options because Pandoc may escape the characters like
-    # {}; when encoded in integers, they won't be escaped, but will need to
-    # restore them later; see bookdown:::restore_block2
-    if (l1 != '') l1 = paste(
-    c('\\iffalse{', utf8ToInt(enc2utf8(l1)), '}\\fi{}'), collapse = '-'
-    )
+     #if (!to_md) - this doesn't appear to do what it used to, hopefully what we meant was... actually, I think this is spurious
+     if(knitr::is_latex_output()){
+       #html.before2 = paste('PROOFREMOVEMESTART', html.before2, 'PROOFREMOVEMEEND')
+       html.before2 = ''
+     }
+
     h2 = options$html.tag %n% 'div'
     h3 = options$html.before %n% ''
     h4 = options$html.after %n% ''

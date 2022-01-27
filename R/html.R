@@ -52,6 +52,7 @@ html_clav = function(
     style_with = load_config()[['style_with']]
     classify_as = load_config()[['classify_as']]
     x = read_utf8(output)
+    x = clean_names(x)
     x = bookdown:::clean_html_tags(x)
     x = bookdown:::restore_appendix_html(x, remove = FALSE)
     x = bookdown:::restore_part_html(x, remove = FALSE)
@@ -144,6 +145,7 @@ split_chapters_clav = function(output, build = bookdown:::build_chapter, number_
   if (!(split_level %in% 0:2)) stop('split_level must be 0, 1, or 2')
 
   x = read_utf8(output)
+  x = clean_names(x)
   x = bookdown:::clean_html_tags(x)
 
   i1 = bookdown:::find_token(x, '<!--bookdown:title:start-->')
@@ -381,13 +383,14 @@ resolve_new_theorems = function(content, global = FALSE, new_theorems, number_by
         # Resolve the unnumbered (and HENCE unnamed theorems - since names come from labels and unnumbered SHOULD NOT HAVE labels!) in html:
       	content = gsub(sprintf('id="%s:unnamed-chunk-[-/[:alnum:]]+"', names(new_theorems[i])), sprintf('', new_theorems[[i]]), content)
       	content = gsub(sprintf(' \\(#%s:unnamed-chunk-[-/[:alnum:]]+\\)', names(new_theorems[i])), sprintf(':'), content)
-	#Instead of trying to guess what variety of things might happen below we have put \iffalse \iff around the label, we leave it there in this case and remove it in the numbered case. 
-	#content = gsub(sprintf('#%s:unnamed-chunk-[-/[:alnum:]]+', names(new_theorems[i])), sprintf(''), content)
-      }else{
+	#Instead of trying to guess what variety of things might happen below we have put \iffalse \iff around the label, we were leaving it there in this case and removing it in the numbered case but this does not work in some versions of Pandoc so we will have to remove the entire thing but we will do that in the clean_latex function. 
+	#content = gsub(sprintf('#%s:unnamed-chunk-[-/[:alnum:]]+', names(new_theorems[i])), sprintf(''), content)	
+	}else{
       	content = gsub(sprintf('id="%s:', names(new_theorems[i])), sprintf('id="%s:', new_theorems[[i]]), content)
       	content = gsub(sprintf('\\(#%s:', names(new_theorems[i])), sprintf('\\(#%s:', new_theorems[[i]]), content)
 	#Allow the labels for the numbered
-	content = gsub(sprintf('\\\\iffalse\\{\\} \\(\\\\#%s:([[:alnum:]]+)\\) \\\\fi\\{\\}', names(new_theorems[i])), sprintf('\\(\\\\#%s:\\1\\)', new_theorems[[i]]), content)
+	#content = gsub(sprintf('\\\\iffalse\\{\\} \\(\\\\#%s:([[:alnum:]]+)\\) \\\\fi\\{\\}', names(new_theorems[i])), sprintf('\\(\\\\#%s:\\1\\)', new_theorems[[i]]), content)
+	content = gsub(sprintf('SHOULDIHAVEALABEL \\(\\\\#%s:([[:alnum:]]+)\\) SHOULDIHAVEALABELEND', names(new_theorems[i])), sprintf('\\(\\\\#%s:\\1\\)', new_theorems[[i]]), content)
 	#This is still needed for ePub and Word
 	content = gsub(sprintf('#%s:', names(new_theorems[i])), sprintf('#%s:', new_theorems[[i]]), content)
 	if(names(new_theorems[i]) == 'Example' || names(new_theorems[i]) == 'example'){
