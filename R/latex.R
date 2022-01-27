@@ -220,7 +220,8 @@ restore_block2 = function(x, global = FALSE, new_theorems_numbered, new_theorems
   #r = '^(.*\\\\BeginKnitrBlock\\{[^}]+\\})(\\\\iffalse\\{-)([-0-9]+)(-\\}\\\\fi\\{\\})(.*)$'
   r = '^(.*\\\\BeginKnitrBlock\\{[^}]+\\})(BEGINSORTNAMEOUTMARKER-)([-0-9]+)(-ENDSORTNAMEOUTMARKER)(.*)$'
   if (length(i <- grep(r, x)) == 0) {
-  print("I have destroyed the theorem names or I can't find them")
+  print("There are no named theorems in this document - or I have destroyed the theorem names.")
+  x = clean_names(x)
   return(x)
   }
   opts = sapply(strsplit(gsub(r, '\\3', x[i]), '-'), function(z) {
