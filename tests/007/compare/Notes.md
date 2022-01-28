@@ -3,7 +3,7 @@ title: "Test 007: Better colours in sepia and night mode of gitbook"
 author: 'Emma Cliffe, Skills Centre: MASH, University of Bath'
 date: 'September 2020'
 site: bookdown::bookdown_site
-lang: en
+language: en
 documentclass: article
 classoption: a4paper
 fontsize: 10pt
@@ -40,7 +40,7 @@ Here is some normal text.
 
 \BeginKnitrBlock{theorem}<div class="bookdown-theorem" custom-style="TheoremStyleUpright" id="thm:unnamed-chunk-2"><span class="thm:unnamed-chunk-2" custom-style="NameStyle"><strong><span id="thm:unnamed-chunk-2"></span>Theorem 1  </strong></span><p>Theorem</p></div>\EndKnitrBlock{theorem}
 
-\BeginKnitrBlock{proof}<div class="bookdown-proof" custom-style="ProofStyle">\iffalse{} <span class="proof" custom-style="NameStyle"><strong>Proof. </strong></span>  \fi{}<p>Proof</p><p>&squ;</p></div>\EndKnitrBlock{proof}
+\BeginKnitrBlock{proof}<div class="bookdown-proof" custom-style="ProofStyle"><span class="proof" custom-style="NameStyle"><strong>Proof. </strong></span> <p>Proof</p><p>&squ;</p></div>\EndKnitrBlock{proof}
 
 \BeginKnitrBlock{example}<div class="bookdown-example" custom-style="ExampleStyle" id="exm:unnamed-chunk-4"><span class="exm:unnamed-chunk-4" custom-style="NameStyle"><strong><span id="exm:unnamed-chunk-4"></span>Example 1  </strong></span><div>Example</div></div>\EndKnitrBlock{example}
 

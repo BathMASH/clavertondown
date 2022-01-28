@@ -3,7 +3,7 @@ title: "Test 004: New theorems, numbering and styles"
 author: 'Emma Cliffe, Skills Centre: MASH, University of Bath'
 date: 'August 2020'
 site: bookdown::bookdown_site
-lang: en
+language: en
 documentclass: article
 classoption: a4paper
 fontsize: 10pt
@@ -13,8 +13,6 @@ output:
     toc: true
     number_sections: true
     keep_md: true
-  clavertondown::html_clav:
-    toc: true
   clavertondown::pdf_clav:
     latex_engine: pdflatex
     dev: pdf
@@ -26,6 +24,8 @@ output:
     config:
       download: [["Notes.html", "HTML page"], ["Notes.pdf","Standard print PDF"], ["NotesClear.pdf","Clear print PDF"], ["NotesLarge.pdf","Large print PDF"], ["Notes.docx","Accessible Word document"], ["Notes.epub","Accessible EPub book" ]]
       sharing: no
+  clavertondown::html_clav:
+    toc: true
   clavertondown::epub_clav:
     toc: true
 ---
@@ -37,13 +37,13 @@ output:
 
 Here is some more boring text in between.
 
-\BeginKnitrBlock{theorem}\iffalse{-91-70-111-111-93-}\fi{}<div class="bookdown-theorem" custom-style="TheoremStyleUpright" id="thm:thm1"><span class="thm:thm1" custom-style="NameStyle"><strong><span id="thm:thm1"></span>Theorem 1.1   \iffalse (Foo) \fi{} </strong></span><p>Bookdown is needed for things like theorems and internal references</p></div>\EndKnitrBlock{theorem}
+\BeginKnitrBlock{theorem}<div class="bookdown-theorem" custom-style="TheoremStyleUpright" id="thm:thm1"><span class="thm:thm1" custom-style="NameStyle"><strong><span id="thm:thm1"></span>Theorem 1.1   (Foo) </strong></span><p>Bookdown is needed for things like theorems and internal references</p></div>\EndKnitrBlock{theorem}
 
-\BeginKnitrBlock{proposition}\iffalse{-91-84-104-105-110-103-121-32-119-101-32-110-101-101-100-32-102-111-114-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proposition" custom-style="TheoremStyleUpright" id="prp:prp1"><span class="prp:prp1" custom-style="NameStyle"><strong><span id="prp:prp1"></span>Proposition 1.2   \iffalse (Thingy we need for <a href="#thm:thm1">1.1</a>) \fi{} </strong></span><p>You can create new theorem types</p></div>\EndKnitrBlock{proposition}
+\BeginKnitrBlock{proposition}<div class="bookdown-proposition" custom-style="TheoremStyleUpright" id="prp:prp1"><span class="prp:prp1" custom-style="NameStyle"><strong><span id="prp:prp1"></span>Proposition 1.2   (Thingy we need for <a href="#thm:thm1">1.1</a>) </strong></span><p>You can create new theorem types</p></div>\EndKnitrBlock{proposition}
 
 \BeginKnitrBlock{Proof}<div class="Proof" custom-style="ProofStyle" ><span class="Proof" custom-style="NameStyle"><strong> Proof:  (Of theorem <a href="#thm:thm1">1.1</a>) </strong></span><div>Here is a proof</div><p>&squ;</p></div>\EndKnitrBlock{Proof}
 
-\BeginKnitrBlock{proof}\iffalse{-91-80-114-111-111-102-32-111-102-32-116-104-101-111-114-101-109-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proof" custom-style="ProofStyle">\iffalse{} <span class="proof" custom-style="NameStyle"><strong>Proof (Proof of theorem <a href="#thm:thm1">1.1</a>). </strong></span>  \fi{}<p>Here is a proof</p><p>&squ;</p></div>\EndKnitrBlock{proof}
+\BeginKnitrBlock{proof}<div class="bookdown-proof" custom-style="ProofStyle"><span class="proof" custom-style="NameStyle"><strong>Proof (Proof of theorem <a href="#thm:thm1">1.1</a>). </strong></span> <p>Here is a proof</p><p>&squ;</p></div>\EndKnitrBlock{proof}
 
 \BeginKnitrBlock{proposition}<div class="bookdown-proposition" custom-style="TheoremStyleUpright" id="prp:prp2"><span class="prp:prp2" custom-style="NameStyle"><strong><span id="prp:prp2"></span>Proposition 1.3  </strong></span><p>Bookdown is needed for things like theorems and internal references</p></div>\EndKnitrBlock{proposition}
 
@@ -59,13 +59,13 @@ Here is some more boring text in between.
 
 \BeginKnitrBlock{Exercises}<div class="Exercises" custom-style="ExampleStyle" ><span class="Exercises" custom-style="NameStyle"><strong> Exercises: </strong></span><div>Here is a question</div></div>\EndKnitrBlock{Exercises}
 
-\BeginKnitrBlock{solution}<div class="bookdown-solution" custom-style="ProofStyle">\iffalse{} <span class="solution" custom-style="NameStyle"><strong>Solution. </strong></span>  \fi{}<p>Test</p></div>\EndKnitrBlock{solution}
+\BeginKnitrBlock{solution}<div class="bookdown-solution" custom-style="ProofStyle"><span class="solution" custom-style="NameStyle"><strong>Solution. </strong></span> <p>Test</p></div>\EndKnitrBlock{solution}
 
 # Testing the reference link back
 
 Now go to theorem <a href="#thm:thm1">1.1</a> or thought <a href="#tho:tho1">1.1</a>
 
-\BeginKnitrBlock{solution}<div class="bookdown-solution" custom-style="ProofStyle">\iffalse{} <span class="solution" custom-style="NameStyle"><strong>Solution. </strong></span>  \fi{}<p>Test</p></div>\EndKnitrBlock{solution}
+\BeginKnitrBlock{solution}<div class="bookdown-solution" custom-style="ProofStyle"><span class="solution" custom-style="NameStyle"><strong>Solution. </strong></span> <p>Test</p></div>\EndKnitrBlock{solution}
 
 \BeginKnitrBlock{definition}<div class="bookdown-definition" custom-style="DefinitionStyle" id="def:truth"><span class="def:truth" custom-style="NameStyle"><strong><span id="def:truth"></span>Definition 1.1  </strong></span><div>Here is a definition</div></div>\EndKnitrBlock{definition}
 

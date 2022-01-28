@@ -4,12 +4,11 @@
 %
 \documentclass[
   12pt,
-  english,
   a4paper]{extarticle}
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -40,7 +39,6 @@
 \hypersetup{
   pdftitle={Test 004: New theorems, numbering and styles},
   pdfauthor={Emma Cliffe, Skills Centre: MASH, University of Bath},
-  pdflang={en},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
@@ -72,17 +70,7 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
-\ifxetex
-  % Load polyglossia as late as possible: uses bidi with RTL langages (e.g. Hebrew, Arabic)
-  \usepackage{polyglossia}
-  \setmainlanguage[]{english}
-\else
-  \usepackage[main=english]{babel}
-% get rid of language-specific shorthands (see #6817):
-\let\LanguageShortHands\languageshorthands
-\def\languageshorthands#1{}
-\fi
-\ifluatex
+\ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
 
@@ -179,20 +167,18 @@
 Here is some more boring text in between.
 
 \BeginKnitrBlock{theorem}[Foo]
-{\label{thm:thm1} \iffalse (Foo) \fi{} }Bookdown is needed for things like theorems and internal references
+{\label{thm:thm1} }Bookdown is needed for things like theorems and internal references
 \EndKnitrBlock{theorem}
 
 \BeginKnitrBlock{proposition}[Thingy we need for \ref{thm:thm1}]
-{\label{prp:prp1} \iffalse (Thingy we need for \ref{thm:thm1}) \fi{} }You can create new theorem types
+{\label{prp:prp1} }You can create new theorem types
 \EndKnitrBlock{proposition}
 
 \BeginKnitrBlock{Proof*}[Of theorem \ref{thm:thm1}]
-{\iffalse{} (\#Proof:unnamed-chunk-2) \fi{}}Here is a proof\qed
+{}Here is a proof\qed
 \EndKnitrBlock{Proof*}
 
 \BeginKnitrBlock{proof}[Proof of theorem \ref{thm:thm1}]
-\iffalse{} {Proof (Proof of theorem \ref{thm:thm1}). } \fi{}
-
 Here is a proof
 \EndKnitrBlock{proof}
 
@@ -205,7 +191,7 @@ Here is a proof
 \EndKnitrBlock{Thought}
 
 \BeginKnitrBlock{Defns*}
-{\iffalse{} (\#Defns:unnamed-chunk-4) \fi{}}You can create new unumbered theorem types
+{}You can create new unumbered theorem types
 \EndKnitrBlock{Defns*}
 
 \BeginKnitrBlock{Nugget}
@@ -213,7 +199,7 @@ Here is a proof
 \EndKnitrBlock{Nugget}
 
 \BeginKnitrBlock{Example*}
-{\iffalse{} (\#\url{Example:unnamed-chunk-5}) \fi{}}An example
+{}An example
 \EndKnitrBlock{Example*}
 
 \BeginKnitrBlock{Solution}
@@ -221,12 +207,10 @@ Here is a proof
 \EndKnitrBlock{Solution}
 
 \BeginKnitrBlock{Exercises*}
-{\iffalse{} (\#Exercises:unnamed-chunk-6) \fi{}}Here is a question
+{}Here is a question
 \EndKnitrBlock{Exercises*}
 
 \BeginKnitrBlock{solution*}
-\iffalse{} {Solution. } \fi{}
-
 Test
 \EndKnitrBlock{solution*}
 
@@ -236,8 +220,6 @@ Test
 Now go to theorem \ref{thm:thm1} or thought \ref{tho:tho1}
 
 \BeginKnitrBlock{solution*}
-\iffalse{} {Solution. } \fi{}
-
 Test
 \EndKnitrBlock{solution*}
 \begingroup\renewcommand{\thedefinition}{\ref{def:truth}}

@@ -1,0 +1,3 @@
+def:unnamed-chunk-1
+thm:unnamed-chunk-2
+exm:unnamed-chunk-4

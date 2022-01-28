@@ -3,21 +3,21 @@ title: "Test 009: Aligning styles between PDF and nonPDF"
 author: 'Emma Cliffe, Skills Centre: MASH, University of Bath'
 date: 'August 2020'
 site: bookdown::bookdown_site
-lang: en
+language: en
 documentclass: article
 classoption: a4paper
 fontsize: 10pt
 geometry: margin=2.5cm
 output:
-  clavertondown::html_clav:
-    toc: false
-  clavertondown::epub_clav:
-    toc: false
   clavertondown::gitbook_clav:
     split_by: section
     config:
       download: [["Notes.html", "HTML page"], ["Notes.pdf","Standard print PDF"], ["NotesClear.pdf","Clear print PDF"], ["NotesLarge.pdf","Large print PDF"], ["Notes.docx","Accessible Word document"], ["Notes.epub","Accessible EPub book" ]]
       sharing: no
+  clavertondown::epub_clav:
+    toc: false
+  clavertondown::html_clav:
+    toc: false
   clavertondown::pdf_clav:
     latex_engine: pdflatex
     dev: pdf
@@ -77,7 +77,7 @@ The only requirements we have in the code are:
 
 \BeginKnitrBlock{theorem}<div class="bookdown-theorem" custom-style="TheoremStyleUpright" id="thm:unnamed-chunk-1"><span class="thm:unnamed-chunk-1" custom-style="NameStyle"><strong><span id="thm:unnamed-chunk-1"></span>Theorem 3.1  </strong></span><p>This is an inbuilt theorem.</p></div>\EndKnitrBlock{theorem}
 
-\BeginKnitrBlock{remark}<div class="bookdown-remark" custom-style="ProofStyle">\iffalse{} <span class="remark" custom-style="NameStyle"><strong>Remark. </strong></span>  \fi{}<p>This is an inbuilt remark.</p></div>\EndKnitrBlock{remark}
+\BeginKnitrBlock{remark}<div class="bookdown-remark" custom-style="ProofStyle"><span class="remark" custom-style="NameStyle"><strong>Remark. </strong></span> <p>This is an inbuilt remark.</p></div>\EndKnitrBlock{remark}
 
 \BeginKnitrBlock{Notation}<div class="Notation" custom-style="ProofStyle" ><span class="Notation" custom-style="NameStyle"><strong> Notation: </strong></span><p>This is notation.</p></div>\EndKnitrBlock{Notation}
 

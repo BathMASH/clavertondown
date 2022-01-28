@@ -4,12 +4,11 @@
 %
 \documentclass[
   17pt,
-  english,
   a4paper]{extarticle}
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -40,7 +39,6 @@
 \hypersetup{
   pdftitle={Test 006: Be able to turn colours off},
   pdfauthor={Emma Cliffe, Skills Centre: MASH, University of Bath},
-  pdflang={en},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
@@ -72,17 +70,7 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
-\ifxetex
-  % Load polyglossia as late as possible: uses bidi with RTL langages (e.g. Hebrew, Arabic)
-  \usepackage{polyglossia}
-  \setmainlanguage[]{english}
-\else
-  \usepackage[main=english]{babel}
-% get rid of language-specific shorthands (see #6817):
-\let\LanguageShortHands\languageshorthands
-\def\languageshorthands#1{}
-\fi
-\ifluatex
+\ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
 
@@ -186,8 +174,6 @@ Some text to show us what the padding does or does not look like
 \EndKnitrBlock{theorem}
 
 \BeginKnitrBlock{proof}
-\iffalse{} {Proof. } \fi{}
-
 A proof
 \EndKnitrBlock{proof}
 
@@ -195,7 +181,7 @@ A proof
 \subsection{Section 2.1}\label{section-2.1}}
 
 \BeginKnitrBlock{Exercises*}
-{\iffalse{} (\#Exercises:unnamed-chunk-5) \fi{}}Some exercises
+{}Some exercises
 \EndKnitrBlock{Exercises*}
 
 \end{document}

@@ -3,7 +3,7 @@ title: "Test 007: Better colours in sepia and night mode of gitbook"
 author: 'Emma Cliffe, Skills Centre: MASH, University of Bath'
 date: 'September 2020'
 site: bookdown::bookdown_site
-lang: en
+language: en
 documentclass: article
 classoption: a4paper
 fontsize: 10pt

@@ -3,7 +3,7 @@ title: "Test 006: Be able to turn colours off"
 author: 'Emma Cliffe, Skills Centre: MASH, University of Bath'
 date: 'August 2020'
 site: bookdown::bookdown_site
-lang: en
+language: en
 documentclass: article
 classoption: a4paper
 fontsize: 10pt
@@ -46,7 +46,7 @@ Some text to show us what the padding does or does not look like
 
 \BeginKnitrBlock{theorem}<div class="bookdown-theorem" custom-style="TheoremStyleUpright" id="thm:unnamed-chunk-3"><span class="thm:unnamed-chunk-3" custom-style="NameStyle"><strong><span id="thm:unnamed-chunk-3"></span>Theorem 2.1  </strong></span><p>A theorem</p></div>\EndKnitrBlock{theorem}
 
-\BeginKnitrBlock{proof}<div class="bookdown-proof" custom-style="ProofStyle">\iffalse{} <span class="proof" custom-style="NameStyle"><strong>Proof. </strong></span>  \fi{}<p>A proof</p><p>&squ;</p></div>\EndKnitrBlock{proof}
+\BeginKnitrBlock{proof}<div class="bookdown-proof" custom-style="ProofStyle"><span class="proof" custom-style="NameStyle"><strong>Proof. </strong></span> <p>A proof</p><p>&squ;</p></div>\EndKnitrBlock{proof}
 
 ## Section 2.1
 

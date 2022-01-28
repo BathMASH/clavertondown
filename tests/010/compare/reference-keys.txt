@@ -1,3 +1,6 @@
+fig:cars1
+exm:unnamed-chunk-1
+fig:cars2
 figures-generated-by-r
 saved-and-then-included
 here-is-a-figure

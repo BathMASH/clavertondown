@@ -4,12 +4,11 @@
 %
 \documentclass[
   17pt,
-  english,
   a4paper]{extarticle}
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -40,7 +39,6 @@
 \hypersetup{
   pdftitle={ClavertonDown Example},
   pdfauthor={Emma Cliffe, Skills Centre: MASH, University of Bath},
-  pdflang={en},
   hidelinks,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
@@ -74,17 +72,7 @@
 \setcounter{secnumdepth}{5}
 \newcommand{\BOO}{BOO}
 \usepackage{float}
-\ifxetex
-  % Load polyglossia as late as possible: uses bidi with RTL langages (e.g. Hebrew, Arabic)
-  \usepackage{polyglossia}
-  \setmainlanguage[]{english}
-\else
-  \usepackage[main=english]{babel}
-% get rid of language-specific shorthands (see #6817):
-\let\LanguageShortHands\languageshorthands
-\def\languageshorthands#1{}
-\fi
-\ifluatex
+\ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
 
@@ -289,12 +277,12 @@ You will notice that there are a variety of ways that theorem type environments 
 However, this doesn't mean we have got it right. Give us feedback. Ideally, get students to give feedback too.
 
 \BeginKnitrBlock{theorem}[Foo]
-{\label{thm:thm1} \iffalse (Foo) \fi{} }
+{\label{thm:thm1} }
 This is a theorem environment already provided by Bookdown. It still works as before.
 \EndKnitrBlock{theorem}
 
 \BeginKnitrBlock{proposition}[Thingy we need for \ref{thm:thm1}]
-{\label{prp:prp1} \iffalse (Thingy we need for \ref{thm:thm1}) \fi{} }
+{\label{prp:prp1} }
 However, in this system you can now
 
 \begin{itemize}
@@ -307,7 +295,7 @@ However, in this system you can now
 \EndKnitrBlock{proposition}
 
 \BeginKnitrBlock{Proof*}[Of theorem \ref{thm:thm1}]
-{\iffalse{} (\#Proof:unnamed-chunk-1) \fi{}}
+{}
 You can make new unnumbered theorem environments. You can call them whatever you like. They work kind of like the inbuilt ones but the environment is always newtheorem and the env defines the type.
 
 You need to have predefined the type and made any changes to the standard print style in the file \_bookdown.yml. Please see the file in the same folder as this file.
@@ -317,8 +305,6 @@ You can't control what things look like in the other formats as they have been d
 \EndKnitrBlock{Proof*}
 
 \BeginKnitrBlock{proof}[Proof of theorem \ref{thm:thm1}]
-\iffalse{} {Proof (Proof of theorem \ref{thm:thm1}). } \fi{}
-
 Defining your own proof environment doesn't stop the inbuilt one working.
 \EndKnitrBlock{proof}
 
@@ -340,7 +326,7 @@ References still work in the same way as in Bookdown. Now go to theorem \ref{thm
 
 Here is some text which is not part of the below example.
 \BeginKnitrBlock{Examples*}
-{\iffalse{} (\#Examples:unnamed-chunk-4) \fi{}}You can turn off the colour and padding in html, ePub and Word for any newtheorem or inbuilt theorem type. You do this in the \_bookdown.yml file by adding the theorem name to the colouroff style\_with list.
+{}You can turn off the colour and padding in html, ePub and Word for any newtheorem or inbuilt theorem type. You do this in the \_bookdown.yml file by adding the theorem name to the colouroff style\_with list.
 \EndKnitrBlock{Examples*}
 Here is some text which is not part of the above example.
 
@@ -348,7 +334,7 @@ Here is some text which is not part of the above example.
 \subsection{But I want to number some of them\ldots{}}\label{but-i-want-to-number-some-of-them}}
 
 \BeginKnitrBlock{Definitions*}
-{\iffalse{} \label{Def:unnamed-chunk-5} \fi{}}This is unnumbered in all formats
+{}This is unnumbered in all formats
 \EndKnitrBlock{Definitions*}
 
 \BeginKnitrBlock{Definitions}
@@ -363,6 +349,62 @@ What happens if I try to number an environment I have specifically declared to b
 This will fail to compile for PDF and it will produce ``Examples (\#Examples:argh)'' as the title in other formats.
 
 The only real benefit to be gained from specifically declaring an environment to be unnumbered is that you are less likely to accidentally number an instance of it!
+
+\hypertarget{colour-has-meaning}{%
+\subsection{Colour has meaning}\label{colour-has-meaning}}
+
+The coloured styles for theorem-type environments in HTML, EPub and Word are an attempt to colour code based very broadly on the mathematical type of enviroment. This is to respond to feedback that clear visual markers of the start and end of theorems was important. For accessibility purposes the use of colour can also be used to facilitate cognitive processing and this is stronger if the choice of colour has meaning.
+
+LaTeX styling, while originally intended to broadly correspond to semantic type is, in our decade or so of experience, not used this way by authors of lecture notes due to the fonts and styling which are imposed in standard LaTeX. So, the three styles in LaTeX:
+
+\begin{itemize}
+\tightlist
+\item
+  Plain
+\item
+  Definition
+\item
+  Remark
+\end{itemize}
+
+are used to impose the authors visual preferences mostly with respect to font, font attributes and layout. That is, they are usually syntactic choices, not semantic ones.
+
+Hence, our assignment is NOT based, at all, on the PDF styling specified by the author, or any other information like e.g.~numberwith.
+
+Since the user can define any number of new theorem type environments we have to\ldots{} guess\ldots{} to try and align colours to broad types. We have four HTML styles:
+
+\begin{itemize}
+\tightlist
+\item
+  ProofStyle: (P\textbar p)roof(s), (S\textbar s)olution(s), (S\textbar s)oln(s), (R\textbar r)emark(s) and anything including these words; if not then one of the below
+\item
+  ExampleStyle: (E\textbar e)xample(s), (E\textbar e)xercise(s) and anything including these words; if not then one of the below
+\item
+  DefinitionStyle: (D\textbar d)efinition(s), (D\textbar d)efn(s) and anything including these words; if not then defaults to the below
+\item
+  TheoremStyle: Everything else - but should definitely include (T\textbar t)heorem(s), (L\textbar l)emma(s), (C\textbar c)orollar(y\textbar ies), (P\textbar p)roposition(s), (C\textbar c)onjecture(s).
+\end{itemize}
+
+You might find this automatic sorting to be wrong or annoying. Also, we can't possibly guess what you might call things so lots of types which aren't theorem-like will end up with the default theorem colouring which isn't helpful.
+
+This is an accessibility issue - the use of colour to highlight meaning helps with processing so we need to give you control to an extent.
+
+\hypertarget{so}{%
+\subsubsection{So\ldots?}\label{so}}
+
+We have given the author direct control over which class of HTML to place each theorem type in - both in built and new theorems. You can override our guesses. We have also given you control to turn off italics in the book HTML (the other accessible formats have this turned off already).
+
+\begin{itemize}
+\tightlist
+\item
+  To turn off italics change style\_with -\textgreater{} italicsoff to TRUE in the \_bookdown.yml file (or add this to a file you already have). You don't need to specify this, if you don't, for backwards compatibility, it will default to italicsoff is FALSE
+\item
+  To classify theorem types you can add, if you wish, a classify\_as section to your \_bookdown.yml. Again, you don't need to add this if you don't want to change anything. You can see an example of this in the \_bookdown.yml file for this document in which the new theorem type Thought is classified as an example. If you remove this classification it will default to the theorem type and the below will change colour.
+\end{itemize}
+
+\BeginKnitrBlock{Thought*}
+{}Here is a thought.
+\EndKnitrBlock{Thought*}
 
 \hypertarget{figures-inside-other-environments}{%
 \section{Figures inside other environments}\label{figures-inside-other-environments}}
@@ -380,7 +422,7 @@ The only real benefit to be gained from specifically declaring an environment to
 \subsection{Here is the putting of a figure inside another built in environment}\label{here-is-the-putting-of-a-figure-inside-another-built-in-environment}}
 
 \BeginKnitrBlock{example}
-{\label{exm:unnamed-chunk-6} }Here is an example.
+{\label{exm:unnamed-chunk-7} }Here is an example.
 
 \begin{figure}
 \centering
@@ -397,7 +439,7 @@ This is a test. So, you need an empty line before and after the above for it to 
 Here we are going to do something a bit more impressive with the automatic creation of alternative image formats. This is only useful to you if you are using R to generate graphs etc.
 
 \BeginKnitrBlock{Example*}
-{\iffalse{} (\#\url{Example:unnamed-chunk-7}) \fi{}}An example in which we have autogenerated a useful description of the scatterplot for a person who cannot see it, using BrailleR. To see the content of the long description if you view the HTML in Firefox and right click you can request it.
+{}An example in which we have autogenerated a useful description of the scatterplot for a person who cannot see it, using BrailleR. To see the content of the long description if you view the HTML in Firefox and right click you can request it.
 
 \begin{figure}
 \centering
@@ -414,14 +456,14 @@ Sometimes I would like to repeat a definition from earlier and have it numbered 
 Inbuilt using own numbering
 \begingroup\renewcommand{\thetheorem}{\ref{thm:thm1}}
 \BeginKnitrBlock{theorem}[Foo]
-{ \iffalse (Foo) \fi{} }
+{ }
 This is a theorem environment already provided by Bookdown. It still works as before.
 \EndKnitrBlock{theorem}
 \endgroup\addtocounter{theorem}{-1}
 Inbuilt using other inbuilt numbering
 \begingroup\renewcommand{\thetheorem}{\ref{prp:prp1}}
 \BeginKnitrBlock{proposition}[Thingy we need for \ref{thm:thm1}]
-{ \iffalse (Thingy we need for \ref{thm:thm1}) \fi{} }
+{ }
 However, in this system you can now
 
 \begin{itemize}

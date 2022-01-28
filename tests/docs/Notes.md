@@ -3,7 +3,7 @@ title: "ClavertonDown Example"
 author: 'Emma Cliffe, Skills Centre: MASH, University of Bath'
 date: 'August 2020'
 site: bookdown::bookdown_site
-lang: en
+language: en
 documentclass: article
 classoption: a4paper
 fontsize: 10pt
@@ -14,17 +14,12 @@ output:
     number_sections: true
     keep_md: true
     pandoc_args: --default-image-extension=svg
-  clavertondown::html_clav:
-    toc: true
-    pandoc_args: --default-image-extension=svg
   clavertondown::gitbook_clav:
     split_by: section
+    keep_md: true
     config:
       download: [["Notes.html", "HTML page"], ["Notes.pdf","Standard print PDF"], ["NotesClear.pdf","Clear print PDF"], ["NotesLarge.pdf","Large print PDF"], ["Notes.docx","Accessible Word document"], ["Notes.epub","Accessible EPub book" ]]
       sharing: no
-    pandoc_args: --default-image-extension=svg
-  clavertondown::epub_clav:
-    toc: false
     pandoc_args: --default-image-extension=svg
   clavertondown::pdf_clav:
     latex_engine: pdflatex
@@ -33,6 +28,12 @@ output:
     toc: true
     extra_dependencies: ["float"]
     pandoc_args: --default-image-extension=pdf
+  clavertondown::html_clav:
+    toc: true
+    pandoc_args: --default-image-extension=svg
+  clavertondown::epub_clav:
+    toc: false
+    pandoc_args: --default-image-extension=svg
 header-includes:
   - \newcommand{\BOO}{BOO}
 ---
@@ -105,11 +106,11 @@ You will notice that there are a variety of ways that theorem type environments 
 
 However, this doesn't mean we have got it right. Give us feedback. Ideally, get students to give feedback too. 
 
-\BeginKnitrBlock{theorem}\iffalse{-91-70-111-111-93-}\fi{}<div class="bookdown-theorem" custom-style="TheoremStyleUpright" id="thm:thm1"><span class="thm:thm1" custom-style="NameStyle"><strong><span id="thm:thm1"></span>Theorem 2.1   \iffalse (Foo) \fi{} </strong></span><p>
+\BeginKnitrBlock{theorem}<div class="bookdown-theorem" custom-style="TheoremStyleUpright" id="thm:thm1"><span class="thm:thm1" custom-style="NameStyle"><strong><span id="thm:thm1"></span>Theorem 2.1   (Foo) </strong></span><p>
 This is a theorem environment already provided by Bookdown. It still works as before.
 </p></div>\EndKnitrBlock{theorem}
 
-\BeginKnitrBlock{proposition}\iffalse{-91-84-104-105-110-103-121-32-119-101-32-110-101-101-100-32-102-111-114-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proposition" custom-style="TheoremStyleUpright" id="prp:prp1"><span class="prp:prp1" custom-style="NameStyle"><strong><span id="prp:prp1"></span>Proposition 2.2   \iffalse (Thingy we need for <a href="#thm:thm1">2.1</a>) \fi{} </strong></span><p>
+\BeginKnitrBlock{proposition}<div class="bookdown-proposition" custom-style="TheoremStyleUpright" id="prp:prp1"><span class="prp:prp1" custom-style="NameStyle"><strong><span id="prp:prp1"></span>Proposition 2.2   (Thingy we need for <a href="#thm:thm1">2.1</a>) </strong></span><p>
 However, in this system you can now 
 
 * Change the numbering system of the inbuilt environments - this is done in the file _bookdown.yml. Please see the file in the same folder as this file. 
@@ -124,10 +125,9 @@ You need to have predefined the type and made any changes to the standard print 
 You can't control what things look like in the other formats as they have been designed with a variety of accessibility features. If you don't like how they look then maybe contact us and ask about it. It might be something we can think about changing or allowing author control or, it might not.
 </div><p>&squ;</p></div>\EndKnitrBlock{Proof}
 
-\BeginKnitrBlock{proof}\iffalse{-91-80-114-111-111-102-32-111-102-32-116-104-101-111-114-101-109-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proof" custom-style="ProofStyle">\iffalse{} <span class="proof" custom-style="NameStyle"><strong>Proof (Proof of theorem <a href="#thm:thm1">2.1</a>). </strong></span>  \fi{}<p>
+\BeginKnitrBlock{proof}<div class="bookdown-proof" custom-style="ProofStyle"><span class="proof" custom-style="NameStyle"><strong>Proof (Proof of theorem <a href="#thm:thm1">2.1</a>). </strong></span> <p>
 Defining your own proof environment doesn't stop the inbuilt one working. 
 </p><p>&squ;</p></div>\EndKnitrBlock{proof}
-
 
 \BeginKnitrBlock{definition}<div class="bookdown-definition" custom-style="DefinitionStyle" id="def:unnamed-chunk-3"><span class="def:unnamed-chunk-3" custom-style="NameStyle"><strong><span id="def:unnamed-chunk-3"></span>Definition 2.1  </strong></span><div>
 You can leave some things numbered on their own.
@@ -161,6 +161,40 @@ This will fail to compile for PDF and it will produce "Examples (#Examples:argh)
 
 The only real benefit to be gained from specifically declaring an environment to be unnumbered is that you are less likely to accidentally number an instance of it!
 
+## Colour has meaning
+
+The coloured styles for theorem-type environments in HTML, EPub and Word are an attempt to colour code based very broadly on the mathematical type of enviroment. This is to respond to feedback that clear visual markers of the start and end of theorems was important. For accessibility purposes the use of colour can also be used to facilitate cognitive processing and this is stronger if the choice of colour has meaning.   
+
+LaTeX styling, while originally intended to broadly correspond to semantic type is, in our decade or so of experience, not used this way by authors of lecture notes due to the fonts and styling which are imposed in standard LaTeX. So, the three styles in LaTeX:
+
+* Plain
+* Definition
+* Remark
+
+are used to impose the authors visual preferences mostly with respect to font, font attributes and layout. That is, they are usually syntactic choices, not semantic ones.  
+
+Hence, our assignment is NOT based, at all, on the PDF styling specified by the author, or any other information like e.g. numberwith. 
+
+Since the user can define any number of new theorem type environments we have to... guess... to try and align colours to broad types. We have four HTML styles:
+
+* ProofStyle: (P|p)roof(s), (S|s)olution(s), (S|s)oln(s), (R|r)emark(s) and anything including these words; if not then one of the below
+* ExampleStyle: (E|e)xample(s), (E|e)xercise(s) and anything including these words; if not then one of the below
+* DefinitionStyle: (D|d)efinition(s), (D|d)efn(s) and anything including these words; if not then defaults to the below
+* TheoremStyle: Everything else - but should definitely include (T|t)heorem(s), (L|l)emma(s), (C|c)orollar(y|ies), (P|p)roposition(s), (C|c)onjecture(s). 
+
+You might find this automatic sorting to be wrong or annoying. Also, we can't possibly guess what you might call things so lots of types which aren't theorem-like will end up with the default theorem colouring which isn't helpful. 
+
+This is an accessibility issue - the use of colour to highlight meaning helps with processing so we need to give you control to an extent.  
+
+### So...?
+
+We have given the author direct control over which class of HTML to place each theorem type in - both in built and new theorems. You can override our guesses. We have also given you control to turn off italics in the book HTML (the other accessible formats have this turned off already). 
+
+* To turn off italics change style_with -> italicsoff to TRUE in the _bookdown.yml file (or add this to a file you already have). You don't need to specify this, if you don't, for backwards compatibility, it will default to italicsoff is FALSE
+* To classify theorem types you can add, if you wish, a classify_as section to your _bookdown.yml. Again, you don't need to add this if you don't want to change anything. You can see an example of this in the _bookdown.yml file for this document in which the new theorem type Thought is classified as an example. If you remove this classification it will default to the theorem type and the below will change colour.  
+
+\BeginKnitrBlock{Thought}<div class="Thought" custom-style="ExampleStyle" id="Tho:unnamed-chunk-6"><span class="Thought" custom-style="NameStyle"><strong> Thought: </strong></span><p>Here is a thought. </p></div>\EndKnitrBlock{Thought}
+
 # Figures inside other environments
 
 ## Here is a figure
@@ -171,7 +205,7 @@ The only real benefit to be gained from specifically declaring an environment to
 
 ## Here is the putting of a figure inside another built in environment
 
-\BeginKnitrBlock{example}<div class="bookdown-example" custom-style="ExampleStyle" id="exm:unnamed-chunk-6"><span class="exm:unnamed-chunk-6" custom-style="NameStyle"><strong><span id="exm:unnamed-chunk-6"></span>Example 3.1  </strong></span><div>Here is an example.
+\BeginKnitrBlock{example}<div class="bookdown-example" custom-style="ExampleStyle" id="exm:unnamed-chunk-7"><span class="exm:unnamed-chunk-7" custom-style="NameStyle"><strong><span id="exm:unnamed-chunk-7"></span>Example 3.1  </strong></span><div>Here is an example.
 
 ![Figure 3.2: Something to do with cars](./Notes_files/figures/cars-plot-1   "Some more meaningful alternative text?"){width="60%"}
 
@@ -200,13 +234,13 @@ Sometimes I would like to repeat a definition from earlier and have it numbered 
 
 Inbuilt using own numbering
 
-\BeginKnitrBlock{theorem}\iffalse{-91-70-111-111-93-}\fi{}<div class="bookdown-theorem" custom-style="TheoremStyleUpright" id="thm:thm1"><span class="thm:thm1" custom-style="NameStyle"><strong><span id="thm:thm1"></span>Theorem 2.1   \iffalse (Foo) \fi{} </strong></span><p>
+\BeginKnitrBlock{theorem}<div class="bookdown-theorem" custom-style="TheoremStyleUpright" id="thm:thm1"><span class="thm:thm1" custom-style="NameStyle"><strong><span id="thm:thm1"></span>Theorem 2.1   (Foo) </strong></span><p>
 This is a theorem environment already provided by Bookdown. It still works as before.
 </p></div>\EndKnitrBlock{theorem}
 
 Inbuilt using other inbuilt numbering
 
-\BeginKnitrBlock{proposition}\iffalse{-91-84-104-105-110-103-121-32-119-101-32-110-101-101-100-32-102-111-114-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-}\fi{}<div class="bookdown-proposition" custom-style="TheoremStyleUpright" id="prp:prp1"><span class="prp:prp1" custom-style="NameStyle"><strong><span id="prp:prp1"></span>Proposition 2.2   \iffalse (Thingy we need for <a href="#thm:thm1">2.1</a>) \fi{} </strong></span><p>
+\BeginKnitrBlock{proposition}<div class="bookdown-proposition" custom-style="TheoremStyleUpright" id="prp:prp1"><span class="prp:prp1" custom-style="NameStyle"><strong><span id="prp:prp1"></span>Proposition 2.2   (Thingy we need for <a href="#thm:thm1">2.1</a>) </strong></span><p>
 However, in this system you can now 
 
 * Change the numbering system of the inbuilt environments - this is done in the file _bookdown.yml. Please see the file in the same folder as this file. 

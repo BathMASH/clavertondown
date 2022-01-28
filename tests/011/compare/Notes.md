@@ -3,7 +3,7 @@ title: "Test 011: Unnumbered theorems work"
 author: 'Emma Cliffe, Skills Centre: MASH, University of Bath'
 date: 'October 2021'
 site: bookdown::bookdown_site
-lang: en
+language: en
 documentclass: article
 classoption: a4paper
 fontsize: 10pt
