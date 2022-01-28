@@ -57,7 +57,7 @@ process_markdown = function(input_file, from, pandoc_args, global, new_theorems,
   on.exit(file.remove(intermediate_html), add = TRUE)
   rmarkdown::pandoc_convert(
     input_file, 'html', from, intermediate_html, TRUE,
-    c(pandoc_args, '--section-divs', '--mathjax', '--number-sections')
+    c(bookdown:::pandoc_args2(pandoc_args), '--section-divs', '--mathjax', '--number-sections')
   )
   x = read_utf8(intermediate_html)
   x = clean_names(x)
@@ -71,7 +71,7 @@ process_markdown = function(input_file, from, pandoc_args, global, new_theorems,
   content = clean_names(content)
   content = resolve_new_theorems(content, global = !number_sections, new_theorems, number_by)
   i = xfun::prose_index(content)
-  content[i] = bookdown:::resolve_refs_md(content[i], c(figs$ref_table, bookdown:::parse_section_labels(x)), to_md)
+  content[i] = resolve_refs_md(content[i], c(figs$ref_table, bookdown:::parse_section_labels(x)), to_md)
   if (to_md) content = gsub(
     '^\\\\BeginKnitrBlock\\{[^}]+\\}|\\\\EndKnitrBlock\\{[^}]+\\}$', '', content
   )
@@ -96,3 +96,35 @@ process_markdown = function(input_file, from, pandoc_args, global, new_theorems,
   write_utf8(content, input_file)
 }
 
+
+resolve_refs_md = function(content, ref_table, to_md = output_md()) {
+  ids = names(ref_table)
+
+  # replace (\#fig:label) with Figure x.x:
+  for (i in grep('^(<p class="caption|<caption>|Table:|\\\\BeginKnitrBlock)|(!\\[.*?\\]\\(.+?\\))', content)) {
+    for (j in ids) {
+      m = sprintf('\\(\\\\#%s\\)', j)
+      if (grepl(m, content[i])) {
+        id = ''; sep = ':'
+        type = gsub('^([^:]+).*$', '\\1', j)
+        if (type %in% theorem_abbr) {
+          id = sprintf('<span id="%s"></span>', j)
+          sep = ''
+        }
+        label = label_prefix(type)
+        content[i] = sub(m, paste0(id, label, ref_table[j], sep, ' '), content[i])
+        break
+      }
+    }
+  }
+  # remove labels in figure alt text (it will contain \ like (\#fig:label))
+  content = gsub('"\\(\\\\#(fig:[-[:alnum:]]+)\\)', '"', content)
+  # replace (\#eq:label) with equation numbers
+  content = bookdown:::add_eq_numbers(content, ids, ref_table, to_md)
+
+  # look for \@ref(label) and resolve to actual figure/table/section numbers
+  m = gregexpr('(?<!`)\\\\@ref\\(([-:[:alnum:]]+)\\)', content, perl = TRUE)
+  refs = regmatches(content, m)
+  regmatches(content, m) = lapply(refs, bookdown:::ref_to_number, ref_table, TRUE)
+  content
+}

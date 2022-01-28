@@ -412,7 +412,7 @@ resolve_alt_tags = function(content){
 
 resolve_refs_html = function(content, global = FALSE, new_theorems, number_by) {
   content = bookdown:::resolve_ref_links_html(content)
-
+  
   res = parse_fig_labels(content, global, new_theorems, number_by)
   content = res$content
   ref_table = c(res$ref_table, bookdown:::parse_section_labels(content))
@@ -564,6 +564,8 @@ new_theorems = list(), number_by = list()
   }
 
   regmatches(content, m) = labs
+
+  bookdown:::write_ref_keys(names(arry))
 
   # remove labels in figure alt text (it will contain \ like (\#fig:label))
   content = gsub('"\\(\\\\#(fig:[-/[:alnum:]]+)\\)', '"', content)

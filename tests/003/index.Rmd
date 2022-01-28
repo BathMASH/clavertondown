@@ -3,16 +3,19 @@ title: "Test 003: Repeat an environment with the correct numbering"
 author: 'Emma Cliffe, Skills Centre: MASH, University of Bath'
 date: 'August 2020'
 site: bookdown::bookdown_site
-lang: en
+language: en
 documentclass: article
 classoption: a4paper
 fontsize: 10pt
 geometry: margin=2.5cm
 output:
-  clavertondown::word_clav:
-    toc: true
-    number_sections: true
+  clavertondown::pdf_clav:
+    latex_engine: pdflatex
+    dev: pdf
+    keep_tex: true
     keep_md: true
+    fig_caption: true
+    toc: true
   clavertondown::gitbook_clav:
     split_by: section
     self_contained: no
@@ -23,13 +26,10 @@ output:
     toc: true
     fig_caption: true
     keep_md: true
-  clavertondown::pdf_clav:
-    latex_engine: pdflatex
-    dev: pdf
-    keep_tex: true
-    keep_md: true
-    fig_caption: true
+  clavertondown::word_clav:
     toc: true
+    number_sections: true
+    keep_md: true
   clavertondown::epub_clav:
     toc: true
 ---
