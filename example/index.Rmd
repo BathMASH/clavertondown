@@ -9,10 +9,12 @@ classoption: a4paper
 fontsize: 10pt
 geometry: margin=2.5cm
 output:
-  clavertondown::word_clav:
-    toc: true
-    number_sections: true
+  clavertondown::gitbook_clav:
+    split_by: section
     keep_md: true
+    config:
+      download: [["Notes.html", "HTML page"], ["Notes.pdf","Standard print PDF"], ["NotesClear.pdf","Clear print PDF"], ["NotesLarge.pdf","Large print PDF"], ["Notes.docx","Accessible Word document"], ["Notes.epub","Accessible EPub book" ]]
+      sharing: no
     pandoc_args: --default-image-extension=svg
   clavertondown::epub_clav:
     toc: false
@@ -20,12 +22,10 @@ output:
   clavertondown::html_clav:
     toc: true
     pandoc_args: --default-image-extension=svg
-  clavertondown::gitbook_clav:
-    split_by: section
+  clavertondown::word_clav:
+    toc: true
+    number_sections: true
     keep_md: true
-    config:
-      download: [["Notes.html", "HTML page"], ["Notes.pdf","Standard print PDF"], ["NotesClear.pdf","Clear print PDF"], ["NotesLarge.pdf","Large print PDF"], ["Notes.docx","Accessible Word document"], ["Notes.epub","Accessible EPub book" ]]
-      sharing: no
     pandoc_args: --default-image-extension=svg
   clavertondown::pdf_clav:
     latex_engine: pdflatex
@@ -243,7 +243,7 @@ Here we are going to do something a bit more impressive with the automatic creat
 
 ```{r scatterplot, message=FALSE, warning=FALSE, include=FALSE}
 library(BrailleR)
-{sink(file="../docs/cars.txt")
+{sink(file="./docs/cars.txt")
  WhatIs(cars)
  print(WhereXY(cars))
  sink()}
