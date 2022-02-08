@@ -16,6 +16,11 @@ output:
       download: [["Notes.html", "HTML page"], ["Notes.pdf","Standard print PDF"], ["NotesClear.pdf","Clear print PDF"], ["NotesLarge.pdf","Large print PDF"], ["Notes.docx","Accessible Word document"], ["Notes.epub","Accessible EPub book" ]]
       sharing: no
     pandoc_args: --default-image-extension=svg
+  clavertondown::word_clav:
+    toc: true
+    number_sections: true
+    keep_md: true
+    pandoc_args: --default-image-extension=svg
   clavertondown::pdf_clav:
     latex_engine: pdflatex
     keep_tex: true
@@ -23,16 +28,11 @@ output:
     toc: true
     extra_dependencies: ["float"]
     pandoc_args: --default-image-extension=pdf
-  clavertondown::epub_clav:
-    toc: false
-    pandoc_args: --default-image-extension=svg
   clavertondown::html_clav:
     toc: true
     pandoc_args: --default-image-extension=svg
-  clavertondown::word_clav:
-    toc: true
-    number_sections: true
-    keep_md: true
+  clavertondown::epub_clav:
+    toc: false
     pandoc_args: --default-image-extension=svg
 header-includes:
   - \newcommand{\BOO}{BOO}
@@ -295,7 +295,60 @@ I suggest that you download the files which were used to create this document:
 * https://raw.githubusercontent.com/BathMASH/clavertondown/master/example/index.Rmd
 * https://raw.githubusercontent.com/BathMASH/clavertondown/master/example/_bookdown.yml
 
-Put them in a folder together, open index.Rmd in RStudio and use the Knit menu to compile the various formats. If this doesn't work then something is wrong (get in touch Bath people!). Then... read the files. 
+Put them in a folder together, open index.Rmd in RStudio and use the Knit menu to compile the various formats. If this doesn't work then something is wrong (get in touch Bath people!). The PDF command creates standard print, clear print and large print PDF.
+
+Then... read the files. 
+
+### Using the command line
+
+If you prefer to compile from the system command line or via a script then commands along the lines of the below will work. You need to run all five to complete the full set of transformations in the example preamble.
+
+> Rscript -e "bookdown::render_book('index.Rmd','clavertondown::gitbook_clav')"
+
+> Rscript -e "bookdown::render_book('index.Rmd','clavertondown::html_clav')"
+
+> Rscript -e "bookdown::render_book('index.Rmd','clavertondown::pdf_clav')"
+
+> Rscript -e "bookdown::render_book('index.Rmd','clavertondown::epub_clav')"
+
+> Rscript -e "bookdown::render_book('index.Rmd','clavertondown::word_clav')"
+
+The pdf_clav command renders standard print, clear print and large print PDF. 
+
+## Moving from Bookdown to ClavertonDown
+
+If you have been using Bookdown you may find that simply making changes to your preamble, as per the files above, will result in everything working as expected. You can then start using additional ClavertonDown functionality. If you do not use any of it then your content will, at the time of writing, still work in Bookdown if you change your preamble back. However, if you do not wish to use the additional functionality you should consider whether moving to ClavertonDown is the right choice for you - we are diverging from Bookdown and we cannot guarantee ongoing backwards compatibility. You should also consider that Bookdown is changing in ways that ClavertonDown will not and these are explained in the below section.
+
+### Divergence: why simple preamble changes may not have worked
+
+If you have written your Bookdown more recently and are using the [fenced div environments](https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html#theorems) rather than the [knitr engine environments](https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html#theorem-engine) then simple changes to your preamble will not move your theorem type statements to the new format. They will remain in Bookdown format. We won't be 'fixing' this because:
+
+* [Bookdown documents written using this method can only be converted to PDF and HTML formats](https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html#theorem-engine). ClavertonDown exists to enable to conversion to a full range of accessible formats to enable any student to access lecture materials. PDF documents containing mathematical expressions can never be technically accessible and HTML format is only technically accessible for some assistive technology users. Whether you generally supply Word and EPub or not you need to be able to create it on request.
+* The work we have done to enable extra functionality cannot be delivered via the fenced div approach at this time. It would require all of the functionality to be reimplemented at a completely different point in the conversion and, based on our current understanding, some of the functionality, which was requested by lecturers and students, could not be delivered at this time if at all.
+* While we accept the reasoning for the change in Bookdown - that it enables richer content to be included within theorem type environments and has a clearer implementation - we have not had any request to enable the types of richer functionality meant here. Other 'missing' things were considered more of a problem for lecture materials. If future requests fall into these categories we will look at whether we can implement them while retaining the current functionality. It is also noted that our implementation of the knitr custom blocks has already diverged from that in Bookdown. While it is not correct to call it cleaner it should be more robust than the original custom block engines.  
+
+If you have a Bookdown document which uses fenced divs you should consider how important it is to you to move to ClavertonDown. We have supplied a function which you can run to create a copy of your document and attempt to change format - as Bookdown has created a function which goes back the other way. Our function is going in the more challenging direction and so it aims to only make the change when it is 'safe' to do so and maintains a complete original copy untouched without the user needing to ensure this. If when you run the function there are warnings you will need to do some work by hand to complete the change. If you are at Claverton Down then we do ask you to get in touch with us and tell us if you are then missing functionality and we will do our best to assist - or, at least, to be clear about what your options are. It is possible to [transform back the other way](https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html#theorem-engine) (this is the easier and safer direction) but
+
+* We will have retained a copy of your original files for you so you don't need to worry about this if you immediately change your mind!
+* We assume you are transforming for a reason - to use the functionality of ClavertonDown. In this case any transform back will require you to undo any use of our extra functionality.
+
+### I want to transform anyway
+
+If, having read the above, you wish to try it out then you need to change directory to that containing your document run the following on the R command line:
+
+> library("clavertondown")
+
+> intercept_theorems("./")
+
+Please read the output carefully.
+
+If you receive *any warning* then you have 
+
+* nested theorem type fenced div environments or 
+* [knitr engine blocks](https://bookdown.org/yihui/rmarkdown/language-engines.html) (including but not limited to theorem type) nested in fenced div theorem type environments or
+* You have used more than three colons when defining a fenced div despite it not being nested - just set it back to three in this case.
+
+Nesting of this kind cannot be converted - theorem type environments cannot be nested in Clavertondown and knitr engine blocks cannot be nested within theorems. You will need to undo the nesting in whatever way makes sense for your content. This type of nesting is a primary example what Bookdown means by 'richer content'. 
 
 # Can I tell people not at Claverton Down about this?
 
