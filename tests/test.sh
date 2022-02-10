@@ -19,7 +19,7 @@ Rscript -e "bookdown::render_book('index.Rmd','clavertondown::word_clav')"
 echo $test
 if [ $test == "docs/" ]; then
     cd ../tests
-    if diff -r -q -a -X "exclude" -I "<script" -I "<meta" ../$test/example/docs ./$test; then
+    if diff -r -q -a -X "exclude" -I "<script" -I "<meta" ../example/$test ./$test; then
 	echo "NO IMPORTANT CHANGES"
 	if diff -r -q -a -X "exclude" ../$test ./$test; then
 	    echo "NO CHANGES TO SCRIPTS OR META"

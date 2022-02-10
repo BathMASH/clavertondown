@@ -26,3 +26,8 @@ great.-how-do-i-use-this-thing
 installing-clavertondown
 using-clavertondown-for-the-first-time
 can-i-tell-people-not-at-claverton-down-about-this
+moving-from-bookdown-to-clavertondown
+simple-changes-didnt-work
+i-want-to-transform-anyway
+divergence-why-simple-preamble-changes-may-not-have-worked
+using-the-command-line
