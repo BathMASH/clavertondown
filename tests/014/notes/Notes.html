@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta property="og:title" content="Test 014: MathJax Walker works when switched on" />
+<meta property="og:type" content="book" />
+
+
+
+
+
+<meta name="author" content="Emma Cliffe, Skills Centre: MASH, University of Bath" />
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Register.MessageHook("End Math", function (msg) {
+  var nodes = Array.from(msg[1].querySelectorAll('.MJX_Assistive_MathML [id]'));
+  while (nodes.length) {
+    nodes.shift().removeAttribute('id');
+  }
+}, 20);
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  "fast-preview": {disabled: true},
+  explorer:{ subtitle: true },
+  MatchWebFonts: { 
+    matchFor: { "HTML-CSS": true, NativeMML: false, SVG: false },
+    fontCheckDelay: 2000,
+    fontCheckTimeout: 30 * 1000
+  },
+  "HTML-CSS": {
+    preferredFont: "STIX",
+    availableFonts: ["STIX","TeX"],
+    webFont: "STIX-Web",
+    linebreaks: { automatic: true, width: "90\% container" }
+  },
+  CommonHTML: {
+    linebreaks: { automatic: true, width: "90\% container" }
+  },
+  SVG: {
+    font: "STIX-Web",
+    linebreaks: { automatic: false, width: "90\% container" }
+  },
+  menuSettings: { 
+    collapsible: false, 
+    autocollapse: false, 
+    explorer: false 
+  }
+});
+</script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML" type="text/javascript"></script>
+
+<meta name="description" content="Test 014: MathJax Walker works when switched on">
+
+<title>Test 014: MathJax Walker works when switched on</title>
+
+<script src="libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+</style>
+
+<style type="text/css">
+  a {
+   color: blue;
+  }
+
+  [custom-style=DefinitionStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: AliceBlue;
+    border-left-style: solid;
+    border-color: CadetBlue;
+    padding-left: 0.5em;
+  }
+
+  [custom-style=TheoremStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: honeydew;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+    font-style: italic;
+  }
+
+  [custom-style=TheoremStyleUpright] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: honeydew;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+    font-style: normal;
+  }
+
+  [custom-style=NameStyle]{
+    font-style: normal;
+    font-weight: bold;
+  }
+
+  [custom-style=NameStyleItalics]{
+    font-style: italic;
+  }
+
+  
+  [custom-style=ProofStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: seashell;
+    border-left-style: solid;
+    border-color: darkkhaki;
+    padding-left: 0.5em;
+  }
+
+  [custom-style=ExampleStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: lavenderblush;
+    border-left-style: solid;
+    border-color: mediumorchid;
+    padding-left: 0.5em;
+  }
+
+  [data-custom-style=DefinitionStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: AliceBlue;
+    border-left-style: solid;
+    border-color: CadetBlue;
+    padding-left: 0.5em;
+  }
+
+  [data-custom-style=TheoremStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: honeydew;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+  }
+
+  [data-custom-style=TheoremStyleUpright] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: honeydew;
+    border-left-style: solid;
+    border-color: darkseagreen;
+    padding-left: 0.5em;
+    font-style: normal;
+  }
+  
+  [data-custom-style=ProofStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: seashell;
+    border-left-style: solid;
+    border-color: darkkhaki;
+    padding-left: 0.5em;
+  }
+
+  [data-custom-style=ExampleStyle] {
+    margin-bottom: 1.5em;
+    margin-top:1.5em;
+    background-color: lavenderblush;
+    border-left-style: solid;
+    border-color: mediumorchid;
+    padding-left: 0.5em;
+  }
+
+  
+</style>
+
+</head>
+
+<body>
+
+<div class="container-fluid main-container">
+
+
+<!--bookdown:title:start-->
+<div id="header">
+<h1 class="title">Test 014: MathJax Walker works when switched on</h1>
+<h4 class="author"><em>Emma Cliffe, Skills Centre: MASH, University of Bath</em></h4>
+<h4 class="date"><em>October 2023</em></h4>
+</div>
+<!--bookdown:title:end-->
+
+<!--bookdown:toc:start-->
+<!--bookdown:toc:end-->
+
+<!--bookdown:body:start-->
+<div id="does-the-walker-work-when-switched-on" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Does the Walker work when switched on?</h1>
+<p>Recently, I’ve had trouble doing this, and at first, I thought it was related to R Bookdown. I’ve tried the equation on your ClavertonDown (which I’m going to start experimenting with) and I’m having the same problem.</p>
+<p>Here are the keyboard actions I use.</p>
+<ol style="list-style-type: decimal">
+<li>Land on a page with mathjax and equations.</li>
+<li>Tab to an equation.</li>
+<li>Press Spacebar to access the accessibility options.</li>
+<li>Use arrow keys to navigate to Accessibility &gt; Explorer &gt; Active. Press spacebar to activate.</li>
+<li>With an equation in focus, press Enter.</li>
+<li>Use down arrow key to explore by sub-expression. Use left and right arrow key to explore equation by sub-expression.</li>
+</ol>
+<p>With markdown stuff, I’ve not had much luck and I’m wondering if there is something about the version of mathjax being used by Markdown or if there is a fight for the keyboard commands that is at play here.</p>
+</div>
+<div id="testing" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Testing</h1>
+<p>Hello world…
+<span class="math display">\[x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}\]</span></p>
+<div id="hypothesis" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Hypothesis</h2>
+<p>This is a bug in MathJax 2.7.2 or when this is in use with Markdown generated formats, perhaps. It was confirmed in transformations with this version from RMarkdown and Clavertondown. But with 2.7.9 in Xerte and Bookdown it does not occur.</p>
+</div>
+<div id="questions" class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Questions</h2>
+<ul>
+<li>What controls the version of MathJax in use? Is it (Claverton/Book)down? Is it the version of Pandoc?</li>
+<li>Can the user override the above locally? Needed for Bookdown…</li>
+<li>Can I change the version for clavertondown or does this depend on Pandoc version? If the latter, what is the Pandoc version we need as a minimum?</li>
+</ul>
+</div>
+<div id="confirmed-not-working-in-current-setup" class="section level2" number="2.3">
+<h2><span class="header-section-number">2.3</span> Confirmed not working in current setup</h2>
+<p>Confirmed not working in Clavertondown with the current setup and this does produce 2.7.2</p>
+</div>
+<div id="tests" class="section level2" number="2.4">
+<h2><span class="header-section-number">2.4</span> Tests</h2>
+<ul>
+<li>Can I use pandoc_args to change the default MathJax used by Pandoc?</li>
+</ul>
+</div>
+</div>
+<div id="what-is-going-on" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> What is going on?</h1>
+<p>Well. It turns out that Bookdown originally hard-encoded a MathJax setup, for the github format, of <a href="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML" class="uri">https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML</a>. Presumably this was after the MathJax CDN was closed down and CloudFlare didn’t have a latest. But this url points to <a href="https://mathjax.rstudio.com/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML" class="uri">https://mathjax.rstudio.com/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML</a> - so it was never updated. When I forked Bookdown and then diverged away from Bookdown this was retained in Clavertondown.</p>
+<p>There is no way of adapting this. This was reported and discussed at <a href="https://github.com/rstudio/bookdown/issues/915" class="uri">https://github.com/rstudio/bookdown/issues/915</a> which remains open.</p>
+<p>At some point during this Bookdown changed the hard-encoded url to be <a href="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML" class="uri">https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML</a> which makes sense and we should do that too.</p>
+<p>The EPub has MathML in it so is not using MathJax unless the Viewer is. This is outside of our concern. The third HTML format Clavertondown produces is a HTML page. In this case there is no hard-coded url and it defaults to the current Pandoc default. This is now MathJax 3.x and this is a problem for three reasons:</p>
+<ol style="list-style-type: decimal">
+<li>This is very different in behaviour to 2.7.x and we do not know the accessibility status of it at present.</li>
+<li>The way you configure 3.x and 2.7.x are different and we have a single source so we need a configuration which works for both.</li>
+<li>From a user perspective it is unhelpful to have two entirely different versions of MathJax in different versions of lecture notes.</li>
+</ol>
+<p>So, for HTML page format we need to match the hard-encoding of the MathJax setup present in github format.</p>
+<div id="but" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> But…</h2>
+<p>This leaves the question of… what is happening in RMarkdown? Why is that ending up with 2.7.2 if the HTML page format does not? Puzzling.</p>
+<!--chapter:end:index.Rmd-->
+</div>
+</div>
+<!--bookdown:body:end-->
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+</body>
+</html>

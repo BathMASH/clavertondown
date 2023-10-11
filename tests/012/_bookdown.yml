@@ -1,0 +1,16 @@
+book_filename: "Notes.Rmd"
+output_dir: "notes"
+rmd_files: ["index.Rmd", "01-test.Rmd", "02-test2.Rmd"]
+new_theorems:
+  Thought: tho
+  Nugget: nug
+  Solution: sol
+  Wonder: ---
+  Proof: ---
+number_by:
+  prp: thm
+  nug: tho
+style_with:
+  plain: []
+  definition: ["Wonder","proposition"]
+  remark: ["Proof"]

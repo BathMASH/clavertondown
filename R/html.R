@@ -42,7 +42,7 @@ html_clav = function(
   config = get_base_format(base_format, list(
     ..., toc = toc, number_sections = number_sections, fig_caption = fig_caption,
     self_contained = FALSE, lib_dir = lib_dir,
-    template = clavertondown_file('templates/default.html'), pandoc_args = bookdown:::pandoc_args2(pandoc_args)
+    template = clavertondown_file('templates/default.html'), pandoc_args = bookdown:::pandoc_args2(pandoc_args), mathjax = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML"
   ))
   post = config$post_processor  # in case a post processor have been defined
   config$post_processor = function(metadata, input, output, clean, verbose) {

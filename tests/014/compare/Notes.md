@@ -1,0 +1,93 @@
+---
+title: "Test 014: MathJax Walker works when switched on"
+author: 'Emma Cliffe, Skills Centre: MASH, University of Bath'
+date: 'October 2023'
+site: bookdown::bookdown_site
+language: en
+documentclass: article
+classoption: a4paper
+fontsize: 10pt
+geometry: margin=2.5cm
+output:
+  clavertondown::gitbook_clav:
+    split_by: section
+    config:
+      download: [["Notes.html", "HTML page"], ["Notes.pdf","Standard print PDF"], ["NotesClear.pdf","Clear print PDF"], ["NotesLarge.pdf","Large print PDF"], ["Notes.docx","Accessible Word document"], ["Notes.epub","Accessible EPub book" ]]
+      sharing: no
+  clavertondown::html_clav:
+    toc: false
+  clavertondown::pdf_clav:
+    latex_engine: pdflatex
+    dev: pdf
+    keep_tex: true
+    fig_caption: false
+    toc: false
+  clavertondown::epub_clav:
+    toc: false
+  clavertondown::word_clav:
+    toc: false
+    number_sections: true
+    keep_md: true
+---
+
+# Does the Walker work when switched on?
+
+Recently, I've had trouble doing this, and at first, I thought it was related to R Bookdown. I've tried the equation on your ClavertonDown (which I'm going to start experimenting with) and I'm having the same problem. 
+
+Here are the keyboard actions I use.
+
+1. Land on a page with mathjax and equations.
+2. Tab to an equation.
+3. Press Spacebar to access the accessibility options.
+4. Use arrow keys to navigate to Accessibility > Explorer > Active. Press spacebar to activate.
+5. With an equation in focus, press Enter.
+6. Use down arrow key to explore by sub-expression. Use left and right arrow key to explore equation by sub-expression.
+
+With markdown stuff, I've not had much luck and I'm wondering if there is something about the version of mathjax being used by Markdown or if there is a fight for the keyboard commands that is at play here.
+
+# Testing
+
+Hello world...
+$$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$
+
+## Hypothesis
+
+This is a bug in MathJax 2.7.2 or when this is in use with Markdown generated formats, perhaps. It was confirmed in transformations with this version from RMarkdown and Clavertondown. But with 2.7.9 in Xerte and Bookdown it does not occur.
+
+## Questions
+
+* What controls the version of MathJax in use? Is it (Claverton/Book)down? Is it the version of Pandoc?
+* Can the user override the above locally? Needed for Bookdown...
+* Can I change the version for clavertondown or does this depend on Pandoc version? If the latter, what is the Pandoc version we need as a minimum?
+
+## Confirmed not working in current setup
+
+Confirmed not working in Clavertondown with the current setup and this does produce 2.7.2
+
+## Tests
+
+* Can I use pandoc_args to change the default MathJax used by Pandoc?
+
+
+# What is going on?
+
+Well. It turns out that Bookdown originally hard-encoded a MathJax setup, for the github format, of https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML. Presumably this was after the MathJax CDN was closed down and CloudFlare didn't have a latest. But this url points to https://mathjax.rstudio.com/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML - so it was never updated. When I forked Bookdown and then diverged away from Bookdown this was retained in Clavertondown.
+
+There is no way of adapting this. This was reported and discussed at https://github.com/rstudio/bookdown/issues/915 which remains open.
+
+At some point during this Bookdown changed the hard-encoded url to be https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML which makes sense and we should do that too.
+
+The EPub has MathML in it so is not using MathJax unless the Viewer is. This is outside of our concern. The third HTML format Clavertondown produces is a HTML page. In this case there is no hard-coded url and it defaults to the current Pandoc default. This is now MathJax 3.x and this is a problem for three reasons:
+
+1. This is very different in behaviour to 2.7.x and we do not know the accessibility status of it at present.
+2. The way you configure 3.x and 2.7.x are different and we have a single source so we need a configuration which works for both.
+3. From a user perspective it is unhelpful to have two entirely different versions of MathJax in different versions of lecture notes. 
+
+So, for HTML page format we need to match the hard-encoding of the MathJax setup present in github format.
+
+## But...
+
+This leaves the question of... what is happening in RMarkdown? Why is that ending up with 2.7.2 if the HTML page format does not? Puzzling. 
+
+<!--chapter:end:index.Rmd-->
+

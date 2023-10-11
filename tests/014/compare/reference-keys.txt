@@ -1,0 +1,8 @@
+does-the-walker-work-when-switched-on
+testing
+hypothesis
+questions
+confirmed-not-working-in-current-setup
+tests
+what-is-going-on
+but

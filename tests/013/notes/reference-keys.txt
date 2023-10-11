@@ -1,0 +1,11 @@
+def:truth
+exm:unnamed-chunk-1
+thm:thm1
+prp:prp1
+tho:tho1
+nug:nug1
+sol:sol1
+tho:tho2
+itemize-without-theorem
+testing-some-theorem-stuff
+testing-the-reference-link-back

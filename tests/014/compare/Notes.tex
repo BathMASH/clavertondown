@@ -1,0 +1,177 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  10pt,
+  a4paper]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Test 014: MathJax Walker works when switched on},
+  pdfauthor={Emma Cliffe, Skills Centre: MASH, University of Bath},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Test 014: MathJax Walker works when switched on}
+\author{Emma Cliffe, Skills Centre: MASH, University of Bath}
+\date{October 2023}
+
+\begin{document}
+\maketitle
+
+\hypertarget{does-the-walker-work-when-switched-on}{%
+\section{Does the Walker work when switched on?}\label{does-the-walker-work-when-switched-on}}
+
+Recently, I've had trouble doing this, and at first, I thought it was related to R Bookdown. I've tried the equation on your ClavertonDown (which I'm going to start experimenting with) and I'm having the same problem.
+
+Here are the keyboard actions I use.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Land on a page with mathjax and equations.
+\item
+  Tab to an equation.
+\item
+  Press Spacebar to access the accessibility options.
+\item
+  Use arrow keys to navigate to Accessibility \textgreater{} Explorer \textgreater{} Active. Press spacebar to activate.
+\item
+  With an equation in focus, press Enter.
+\item
+  Use down arrow key to explore by sub-expression. Use left and right arrow key to explore equation by sub-expression.
+\end{enumerate}
+
+With markdown stuff, I've not had much luck and I'm wondering if there is something about the version of mathjax being used by Markdown or if there is a fight for the keyboard commands that is at play here.
+
+\hypertarget{testing}{%
+\section{Testing}\label{testing}}
+
+Hello world\ldots{}
+\[x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}\]
+
+\hypertarget{hypothesis}{%
+\subsection{Hypothesis}\label{hypothesis}}
+
+This is a bug in MathJax 2.7.2 or when this is in use with Markdown generated formats, perhaps. It was confirmed in transformations with this version from RMarkdown and Clavertondown. But with 2.7.9 in Xerte and Bookdown it does not occur.
+
+\hypertarget{questions}{%
+\subsection{Questions}\label{questions}}
+
+\begin{itemize}
+\tightlist
+\item
+  What controls the version of MathJax in use? Is it (Claverton/Book)down? Is it the version of Pandoc?
+\item
+  Can the user override the above locally? Needed for Bookdown\ldots{}
+\item
+  Can I change the version for clavertondown or does this depend on Pandoc version? If the latter, what is the Pandoc version we need as a minimum?
+\end{itemize}
+
+\hypertarget{confirmed-not-working-in-current-setup}{%
+\subsection{Confirmed not working in current setup}\label{confirmed-not-working-in-current-setup}}
+
+Confirmed not working in Clavertondown with the current setup and this does produce 2.7.2
+
+\hypertarget{tests}{%
+\subsection{Tests}\label{tests}}
+
+\begin{itemize}
+\tightlist
+\item
+  Can I use pandoc\_args to change the default MathJax used by Pandoc?
+\end{itemize}
+
+\hypertarget{what-is-going-on}{%
+\section{What is going on?}\label{what-is-going-on}}
+
+Well. It turns out that Bookdown originally hard-encoded a MathJax setup, for the github format, of \url{https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML}. Presumably this was after the MathJax CDN was closed down and CloudFlare didn't have a latest. But this url points to \url{https://mathjax.rstudio.com/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML} - so it was never updated. When I forked Bookdown and then diverged away from Bookdown this was retained in Clavertondown.
+
+There is no way of adapting this. This was reported and discussed at \url{https://github.com/rstudio/bookdown/issues/915} which remains open.
+
+At some point during this Bookdown changed the hard-encoded url to be \url{https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML} which makes sense and we should do that too.
+
+The EPub has MathML in it so is not using MathJax unless the Viewer is. This is outside of our concern. The third HTML format Clavertondown produces is a HTML page. In this case there is no hard-coded url and it defaults to the current Pandoc default. This is now MathJax 3.x and this is a problem for three reasons:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  This is very different in behaviour to 2.7.x and we do not know the accessibility status of it at present.
+\item
+  The way you configure 3.x and 2.7.x are different and we have a single source so we need a configuration which works for both.
+\item
+  From a user perspective it is unhelpful to have two entirely different versions of MathJax in different versions of lecture notes.
+\end{enumerate}
+
+So, for HTML page format we need to match the hard-encoding of the MathJax setup present in github format.
+
+\hypertarget{but}{%
+\subsection{But\ldots{}}\label{but}}
+
+This leaves the question of\ldots{} what is happening in RMarkdown? Why is that ending up with 2.7.2 if the HTML page format does not? Puzzling.
+
+\end{document}
