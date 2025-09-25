@@ -1,7 +1,9 @@
 
+
 The summary of each variable is
 speed: Min. 4   1st Qu. 12   Median 15   Mean 15.4   3rd Qu. 19   Max. 25  
 dist: Min. 2   1st Qu. 26   Median 36   Mean 42.98   3rd Qu. 56   Max. 120  
+
 
     1  2  3  4 Sum
 4   0  0  0  3   3

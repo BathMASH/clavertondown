@@ -14,6 +14,9 @@ output:
     number_sections: true
     keep_md: true
     pandoc_args: --default-image-extension=svg
+  clavertondown::html_clav:
+    toc: true
+    pandoc_args: --default-image-extension=svg
   clavertondown::gitbook_clav:
     split_by: section
     keep_md: true
@@ -23,9 +26,6 @@ output:
     pandoc_args: --default-image-extension=svg
   clavertondown::epub_clav:
     toc: false
-    pandoc_args: --default-image-extension=svg
-  clavertondown::html_clav:
-    toc: true
     pandoc_args: --default-image-extension=svg
   clavertondown::pdf_clav:
     latex_engine: pdflatex

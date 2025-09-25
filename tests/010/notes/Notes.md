@@ -71,7 +71,7 @@ This is the untested use case as it was not what clavertondown was originally de
 What happened? If you use R to generate an image without saving and then floating it then no native width and height are set in the includegraphics. If you change the width and height in the R snippet then this is used to _generate a different size pdf image_ NOT to adapt the width and height in includegraphics. This means that when we try to use scaling and adjusting there is no width and height set so Bad Things happen in clear and large print. ALL includegraphics in clear and large print MUST have a width AND height set. Luckily we know that adjustbox is present so when we find such things in the below we can set width=\\Width and height=\\Height. Note the capitalisation and reread the adjustbox manual if you aren't sure. 
 
 
-```r
+``` r
 plot(cars)
 ```
 

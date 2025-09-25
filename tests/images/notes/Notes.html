@@ -20,7 +20,7 @@
 
 <title>Images: using iframe and alternatives for dynamic element including in theorems</title>
 
-<script src="libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -187,9 +187,9 @@ img {
 <!--bookdown:toc:start-->
 <div id="TOC">
 <ul>
-<li><a href="#here-is-a-figure"><span class="toc-section-number">1</span> Here is a figure</a></li>
-<li><a href="#here-is-the-putting-of-a-figure-inside-another-built-in-environment"><span class="toc-section-number">2</span> Here is the putting of a figure inside another built in environment</a></li>
-<li><a href="#here-is-the-putting-of-a-figure-inside-a-newtheorem"><span class="toc-section-number">3</span> Here is the putting of a figure inside a newtheorem</a></li>
+<li><a href="#here-is-a-figure" id="toc-here-is-a-figure"><span class="toc-section-number">1</span> Here is a figure</a></li>
+<li><a href="#here-is-the-putting-of-a-figure-inside-another-built-in-environment" id="toc-here-is-the-putting-of-a-figure-inside-another-built-in-environment"><span class="toc-section-number">2</span> Here is the putting of a figure inside another built in environment</a></li>
+<li><a href="#here-is-the-putting-of-a-figure-inside-a-newtheorem" id="toc-here-is-the-putting-of-a-figure-inside-a-newtheorem"><span class="toc-section-number">3</span> Here is the putting of a figure inside a newtheorem</a></li>
 </ul>
 </div>
 <!--bookdown:toc:end-->
@@ -198,9 +198,9 @@ img {
 <div id="here-is-a-figure" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Here is a figure</h1>
 <iframe title="DESMOS example graph" src="https://www.desmos.com/calculator/lbcljsazlt?embed" width="700px" height="300px" style="border: 1px solid #ccc" frameborder="0">
-<div class="figure">
-<img src="sine.svg" longdesc="https://www.desmos.com/calculator/lbcljsazlt" style="width:60.0%" alt="" />
-<p class="caption"><a href="https://www.desmos.com/calculator/lbcljsazlt">Interactive plot of sine</a></p>
+<div class="float">
+<img src="sine.svg" style="width:60.0%" longdesc="https://www.desmos.com/calculator/lbcljsazlt" alt="Interactive plot of sine" />
+<div class="figcaption"><a href="https://www.desmos.com/calculator/lbcljsazlt">Interactive plot of sine</a></div>
 </div>
 </iframe>
 </div>
@@ -212,9 +212,9 @@ img {
 <div>
 <p>Here is an example.</p>
 <iframe title="DESMOS example graph" src="https://www.desmos.com/calculator/lbcljsazlt?embed" width="700px" height="300px" style="border: 1px solid #ccc" frameborder="0">
-<div class="figure">
-<img src="sine.svg" longdesc="https://www.desmos.com/calculator/lbcljsazlt" style="width:60.0%" alt="" />
-<p class="caption"><a href="https://www.desmos.com/calculator/lbcljsazlt">Interactive plot of sine</a></p>
+<div class="float">
+<img src="sine.svg" style="width:60.0%" longdesc="https://www.desmos.com/calculator/lbcljsazlt" alt="Interactive plot of sine" />
+<div class="figcaption"><a href="https://www.desmos.com/calculator/lbcljsazlt">Interactive plot of sine</a></div>
 </div>
 </iframe>
 <p>This is some text below. A bug sometimes means this disappears but I cannot replicate in a clean document.</p>
@@ -229,9 +229,9 @@ img {
 <div>
 <p>An example</p>
 <iframe title="DESMOS example graph" src="https://www.desmos.com/calculator/lbcljsazlt?embed" width="700px" height="300px" style="border: 1px solid #ccc" frameborder="0">
-<div class="figure">
-<img src="sine.svg" longdesc="https://www.desmos.com/calculator/lbcljsazlt" style="width:60.0%" alt="" />
-<p class="caption"><a href="https://www.desmos.com/calculator/lbcljsazlt">Interactive plot of sine</a></p>
+<div class="float">
+<img src="sine.svg" style="width:60.0%" longdesc="https://www.desmos.com/calculator/lbcljsazlt" alt="Interactive plot of sine" />
+<div class="figcaption"><a href="https://www.desmos.com/calculator/lbcljsazlt">Interactive plot of sine</a></div>
 </div>
 </iframe>
 <p>This is some text below. A bug sometimes means this disappears but I cannot replicate in a clean document.</p>

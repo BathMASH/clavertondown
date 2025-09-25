@@ -9,13 +9,14 @@ classoption: a4paper
 fontsize: 10pt
 geometry: margin=2.5cm
 output:
-  clavertondown::pdf_clav:
-    latex_engine: pdflatex
-    keep_tex: true
-    fig_caption: true
+  clavertondown::word_clav:
     toc: true
-    extra_dependencies: ["float"]
-    pandoc_args: --default-image-extension=pdf
+    number_sections: true
+    keep_md: true
+    pandoc_args: --default-image-extension=svg
+  clavertondown::html_clav:
+    toc: true
+    pandoc_args: --default-image-extension=svg
   clavertondown::gitbook_clav:
     split_by: section
     keep_md: true
@@ -26,14 +27,13 @@ output:
   clavertondown::epub_clav:
     toc: false
     pandoc_args: --default-image-extension=svg
-  clavertondown::html_clav:
+  clavertondown::pdf_clav:
+    latex_engine: pdflatex
+    keep_tex: true
+    fig_caption: true
     toc: true
-    pandoc_args: --default-image-extension=svg
-  clavertondown::word_clav:
-    toc: true
-    number_sections: true
-    keep_md: true
-    pandoc_args: --default-image-extension=svg
+    extra_dependencies: ["float"]
+    pandoc_args: --default-image-extension=pdf
 header-includes:
   - \newcommand{\BOO}{BOO}
 ---

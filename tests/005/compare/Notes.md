@@ -1,5 +1,5 @@
 ---
-title: "Test 004: Put a labeled figure/table inside a theorem/proof etc."
+title: "Test 005: Put a labeled figure/table inside a theorem/proof etc."
 author: 'Emma Cliffe, Skills Centre: MASH, University of Bath'
 date: 'August 2020'
 site: bookdown::bookdown_site
