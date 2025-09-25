@@ -537,7 +537,7 @@ new_theorems = list(), number_by = list()
     arry = c(arry, setNames(num, lab))
 
     switch(type, fig = {
-      if (length(grep('^<p class="caption', content[i - 0:1])) == 0) {
+      if (length(grep('^<div class="figcaption', content[i - 0:1])) == 0) {
         # remove these labels, because there must be a caption on this or
         # previous line (possible negative case: the label appears in the alt
         # text of <img>)
