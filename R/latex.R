@@ -34,6 +34,9 @@ pdf_clav = function(
     x = clean_labels(x)
     #x = resolve_refs_latex(read_utf8(f), new_reg_label_types)
     #This should now only involve those theorems which are numbered
+    #Taking out the resolve to understand why we are getting duplicated labels in figures after pandocunbounded
+    #It is because they are in the alt text which is the caption in latex now... removing these first
+    x = resolve_caption_tags(x)
     x = resolve_refs_latex(x, new_reg_label_types, new_theorems, number_by)
     #x = resolve_ref_links_latex(x)
     x = bookdown:::restore_part_latex(x)
@@ -290,11 +293,22 @@ resolve_basic_refs_latex = function(x){
   x
 }
 
+resolve_caption_tags = function(content){
+  #Look for tags in the alt text and them, they are causing duplicates which are then causing malformed pandocbounded figures
+  #And the duplicates shouldn't be there anyway. We need to leave the tags in the caption part as this is what then
+  #turns into the label. 
+  content = gsub('alt=\\{\\(\\\\#fig:[-/[:alnum:]]+\\)([^\\}]*)\\}','alt=\\{\\1\\}', content)
+  print("Resolved figure tags")
+  content
+}
+
 
 #To do the right thing with repeated environments we need to remove the label and override the numbering of the environment to be that of the label.
 #This is actually quite involved... so, what tools does LaTeX have we can use...? None, really. The package proof-at-the-end might be a longer-term solution but any solution in LaTeX requires us to alter how the original theorem is encoded. This just moves the difficult problem to somewhere else in the code. The thing to do which fits in with the rest of this code is to alter the below function to do some of the same work which resolve_refs_html does _via_ parse_fig_labels. First question is... can we reuse parse_fig_labels? Actually, yes, we can but it seems to make no difference to the output at all! It is because the labs are in a different format at this point in the LaTeX code due to the escaped \
 #OK, looking at whether we can notice that this is a repeated environment in the engine... Nope, there is no different in the options from the r chunk if it is a reuse - you cannot tell this! So, here is the best place unfortunately :(
-#Let's concentrate on detection first, to detect a reuse of a label we need to collect all the labels etc. 
+#Let's concentrate on detection first, to detect a reuse of a label we need to collect all the labels etc.
+
+#After the change in the figures introduced by pandocbounded all of the figures appear to have duplicated labels. Why is this?
 resolve_refs_latex = function(x, new_reg_label_types, new_theorems, number_by) {
   #Look for the labels
   m = gregexpr(sprintf('\\(\\\\#((%s):[-/[:alnum:]]+)\\)', new_reg_label_types), x)
@@ -310,6 +324,11 @@ resolve_refs_latex = function(x, new_reg_label_types, new_theorems, number_by) {
     locs = c(locs,i)
   }
   dups = duplicated(actuallabs)
+
+  print(labs)
+  print(actuallabs)
+  print(dups)
+
   #This is where the duplicates are
   if(length(dups) > 0){
     for(i in 1:length(dups))
