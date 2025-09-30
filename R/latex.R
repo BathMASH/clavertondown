@@ -325,10 +325,6 @@ resolve_refs_latex = function(x, new_reg_label_types, new_theorems, number_by) {
   }
   dups = duplicated(actuallabs)
 
-  print(labs)
-  print(actuallabs)
-  print(dups)
-
   #This is where the duplicates are
   if(length(dups) > 0){
     for(i in 1:length(dups))
