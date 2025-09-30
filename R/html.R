@@ -212,6 +212,7 @@ split_chapters_clav = function(output, build = bookdown:::build_chapter, number_
   # no (or not enough) tokens found in the template
   if (any(c(i1, i2, i3, i4, i5, i6) == 0)) {
     x = resolve_new_theorems(x, global = !number_sections, new_theorems, number_by)
+    x = resolve_alt_tags(x)
     x = resolve_refs_html(x, !number_sections, new_theorems, number_by)
     new_theorems_unnumbered = new_theorems[new_theorems == "---"]
     new_theorems_numbered = new_theorems[new_theorems != "---"]
@@ -249,6 +250,7 @@ split_chapters_clav = function(output, build = bookdown:::build_chapter, number_
   )
 
   html_body = resolve_new_theorems(html_body, !number_sections, new_theorems, number_by)
+  html_body = resolve_alt_tags(html_body)
   html_body = resolve_refs_html(html_body, !number_sections, new_theorems, number_by)
 
   new_theorems_unnumbered = new_theorems[new_theorems == "---"]
@@ -403,10 +405,11 @@ resolve_new_theorems = function(content, global = FALSE, new_theorems, number_by
 }
 
 resolve_alt_tags = function(content){
-  #We are looking for titles inside img, by this point there will be an empty alt tag (the alt will have become the caption) which we need to remove and there will be a title which needs to become the alt tag. I am not happy with this method of achieving things as it is very backward but it is the outcome of where we are by this point and is the simplest thing to do. This will work with the ![]() format. I have no idea what the side effect is of this in any other method of including images and this will need to be tested extensively but not right now.
+  #We are looking for titles inside img, by this point there will be an alt tag and a caption containing the caption. We need to remove the alt and there will be a title which needs to become the alt tag. I am not happy with this method of achieving things as it is very backward but it is the outcome of where we are by this point and is the simplest thing to do. This will work with the ![]() format. I have no idea what the side effect is of this in any other method of including images and this will need to be tested extensively but not right now.
 
   #Look for empty alt tags with a title on the same line, remove the alt tag and rename the title to be the alt
-  content = gsub('title="([^"]*)" alt=""','alt="\\1"', content)
+  content = gsub('title="([^"]*)" alt="([^"]*)"','alt="\\1"', content)
+  print("Resolved alt tags")
   content
 }
 

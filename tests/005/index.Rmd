@@ -9,13 +9,15 @@ classoption: a4paper
 fontsize: 10pt
 geometry: margin=2.5cm
 output:
-  clavertondown::word_clav:
-    toc: true
-    number_sections: true
-    keep_md: true
   clavertondown::html_clav:
     toc: true
     fig_caption: true
+    keep_md: true
+  clavertondown::epub_clav:
+    toc: true
+  clavertondown::word_clav:
+    toc: true
+    number_sections: true
     keep_md: true
   clavertondown::pdf_clav:
     latex_engine: pdflatex
@@ -23,8 +25,6 @@ output:
     keep_tex: true
     keep_md: true
     fig_caption: true
-    toc: true
-  clavertondown::epub_clav:
     toc: true
   clavertondown::gitbook_clav:
     split_by: section
@@ -39,14 +39,14 @@ output:
 plot(cars)
 ```
 
-![(\#fig:cars1)Something else to do with cars](Notes_files/figure-html/cars-plot-1.png)
+![(\#fig:cars1)Something else to do with cars](Notes_files/figure-html/cars-plot-1.png "Alternative text")
 
 # Here is the putting of a figure inside another built in environment
 
 ```{example}
 Here is an example.
 
-![(\#fig:cars2)Something to do with cars](Notes_files/figure-html/cars-plot-1.png)
+![(\#fig:cars2)Something to do with cars](Notes_files/figure-html/cars-plot-1.png "Alternative text")
 
 This is a test. So, you need an empty line before and after the above for it to be a float. At the end of an environment this means that you need TWO empty lines. This is Pandoc.
 
@@ -57,7 +57,7 @@ This is a test. So, you need an empty line before and after the above for it to 
 ```{newtheorem, env='Example'}
 An example
 
-![(\#fig:cars3)Something to do with cars](Notes_files/figure-html/cars-plot-1.png)
+![(\#fig:cars3)Something to do with cars](Notes_files/figure-html/cars-plot-1.png "Alternative text")
 
 
 ```
