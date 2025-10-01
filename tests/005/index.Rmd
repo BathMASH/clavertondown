@@ -62,3 +62,6 @@ An example
 
 ```
 
+# Here is when we set width - and everything is different now
+
+![(\#fig:cars4)Something else to do with cars](Notes_files/figure-html/cars-plot-1.png "Alternative text"){width="60%"}

@@ -408,7 +408,9 @@ resolve_alt_tags = function(content){
   #We are looking for titles inside img, by this point there will be an alt tag and a caption containing the caption. We need to remove the alt and there will be a title which needs to become the alt tag. I am not happy with this method of achieving things as it is very backward but it is the outcome of where we are by this point and is the simplest thing to do. This will work with the ![]() format. I have no idea what the side effect is of this in any other method of including images and this will need to be tested extensively but not right now.
 
   #Look for empty alt tags with a title on the same line, remove the alt tag and rename the title to be the alt
-  content = gsub('title="([^"]*)" alt="([^"]*)"','alt="\\1"', content)
+  #If a width is set etc. then there may be attributes inbetween the title and the alt that we need to preserve
+  #content = gsub('title="([^"]*)" alt="([^"]*)"','alt="\\1"', content)
+  content = gsub('title="([^"]*)"\\s*(.*?)\\s*alt="([^"]*)"', '\\2 alt="\\1"', content)  
   print("Resolved alt tags")
   content
 }
