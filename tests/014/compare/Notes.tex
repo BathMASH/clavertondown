@@ -1,11 +1,13 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-%
 \documentclass[
   10pt,
   a4paper]{article}
+\usepackage{xcolor}
+\usepackage[margin=2.5cm]{geometry}
 \usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -36,8 +38,6 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
-\usepackage[margin=2.5cm]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -50,25 +50,23 @@
 \makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
 % Set default figure placement to htbp
-\makeatletter
 \def\fps@figure{htbp}
 \makeatother
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
@@ -84,8 +82,7 @@
 \begin{document}
 \maketitle
 
-\hypertarget{does-the-walker-work-when-switched-on}{%
-\section{Does the Walker work when switched on?}\label{does-the-walker-work-when-switched-on}}
+\section{Does the Walker work when switched on?}\label{does-the-walker-work-when-switched-on}
 
 Recently, I've had trouble doing this, and at first, I thought it was related to R Bookdown. I've tried the equation on your ClavertonDown (which I'm going to start experimenting with) and I'm having the same problem.
 
@@ -110,19 +107,16 @@ Here are the keyboard actions I use.
 
 With markdown stuff, I've not had much luck and I'm wondering if there is something about the version of mathjax being used by Markdown or if there is a fight for the keyboard commands that is at play here.
 
-\hypertarget{testing}{%
-\section{Testing}\label{testing}}
+\section{Testing}\label{testing}
 
 Hello world\ldots{}
 \[x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}\]
 
-\hypertarget{hypothesis}{%
-\subsection{Hypothesis}\label{hypothesis}}
+\subsection{Hypothesis}\label{hypothesis}
 
 This is a bug in MathJax 2.7.2 or when this is in use with Markdown generated formats, perhaps. It was confirmed in transformations with this version from RMarkdown and Clavertondown. But with 2.7.9 in Xerte and Bookdown it does not occur.
 
-\hypertarget{questions}{%
-\subsection{Questions}\label{questions}}
+\subsection{Questions}\label{questions}
 
 \begin{itemize}
 \tightlist
@@ -134,13 +128,11 @@ This is a bug in MathJax 2.7.2 or when this is in use with Markdown generated fo
   Can I change the version for clavertondown or does this depend on Pandoc version? If the latter, what is the Pandoc version we need as a minimum?
 \end{itemize}
 
-\hypertarget{confirmed-not-working-in-current-setup}{%
-\subsection{Confirmed not working in current setup}\label{confirmed-not-working-in-current-setup}}
+\subsection{Confirmed not working in current setup}\label{confirmed-not-working-in-current-setup}
 
 Confirmed not working in Clavertondown with the current setup and this does produce 2.7.2
 
-\hypertarget{tests}{%
-\subsection{Tests}\label{tests}}
+\subsection{Tests}\label{tests}
 
 \begin{itemize}
 \tightlist
@@ -148,8 +140,7 @@ Confirmed not working in Clavertondown with the current setup and this does prod
   Can I use pandoc\_args to change the default MathJax used by Pandoc?
 \end{itemize}
 
-\hypertarget{what-is-going-on}{%
-\section{What is going on?}\label{what-is-going-on}}
+\section{What is going on?}\label{what-is-going-on}
 
 Well. It turns out that Bookdown originally hard-encoded a MathJax setup, for the github format, of \url{https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML}. Presumably this was after the MathJax CDN was closed down and CloudFlare didn't have a latest. But this url points to \url{https://mathjax.rstudio.com/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML} - so it was never updated. When I forked Bookdown and then diverged away from Bookdown this was retained in Clavertondown.
 
@@ -172,8 +163,7 @@ The EPub has MathML in it so is not using MathJax unless the Viewer is. This is 
 
 So, for HTML page format we need to match the hard-encoding of the MathJax setup present in github format.
 
-\hypertarget{but}{%
-\subsection{But\ldots{}}\label{but}}
+\subsection{But\ldots{}}\label{but}
 
 This leaves the question of\ldots{} what is happening in RMarkdown? Why is that ending up with 2.7.2 if the HTML page format does not? Puzzling.
 

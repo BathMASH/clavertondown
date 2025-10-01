@@ -2,6 +2,8 @@ fig:cars1
 exm:unnamed-chunk-1
 fig:cars2
 fig:cars3
+fig:cars4
 here-is-a-figure
 here-is-the-putting-of-a-figure-inside-another-built-in-environment
 here-is-the-putting-of-a-figure-inside-a-newtheorem
+here-is-when-we-set-width---and-everything-is-different-now

@@ -1,11 +1,13 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-%
 \documentclass[
   10pt,
   a4paper]{article}
+\usepackage{xcolor}
+\usepackage[margin=2.5cm]{geometry}
 \usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
@@ -36,8 +38,6 @@
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
-\usepackage[margin=2.5cm]{geometry}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -50,25 +50,23 @@
 \makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
 % Set default figure placement to htbp
-\makeatletter
 \def\fps@figure{htbp}
 \makeatother
 \setlength{\emergencystretch}{3em} % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
-\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\usepackage{bookmark}
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \urlstyle{same}
 \hypersetup{
@@ -108,8 +106,7 @@
 \begin{document}
 \maketitle
 
-\hypertarget{problem}{%
-\section{Problem}\label{problem}}
+\section{Problem}\label{problem}
 
 The styles in HTML are an attempt to colour code based on the type of enviroment. Since the user can define any number of these we have to\ldots{} guess\ldots{} to try and align colours. We have four HTML styles:
 
@@ -139,8 +136,7 @@ Our assignment is NOT currently based, at all, on the PDF styling specified by t
 
 are used to impose the authors visual preferences mostly with respect to font, font attributes and layout.
 
-\hypertarget{actual-user-story}{%
-\section{Actual user story}\label{actual-user-story}}
+\section{Actual user story}\label{actual-user-story}
 
 I thought I could give the same appearance to my Notation, Remarks and Sketch Proof environments by styling them all with style\_with remark. But, in HTML, Remarks and Sketch Proof are both pink with roman text (which I expected since it matches the Bookdown Remark), whereas my Notation environment is green with italic text (colours judged by eye in sepia mode, but the point is they look different).
 
@@ -172,8 +168,7 @@ So\ldots{} I can either:
 
 The easiest is clearly the first. While I am at it I can give the user control over the use of italics in the HTML.
 
-\hypertarget{thoughts}{%
-\subsection{Thoughts}\label{thoughts}}
+\subsection{Thoughts}\label{thoughts}
 
 The only requirements we have in the code are:
 
@@ -185,8 +180,7 @@ The only requirements we have in the code are:
   Make sure that whatever I do happens BEFORE colouroff is instigated because I am changing the style classification? Actually, WAIT, colouroff should work on the name not on the classification. Check this. Actually, colouroff simply removes the customstyle completely so it doesn't really matter. It will matter when it comes to switching italics off within the customstyles which use them.
 \end{itemize}
 
-\hypertarget{tests}{%
-\section{Tests}\label{tests}}
+\section{Tests}\label{tests}
 
 \BeginKnitrBlock{theorem}
 {\label{thm:unnamed-chunk-1} }This is an inbuilt theorem.

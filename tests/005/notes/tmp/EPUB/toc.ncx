@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ncx version="2005-1" xmlns="http://www.daisy.org/z3986/2005/ncx/">
+  <head>
+    <meta name="dtb:uid" content="urn:uuid:0d530e27-873c-441d-98cf-be018a3d1deb" />
+    <meta name="dtb:depth" content="1" />
+    <meta name="dtb:totalPageCount" content="0" />
+    <meta name="dtb:maxPageNumber" content="0" />
+  </head>
+  <docTitle>
+    <text>Test 005: Put a labeled figure/table inside a theorem/proof etc.</text>
+  </docTitle>
+  <navMap>
+    <navPoint id="navPoint-0">
+      <navLabel>
+        <text>Test 005: Put a labeled figure/table inside a theorem/proof etc.</text>
+      </navLabel>
+      <content src="text/title_page.xhtml" />
+    </navPoint>
+    <navPoint id="navPoint-1">
+      <navLabel>
+        <text>1 Here is a figure</text>
+      </navLabel>
+      <content src="text/ch001.xhtml#here-is-a-figure" />
+    </navPoint>
+    <navPoint id="navPoint-2">
+      <navLabel>
+        <text>2 Here is the putting of a figure inside another built in environment</text>
+      </navLabel>
+      <content src="text/ch002.xhtml#here-is-the-putting-of-a-figure-inside-another-built-in-environment" />
+    </navPoint>
+    <navPoint id="navPoint-3">
+      <navLabel>
+        <text>3 Here is the putting of a figure inside a newtheorem</text>
+      </navLabel>
+      <content src="text/ch003.xhtml#here-is-the-putting-of-a-figure-inside-a-newtheorem" />
+    </navPoint>
+  </navMap>
+</ncx>
