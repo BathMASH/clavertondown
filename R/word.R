@@ -16,6 +16,13 @@ markdown_clav = function(
     style_with = load_config()[['style_with']]
     classify_as = load_config()[['classify_as']]
     process_markdown(input_file, from, pandoc_args, !number_sections, new_theorems, number_by, style_with, classify_as)
+    #Like in ebook.R, at this point we are in markdown and about to process directly to Word, in this case,
+    #which we cannot post-process. The result will be a format in which the caption and the alternative text of an image
+    #are the same and the intended alternative text will end up in the title. There appears to be no solution to this.
+    #Does it actually matter? In this case, unlike ebook, we know the answer, as in the Word output format the intended
+    #alt text and the caption both end up in the Word alt text. This means we lose nothing but a screenreader user will
+    #hear the caption at the end of the alt text and then again after the figure. In an ideal world the Word alt text
+    #order would be the other way round but we do not have a way to sort this out. 
     if (is.function(pre)) pre(metadata, input_file, ...)
   }
   post = config$post_processor
