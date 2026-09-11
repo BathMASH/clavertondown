@@ -290,7 +290,7 @@ Here is some text which is not part of the above example.
 \subsection{But I want to number some of them\ldots{}}\label{but-i-want-to-number-some-of-them}
 
 \BeginKnitrBlock{Definitions*}
-{}This is unnumbered in all formats
+{\label{Def:unnamed-chunk-5}}This is unnumbered in all formats
 \EndKnitrBlock{Definitions*}
 
 \BeginKnitrBlock{Definitions}
@@ -356,7 +356,7 @@ We have given the author direct control over which class of HTML to place each t
 \end{itemize}
 
 \BeginKnitrBlock{Thought*}
-{}Here is a thought.
+{\label{Tho:unnamed-chunk-6}}Here is a thought.
 \EndKnitrBlock{Thought*}
 
 \section{Figures inside other environments}\label{figures-inside-other-environments}
@@ -365,7 +365,7 @@ We have given the author direct control over which class of HTML to place each t
 
 \begin{figure}
 \centering
-\includegraphics[width=0.6\linewidth,height=\textheight,keepaspectratio]{./Notes_files/figures/cars-plot-1.pdf}
+\includegraphics[width=0.6\linewidth,height=\textheight,keepaspectratio,alt={This is title and a caption with a reference \ref{thm:thm1} inside it}]{./Notes_files/figures/cars-plot-1.pdf}
 \caption{\label{fig:cars1}This is title and a caption with a reference \ref{thm:thm1} inside it}
 \end{figure}
 
@@ -376,7 +376,7 @@ We have given the author direct control over which class of HTML to place each t
 
 \begin{figure}
 \centering
-\includegraphics[width=0.6\linewidth,height=\textheight,keepaspectratio]{./Notes_files/figures/cars-plot-1.pdf}
+\includegraphics[width=0.6\linewidth,height=\textheight,keepaspectratio,alt={Something to do with cars}]{./Notes_files/figures/cars-plot-1.pdf}
 \caption{\label{fig:cars2}Something to do with cars}
 \end{figure}
 
@@ -392,7 +392,7 @@ Here we are going to do something a bit more impressive with the automatic creat
 
 \begin{figure}
 \centering
-\includegraphics[width=0.6\linewidth,height=\textheight,keepaspectratio]{./Notes_files/figures/cars-plot-1.pdf}
+\includegraphics[width=0.6\linewidth,height=\textheight,keepaspectratio,alt={More cars things}]{./Notes_files/figures/cars-plot-1.pdf}
 \caption{\label{fig:cars3}More cars things}
 \end{figure}
 \EndKnitrBlock{Example*}

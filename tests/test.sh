@@ -21,11 +21,11 @@ if [ $test == "docs/" ]; then
     cd ../tests
     if diff -r -q -a -X "exclude" -I "<script" -I "<meta" ../example/$test ./$test; then
 	echo "NO IMPORTANT CHANGES"
-	if diff -r -q -a -X "exclude" ../$test ./$test; then
+	if diff -w -B -r -q -a -X "exclude" ../$test ./$test; then
 	    echo "NO CHANGES TO SCRIPTS OR META"
 	fi
     else
-	diff -r -a -X "exclude" -I "<script" -I "<meta" ../$test ./$test
+	diff -w -B -r -a -X "exclude" -I "<script" -I "<meta" ../$test ./$test
     fi
 else
     cd ..

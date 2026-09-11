@@ -9,31 +9,35 @@ classoption: a4paper
 fontsize: 10pt
 geometry: margin=2.5cm
 output:
+  clavertondown::pdf_clav:
+    latex_engine: pdflatex
+    dev: pdf
+    keep_tex: true
+    keep_md: true
+    fig_caption: true
+    toc: true
+    extra_dependencies: ["float"]
+    pandoc_args: --default-image-extension=pdf
+  clavertondown::html_clav:
+    toc: true
+    fig_caption: true
+    pandoc_args: --default-image-extension=svg
   clavertondown::word_clav:
     toc: true
     number_sections: true
     keep_md: true
     pandoc_args: --default-image-extension=svg
-  clavertondown::epub_clav:
-    toc: false
-    pandoc_args: --default-image-extension=svg
-  clavertondown::html_clav:
-    toc: true
-    pandoc_args: --default-image-extension=svg
   clavertondown::gitbook_clav:
     split_by: section
+    self-contained: no
     keep_md: true
     config:
       download: [["Notes.html", "HTML page"], ["Notes.pdf","Standard print PDF"], ["NotesClear.pdf","Clear print PDF"], ["NotesLarge.pdf","Large print PDF"], ["Notes.docx","Accessible Word document"], ["Notes.epub","Accessible EPub book" ]]
       sharing: no
     pandoc_args: --default-image-extension=svg
-  clavertondown::pdf_clav:
-    latex_engine: pdflatex
-    keep_tex: true
-    fig_caption: true
+  clavertondown::epub_clav:
     toc: true
-    extra_dependencies: ["float"]
-    pandoc_args: --default-image-extension=pdf
+    pandoc_args: --default-image-extension=svg
 header-includes:
   - \newcommand{\BOO}{BOO}
 ---
@@ -106,52 +110,70 @@ You will notice that there are a variety of ways that theorem type environments 
 
 However, this doesn't mean we have got it right. Give us feedback. Ideally, get students to give feedback too. 
 
-\BeginKnitrBlock{theorem}<div class="bookdown-theorem" custom-style="TheoremStyleUpright" id="thm:thm1"><span class="thm:thm1" custom-style="NameStyle"><strong><span id="thm:thm1"></span>Theorem 2.1   (Foo) </strong></span><p>
+\BeginKnitrBlock{theorem}BEGINSORTNAMEOUTMARKER-91-70-111-111-93-ENDSORTNAMEOUTMARKER
+<span class="thm:thm1" custom-style="NameStyle"><strong>(\#thm:thm1)  INBUILTREMOVEMESTART (Foo) INBUILTREMOVEMEEND</strong></span>
 This is a theorem environment already provided by Bookdown. It still works as before.
-</p></div>\EndKnitrBlock{theorem}
 
-\BeginKnitrBlock{proposition}<div class="bookdown-proposition" custom-style="TheoremStyleUpright" id="prp:prp1"><span class="prp:prp1" custom-style="NameStyle"><strong><span id="prp:prp1"></span>Proposition 2.2   (Thingy we need for <a href="#thm:thm1">2.1</a>) </strong></span><p>
+\EndKnitrBlock{theorem}
+
+\BeginKnitrBlock{proposition}BEGINSORTNAMEOUTMARKER-91-84-104-105-110-103-121-32-119-101-32-110-101-101-100-32-102-111-114-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-ENDSORTNAMEOUTMARKER
+<span class="prp:prp1" custom-style="NameStyle"><strong>(\#prp:prp1)  INBUILTREMOVEMESTART (Thingy we need for \@ref(thm:thm1)) INBUILTREMOVEMEEND</strong></span>
 However, in this system you can now 
 
 * Change the numbering system of the inbuilt environments - this is done in the file _bookdown.yml. Please see the file in the same folder as this file. 
 * Reference other environments within names. Notice that you need to use a double backslash.
-</p></div>\EndKnitrBlock{proposition}
 
-\BeginKnitrBlock{Proof}<div class="Proof" custom-style="ProofStyle" ><span class="Proof" custom-style="NameStyle"><strong> Proof:  (Of theorem <a href="#thm:thm1">2.1</a>) </strong></span><div>
+\EndKnitrBlock{proposition}
+
+\BeginKnitrBlock{Proof*}BEGINSORTNAMEOUTMARKER-91-79-102-32-116-104-101-111-114-101-109-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-ENDSORTNAMEOUTMARKER
+<span class="Proof" custom-style="NameStyle"><strong>SHOULDIHAVEALABEL   (\#Proof:unnamed-chunk-1)   SHOULDIHAVEALABELEND</strong></span>
 You can make new unnumbered theorem environments. You can call them whatever you like. They work kind of like the inbuilt ones but the environment is always newtheorem and the env defines the type. 
 
 You need to have predefined the type and made any changes to the standard print style in the file _bookdown.yml. Please see the file in the same folder as this file. 
 
 You can't control what things look like in the other formats as they have been designed with a variety of accessibility features. If you don't like how they look then maybe contact us and ask about it. It might be something we can think about changing or allowing author control or, it might not.
-</div><p>&squ;</p></div>\EndKnitrBlock{Proof}
+\qed
+\EndKnitrBlock{Proof*}
 
-\BeginKnitrBlock{proof}<div class="bookdown-proof" custom-style="ProofStyle"><span class="proof" custom-style="NameStyle"><strong>Proof (Proof of theorem <a href="#thm:thm1">2.1</a>). </strong></span> <p>
+\BeginKnitrBlock{proof}BEGINSORTNAMEOUTMARKER-91-80-114-111-111-102-32-111-102-32-116-104-101-111-114-101-109-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-ENDSORTNAMEOUTMARKER
+<p>
 Defining your own proof environment doesn't stop the inbuilt one working. 
-</p><p>&squ;</p></div>\EndKnitrBlock{proof}
+</p>
+\EndKnitrBlock{proof}
 
-\BeginKnitrBlock{definition}<div class="bookdown-definition" custom-style="DefinitionStyle" id="def:unnamed-chunk-3"><span class="def:unnamed-chunk-3" custom-style="NameStyle"><strong><span id="def:unnamed-chunk-3"></span>Definition 2.1  </strong></span><div>
+\BeginKnitrBlock{definition}BEGINSORTNAMEOUTMARKER-ENDSORTNAMEOUTMARKER
+<span class="def:unnamed-chunk-3" custom-style="NameStyle"><strong>(\#def:unnamed-chunk-3) </strong></span>
 You can leave some things numbered on their own.
-</div></div>\EndKnitrBlock{definition}
 
-\BeginKnitrBlock{Definitions}<div class="Definitions" custom-style="DefinitionStyle" id="Def:def1"><span class="Definitions" custom-style="NameStyle"><strong> Definitions 2.2:  </strong></span><div>
+\EndKnitrBlock{definition}
+
+\BeginKnitrBlock{Definitions}BEGINSORTNAMEOUTMARKER-ENDSORTNAMEOUTMARKER
+<span class="Definitions" custom-style="NameStyle"><strong>SHOULDIHAVEALABEL   (\#Definitions:def1)   SHOULDIHAVEALABELEND</strong></span>
 You can create new numbered theorem types. Unlike inbuilt environments, for them to be numbered in all formats they *must* have a label. If you forget then they won't be numbered in any format *except* for PDF and then your numbering won't match. I might try and fix this at some point. You can number them alone or with other inbuilt or newtheorem environments.
 
 You need to have predefined the type, the numbering and made any changes to the standard print style in the file _bookdown.yml. Please see the file in the same folder as this file.
 
 Take care not to reuse the inbuilt numbering labels with your new theorems! This will lead to odd things happening. The inbuilt labels to avoid are: thm, lem, cor, prp, cnj, def, exm, exr, fig, tab and eq. 
-</div></div>\EndKnitrBlock{Definitions}
 
-References still work in the same way as in Bookdown. Now go to theorem <a href="#thm:thm1">2.1</a> or proposition <a href="#prp:prp1">2.2</a>.
+\EndKnitrBlock{Definitions}
+
+References still work in the same way as in Bookdown. Now go to theorem \@ref(thm:thm1) or proposition \@ref(prp:prp1).
 
 Here is some text which is not part of the below example.
-\BeginKnitrBlock{Examples}<div class="Examples" ><span class="Examples" custom-style="NameStyle"><strong> Examples: </strong></span><div>You can turn off the colour and padding in html, ePub and Word for any newtheorem or inbuilt theorem type. You do this in the _bookdown.yml file by adding the theorem name to the colouroff style_with list.</div></div>\EndKnitrBlock{Examples}
+\BeginKnitrBlock{Examples*}BEGINSORTNAMEOUTMARKER-ENDSORTNAMEOUTMARKER
+<span class="Examples" custom-style="NameStyle"><strong>SHOULDIHAVEALABEL   (\#Examples:unnamed-chunk-4)   SHOULDIHAVEALABELEND</strong></span>You can turn off the colour and padding in html, ePub and Word for any newtheorem or inbuilt theorem type. You do this in the _bookdown.yml file by adding the theorem name to the colouroff style_with list.
+\EndKnitrBlock{Examples*}
 Here is some text which is not part of the above example.
 
 ## But I want to number some of them...
 
-\BeginKnitrBlock{Definitions}<div class="Definitions" custom-style="DefinitionStyle" id="Def:unnamed-chunk-5"><span class="Definitions" custom-style="NameStyle"><strong> Definitions: </strong></span><div>This is unnumbered in all formats</div></div>\EndKnitrBlock{Definitions}
+\BeginKnitrBlock{Definitions*}BEGINSORTNAMEOUTMARKER-ENDSORTNAMEOUTMARKER
+<span class="Definitions" custom-style="NameStyle"><strong>SHOULDIHAVEALABEL   (\#Definitions:unnamed-chunk-5)   SHOULDIHAVEALABELEND</strong></span>This is unnumbered in all formats
+\EndKnitrBlock{Definitions*}
 
-\BeginKnitrBlock{Definitions}<div class="Definitions" custom-style="DefinitionStyle" id="Def:def3"><span class="Definitions" custom-style="NameStyle"><strong> Definitions 2.3:  </strong></span><div>This should be definitions 2.3 in all formats</div></div>\EndKnitrBlock{Definitions}
+\BeginKnitrBlock{Definitions}BEGINSORTNAMEOUTMARKER-ENDSORTNAMEOUTMARKER
+<span class="Definitions" custom-style="NameStyle"><strong>SHOULDIHAVEALABEL   (\#Definitions:def3)   SHOULDIHAVEALABELEND</strong></span>This should be definitions 2.3 in all formats
+\EndKnitrBlock{Definitions}
 
 ### Out of interest...
 
@@ -193,7 +215,9 @@ We have given the author direct control over which class of HTML to place each t
 * To turn off italics change style_with -> italicsoff to TRUE in the _bookdown.yml file (or add this to a file you already have). You don't need to specify this, if you don't, for backwards compatibility, it will default to italicsoff is FALSE
 * To classify theorem types you can add, if you wish, a classify_as section to your _bookdown.yml. Again, you don't need to add this if you don't want to change anything. You can see an example of this in the _bookdown.yml file for this document in which the new theorem type Thought is classified as an example. If you remove this classification it will default to the theorem type and the below will change colour.  
 
-\BeginKnitrBlock{Thought}<div class="Thought" custom-style="ExampleStyle" id="Tho:unnamed-chunk-6"><span class="Thought" custom-style="NameStyle"><strong> Thought: </strong></span><p>Here is a thought. </p></div>\EndKnitrBlock{Thought}
+\BeginKnitrBlock{Thought*}BEGINSORTNAMEOUTMARKER-ENDSORTNAMEOUTMARKER
+<span class="Thought" custom-style="NameStyle"><strong>SHOULDIHAVEALABEL   (\#Thought:unnamed-chunk-6)   SHOULDIHAVEALABELEND</strong></span>Here is a thought. 
+\EndKnitrBlock{Thought*}
 
 # Figures inside other environments
 
@@ -201,16 +225,18 @@ We have given the author direct control over which class of HTML to place each t
 
 
 
-![Figure 3.1: This is title and a caption with a reference <a href="#thm:thm1">2.1</a> inside it](./Notes_files/figures/cars-plot-1 "This is the alternative text"){width="60%"}
+![(\#fig:cars1)This is title and a caption with a reference \@ref(thm:thm1) inside it](./Notes_files/figures/cars-plot-1 "This is the alternative text"){width="60%"}
 
 ## Here is the putting of a figure inside another built in environment
 
-\BeginKnitrBlock{example}<div class="bookdown-example" custom-style="ExampleStyle" id="exm:unnamed-chunk-7"><span class="exm:unnamed-chunk-7" custom-style="NameStyle"><strong><span id="exm:unnamed-chunk-7"></span>Example 3.1  </strong></span><div>Here is an example.
+\BeginKnitrBlock{example}BEGINSORTNAMEOUTMARKER-ENDSORTNAMEOUTMARKER
+<span class="exm:unnamed-chunk-7" custom-style="NameStyle"><strong>(\#exm:unnamed-chunk-7) </strong></span>Here is an example.
 
-![Figure 3.2: Something to do with cars](./Notes_files/figures/cars-plot-1   "Some more meaningful alternative text?"){width="60%"}
+![(\#fig:cars2)Something to do with cars](./Notes_files/figures/cars-plot-1   "Some more meaningful alternative text?"){width="60%"}
 
 This is a test. So, you need an empty line before and after the above for it to be a float. At the end of an environment this means that you need TWO empty lines. This is Pandoc.
-</div></div>\EndKnitrBlock{example}
+
+\EndKnitrBlock{example}
 
 ## Here is the putting of a figure inside a newtheorem
 
@@ -220,11 +246,13 @@ Here we are going to do something a bit more impressive with the automatic creat
 
 
 
-\BeginKnitrBlock{Example}<div class="Example" custom-style="ExampleStyle" ><span class="Example" custom-style="NameStyle"><strong> Example: </strong></span><div>An example in which we have autogenerated a useful description of the scatterplot for a person who cannot see it, using BrailleR. To see the content of the long description if you view the HTML in Firefox and right click you can request it.
+\BeginKnitrBlock{Example*}BEGINSORTNAMEOUTMARKER-ENDSORTNAMEOUTMARKER
+<span class="Example" custom-style="NameStyle"><strong>SHOULDIHAVEALABEL   (\#Example:unnamed-chunk-8)   SHOULDIHAVEALABELEND</strong></span>An example in which we have autogenerated a useful description of the scatterplot for a person who cannot see it, using BrailleR. To see the content of the long description if you view the HTML in Firefox and right click you can request it.
 
-![Figure 3.3: More cars things](./Notes_files/figures/cars-plot-1 "This is a scatterplot with speed on the x-axis and distance on the y-axis, please read the long description for details."){longdesc=./cars.txt width="60%"}
+![(\#fig:cars3)More cars things](./Notes_files/figures/cars-plot-1 "This is a scatterplot with speed on the x-axis and distance on the y-axis, please read the long description for details."){longdesc=./cars.txt width="60%"}
 
-</div></div>\EndKnitrBlock{Example}
+
+\EndKnitrBlock{Example*}
 
 
 
@@ -234,28 +262,34 @@ Sometimes I would like to repeat a definition from earlier and have it numbered 
 
 Inbuilt using own numbering
 
-\BeginKnitrBlock{theorem}<div class="bookdown-theorem" custom-style="TheoremStyleUpright" id="thm:thm1"><span class="thm:thm1" custom-style="NameStyle"><strong><span id="thm:thm1"></span>Theorem 2.1   (Foo) </strong></span><p>
+\BeginKnitrBlock{theorem}BEGINSORTNAMEOUTMARKER-91-70-111-111-93-ENDSORTNAMEOUTMARKER
+<span class="thm:thm1" custom-style="NameStyle"><strong>(\#thm:thm1)  INBUILTREMOVEMESTART (Foo) INBUILTREMOVEMEEND</strong></span>
 This is a theorem environment already provided by Bookdown. It still works as before.
-</p></div>\EndKnitrBlock{theorem}
+
+\EndKnitrBlock{theorem}
 
 Inbuilt using other inbuilt numbering
 
-\BeginKnitrBlock{proposition}<div class="bookdown-proposition" custom-style="TheoremStyleUpright" id="prp:prp1"><span class="prp:prp1" custom-style="NameStyle"><strong><span id="prp:prp1"></span>Proposition 2.2   (Thingy we need for <a href="#thm:thm1">2.1</a>) </strong></span><p>
+\BeginKnitrBlock{proposition}BEGINSORTNAMEOUTMARKER-91-84-104-105-110-103-121-32-119-101-32-110-101-101-100-32-102-111-114-32-92-114-101-102-123-116-104-109-58-116-104-109-49-125-93-ENDSORTNAMEOUTMARKER
+<span class="prp:prp1" custom-style="NameStyle"><strong>(\#prp:prp1)  INBUILTREMOVEMESTART (Thingy we need for \@ref(thm:thm1)) INBUILTREMOVEMEEND</strong></span>
 However, in this system you can now 
 
 * Change the numbering system of the inbuilt environments - this is done in the file _bookdown.yml. Please see the file in the same folder as this file. 
 * Reference other environments within names. Notice that you need to use a double backslash.
-</p></div>\EndKnitrBlock{proposition}
+
+\EndKnitrBlock{proposition}
 
 Newtheorem using other inbuilt numbering
 
-\BeginKnitrBlock{Definitions}<div class="Definitions" custom-style="DefinitionStyle" id="Def:def1"><span class="Definitions" custom-style="NameStyle"><strong> Definitions 2.2:  </strong></span><div>
+\BeginKnitrBlock{Definitions}BEGINSORTNAMEOUTMARKER-ENDSORTNAMEOUTMARKER
+<span class="Definitions" custom-style="NameStyle"><strong>SHOULDIHAVEALABEL   (\#Definitions:def1)   SHOULDIHAVEALABELEND</strong></span>
 You can create new numbered theorem types. Unlike inbuilt environments, for them to be numbered in all formats they *must* have a label. If you forget then they won't be numbered in any format *except* for PDF and then your numbering won't match. I might try and fix this at some point. You can number them alone or with other inbuilt or newtheorem environments.
 
 You need to have predefined the type, the numbering and made any changes to the standard print style in the file _bookdown.yml. Please see the file in the same folder as this file.
 
 Take care not to reuse the inbuilt numbering labels with your new theorems! This will lead to odd things happening. The inbuilt labels to avoid are: thm, lem, cor, prp, cnj, def, exm, exr, fig, tab and eq. 
-</div></div>\EndKnitrBlock{Definitions}
+
+\EndKnitrBlock{Definitions}
 
 I still need to test the other combinations. Please tell me if it is broken. 
 

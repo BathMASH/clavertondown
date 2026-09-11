@@ -1,0 +1,17 @@
+fig:cars1
+fig:cars-cars
+exm:unnamed-chunk-1
+fig:cars2
+exe:test
+fig:cars3
+fig:cars4
+exm:inbuilt-test
+exe:test-test
+nug:nugtest
+nug:nug-test
+here-is-a-figure
+here-is-a-figure-with-hyphen-in-the-label
+here-is-the-putting-of-a-figure-inside-another-built-in-environment
+here-is-the-putting-of-a-figure-inside-a-newtheorem
+here-is-when-we-set-width---and-everything-is-different-now
+where-do-hyphens-break

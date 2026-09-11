@@ -1,0 +1,18 @@
+book_filename: "Notes"
+output_dir: "notes"
+new_theorems:
+  Thought: tho
+  Nugget: nug
+  Solution: sol
+  Defns: ---
+  Proof: ---
+  Exercises: ---
+  Example: exe
+number_by:
+  prp: thm
+  nug: tho
+  exe: exm
+style_with:
+  plain: ["Defns"]
+  definition: ["proposition"]
+  remark: ["Proof", "Exercises"]

@@ -1,0 +1,241 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+  12pt,
+  a4paper]{extarticle}
+\usepackage{xcolor}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Test 015: Put a labeled figure/table inside a theorem/proof etc. but also have maths in the caption},
+  pdfauthor={Emma Cliffe, Skills Centre: MASH, University of Bath},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Test 015: Put a labeled figure/table inside a theorem/proof etc. but also have maths in the caption}
+\author{Emma Cliffe, Skills Centre: MASH, University of Bath}
+\date{September 2026}
+
+\usepackage{amsthm}
+\theoremstyle{plain}
+\newtheorem*{theorem*}{Theorem}\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{Thought*}{Thought}\newtheorem{Thought}{Thought}[section]
+\theoremstyle{definition}
+\newtheorem*{example*}{Example}\newtheorem{example}{Example}[section]
+\theoremstyle{definition}
+\newtheorem*{proposition*}{Proposition}\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{Nugget*}{Nugget}\newtheorem{Nugget}[Thought]{Nugget}
+\newtheorem*{Example*}{Example}\newtheorem{Example}[example]{Example}
+\theoremstyle{plain}
+\newtheorem*{lemma*}{Lemma}\newtheorem{lemma}{Lemma}[section]
+\theoremstyle{plain}
+\newtheorem*{corollary*}{Corollary}\newtheorem{corollary}{Corollary}[section]
+\theoremstyle{plain}
+\newtheorem*{conjecture*}{Conjecture}\newtheorem{conjecture}{Conjecture}[section]
+\theoremstyle{definition}
+\newtheorem*{definition*}{Definition}\newtheorem{definition}{Definition}[section]
+\theoremstyle{definition}
+\newtheorem*{exercise*}{Exercise}\newtheorem{exercise}{Exercise}[section]
+\newtheorem*{Solution*}{Solution}\newtheorem{Solution}{Solution}[section]
+\theoremstyle{remark}
+\newtheorem*{remark*}{Remark}
+\newtheorem*{solution*}{Solution}
+\theoremstyle{plain}
+\newtheorem*{Defns*}{Defns}
+\newtheorem*{Proof*}{Proof}
+\newtheorem*{Exercises*}{Exercises}
+\let\BeginKnitrBlock\begin \let\EndKnitrBlock\end
+
+
+%\usepackage[english,shorthands=off]{babel}
+\usepackage{etoolbox}
+\usepackage{spverbatim}
+\makeatletter
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\@ifpackageloaded{adjustbox}{}{\usepackage[Export]{adjustbox}}
+\makeatother
+\floatplacement{figure}{H}
+\newcommand{\scalefactor}{1.2}
+\adjustboxset*{min width=\scalefactor\width,max width=\linewidth}
+\renewcommand{\familydefault}{phv}
+\fontfamily{phv}\selectfont
+\renewcommand{\em}{\bf}\renewcommand{\textit}{\textbf}\renewcommand{\emph}{\textbf}\renewcommand{\it}{\bf}\renewcommand{\itshape}{\bf}
+\setlength{\parindent}{0.0pt}
+\setlength{\parskip}{1.0\baselineskip}
+\renewcommand{\baselinestretch}{1.5}\selectfont
+\setlength{\mathsurround}{0.2em}
+\setlength{\arraycolsep}{0.5cm}\renewcommand{\arraystretch}{1.5}
+\addtolength{\jot}{\baselineskip}
+\renewcommand{\;}{\,}
+\sloppy
+\allowdisplaybreaks
+\usepackage{amsthm}
+\newtheoremstyle{plain}{20pt}{3pt}{}{}{\bfseries}{.\newline\nobreak}{1.0em\nobreak}{}
+\newtheoremstyle{definition}{20pt}{3pt}{}{}{\bfseries}{.\newline\nobreak}{1.0em\nobreak}{}
+\newtheoremstyle{remark}{20pt}{3pt}{}{}{\bfseries}{.\newline\nobreak}{1.0em\nobreak}{}
+\csundef{Proof}
+\csundef{endProof}
+\newenvironment{Proof}
+  {\noindent{\bf Proof.}\hspace*{1em}}% Begin
+  {\qed\par}% End
+%% When redefining an environment it is vital that it has 
+%% the same number of arguments as the original
+\renewenvironment{proof}[1][\proofname]
+  {\trivlist\item\relax\noindent{\bf {#1}.}\hspace*{1em}}% Begin
+  {\qed\endtrivlist}% End
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{2}
+\tableofcontents
+}
+\section{Here is a figure}\label{here-is-a-figure}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Something else to do with cars 1 A \textbackslash times B}]{Notes_files/figure-html/cars-plot-1.png}}
+\caption{\label{fig:cars1}Something else to do with cars 1 \(A \times B\)}
+\end{figure}
+
+\section{Here is a figure with hyphen in the label}\label{here-is-a-figure-with-hyphen-in-the-label}
+
+Hyphens in figure labels works\ldots{}
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Something else to do with cars 1- A \textbackslash times B}]{Notes_files/figure-html/cars-plot-1.png}}
+\caption{\label{fig:cars-cars}Something else to do with cars 1- \(A \times B\)}
+\end{figure}
+
+Here I am referencing the first figure \ref{fig:cars1} and second \ref{fig:cars-cars}
+
+\section{Here is the putting of a figure inside another built in environment}\label{here-is-the-putting-of-a-figure-inside-another-built-in-environment}
+
+\BeginKnitrBlock{example}
+{\label{exm:unnamed-chunk-1} }Here is an example.
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Something to do with cars 2}]{Notes_files/figure-html/cars-plot-1.png}}
+\caption{\label{fig:cars2}Something to do with cars 2}
+\end{figure}
+
+This is a test. So, you need an empty line before and after the above for it to be a float. At the end of an environment this means that you need TWO empty lines. This is Pandoc.
+\EndKnitrBlock{example}
+
+\section{Here is the putting of a figure inside a newtheorem}\label{here-is-the-putting-of-a-figure-inside-a-newtheorem}
+
+\BeginKnitrBlock{Example}
+{\label{exe:test}}An example
+
+\begin{figure}
+\centering
+\pandocbounded{\includegraphics[keepaspectratio,alt={Something to do with cars 3}]{Notes_files/figure-html/cars-plot-1.png}}
+\caption{\label{fig:cars3}Something to do with cars 3}
+\end{figure}
+\EndKnitrBlock{Example}
+
+Here I reference that theorem \ref{exe:test}
+
+\section{Here is when we set width - and everything is different now}\label{here-is-when-we-set-width---and-everything-is-different-now}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.6\linewidth,height=\textheight,keepaspectratio,alt={Something else to do with cars 4}]{Notes_files/figure-html/cars-plot-1.png}
+\caption{\label{fig:cars4}Something else to do with cars 4}
+\end{figure}
+
+\section{Where do hyphens break?}\label{where-do-hyphens-break}
+
+They only break in newtheorem, not inbuilt, not figures
+
+\BeginKnitrBlock{example}
+{\label{exm:inbuilt-test} }Here is a final example.
+\EndKnitrBlock{example}
+
+Here I reference that last theorem \ref{exm:inbuilt-test}
+
+\BeginKnitrBlock{Example}
+{\label{exe:test-test}}The broken one.
+\EndKnitrBlock{Example}
+
+Here I reference the broken one \ref{exe:test-test}
+
+\BeginKnitrBlock{Nugget}
+{\label{nug:nugtest}}The good one.
+\EndKnitrBlock{Nugget}
+
+Here I reference the good one \ref{nug:nugtest}
+
+\BeginKnitrBlock{Nugget}
+{\label{nug:nug-test}}The good one bad.
+\EndKnitrBlock{Nugget}
+
+Here I reference the good one bad \ref{nug:nug-test}
+
+\end{document}

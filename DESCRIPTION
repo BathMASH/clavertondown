@@ -1,22 +1,22 @@
 Package: clavertondown
 Type: Package
 Title: Authoring accessible maths lecture notes with Bookdown and R Markdown
-Version: 0.0.3
+Version: 0.0.4
 Authors@R: c(
     person("Cliffe", "Emma", role = c("aut", "cre"), email = "e.h.cliffe@bath.ac.uk"))
 Maintainer: Emma Cliffe <e.h.cliffe@bath.ac.uk>
 Description: Output formats and utilities for authoring accessible maths lecture notes with Bookdown and R Markdown.
 License: GPL-3
 Imports:
-    bookdown (>= 0.17.1),
-    htmltools (>= 0.3.6),
-    knitr (>= 1.22),
-    rmarkdown (>= 1.12),
-    xfun (>= 0.6),
-    tinytex (>= 0.12)
-URL: https://github.com/rstudio/bookdown
-BugReports: https://github.com/rstudio/bookdown/issues
-SystemRequirements: Pandoc (>= 2.3)
+    bookdown (>= 0.48),
+    htmltools (>= 0.5.9),
+    knitr (>= 1.52),
+    rmarkdown (>= 2.32),
+    xfun (>= 0.60),
+    tinytex (>= 0.60)
+URL: https://github.com/BathMASH/clavertondown
+BugReports: https://github.com/BathMASH/clavertondown/issues
+SystemRequirements: Pandoc (>= 3.8)
 LazyData: TRUE
 RoxygenNote: 7.0.2
 Encoding: UTF-8

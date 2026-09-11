@@ -37,28 +37,28 @@ output:
 
 
 
-![Figure 1.1: Something else to do with cars](Notes_files/figure-html/cars-plot-1.png "Alternative text")
+![(\#fig:cars1)Something else to do with cars](Notes_files/figure-html/cars-plot-1.png "Alternative text")
 
 # Here is the putting of a figure inside another built in environment
 
-\BeginKnitrBlock{example}<div class="bookdown-example" custom-style="ExampleStyle" id="exm:unnamed-chunk-1"><span class="exm:unnamed-chunk-1" custom-style="NameStyle"><strong><span id="exm:unnamed-chunk-1"></span>Example 2.1  </strong></span><div>Here is an example.
+\BeginKnitrBlock{example}BEGINSORTNAMEOUTMARKER-ENDSORTNAMEOUTMARKER<div class="bookdown-example" custom-style="ExampleStyle" id="exm:unnamed-chunk-1"><span class="exm:unnamed-chunk-1" custom-style="NameStyle"><strong>(\#exm:unnamed-chunk-1) </strong></span><div>Here is an example.
 
-![Figure 2.1: Something to do with cars](Notes_files/figure-html/cars-plot-1.png "Alternative text")
+![(\#fig:cars2)Something to do with cars](Notes_files/figure-html/cars-plot-1.png "Alternative text")
 
 This is a test. So, you need an empty line before and after the above for it to be a float. At the end of an environment this means that you need TWO empty lines. This is Pandoc.
 </div></div>\EndKnitrBlock{example}
 
 # Here is the putting of a figure inside a newtheorem
 
-\BeginKnitrBlock{Example}<div class="Example" custom-style="ExampleStyle" ><span class="Example" custom-style="NameStyle"><strong> Example: </strong></span><div>An example
+\BeginKnitrBlock{Example}BEGINSORTNAMEOUTMARKER-ENDSORTNAMEOUTMARKER<div class="Example" custom-style="ExampleStyle" id="Example:unnamed-chunk-2"><span class="Example" custom-style="NameStyle"><strong> Example: </strong></span><div>An example
 
-![Figure 3.1: Something to do with cars](Notes_files/figure-html/cars-plot-1.png "Alternative text")
+![(\#fig:cars3)Something to do with cars](Notes_files/figure-html/cars-plot-1.png "Alternative text")
 
 </div></div>\EndKnitrBlock{Example}
 
 # Here is when we set width - and everything is different now
 
-![Figure 4.1: Something else to do with cars](Notes_files/figure-html/cars-plot-1.png "Alternative text"){width="60%"}
+![(\#fig:cars4)Something else to do with cars](Notes_files/figure-html/cars-plot-1.png "Alternative text"){width="60%"}
 
 <!--chapter:end:index.Rmd-->
 
