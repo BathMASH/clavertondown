@@ -29,14 +29,24 @@ pdf_clav = function(
     new_reg_label_types = paste(new_label_types, collapse = '|')
     new_reg_label_types = paste(new_reg_label_types, 'ex', sep = '|')
     #This should be the numbered and the unnumbered new_theorems together in this as this function is from html.R
+    #DEBUG
+    #print(read_utf8(f))
     x = resolve_new_theorems(read_utf8(f), global = !number_sections, new_theorems, number_by)
+    #DEBUG
+    #print(x)
     #Clean up labels that should not be there
     x = clean_labels(x)
+    #DEBUG
+    #print(x)
     #x = resolve_refs_latex(read_utf8(f), new_reg_label_types)
     #This should now only involve those theorems which are numbered
     #Taking out the resolve to understand why we are getting duplicated labels in figures after pandocunbounded
     #It is because they are in the alt text which is the caption in latex now... removing these first
+    #DEBUG
+    #print(x)
     x = resolve_caption_tags(x)
+    #DEBUG
+    #print(x) 
     x = resolve_refs_latex(x, new_reg_label_types, new_theorems, number_by)
     #x = resolve_ref_links_latex(x)
     x = bookdown:::restore_part_latex(x)
@@ -297,7 +307,10 @@ resolve_caption_tags = function(content){
   #Look for tags in the alt text and them, they are causing duplicates which are then causing malformed pandocbounded figures
   #And the duplicates shouldn't be there anyway. We need to leave the tags in the caption part as this is what then
   #turns into the label. 
-  content = gsub('alt=\\{\\(\\\\#fig:[-/[:alnum:]]+\\)([^\\}]*)\\}','alt=\\{\\1\\}', content)
+  #This falls down when there was maths in there. Copilot politely pointed out that I don't care what is in the caption
+  #if I am just trying to remove the label :D
+  #content = gsub('alt=\\{\\(\\\\#fig:[-/[:alnum:]]+\\)([^\\}]*)\\}','alt=\\{\\1\\}', content)
+  content = gsub('alt=\\{\\(\\\\#fig:[-/[:alnum:]]+\\)', 'alt={', content)
   print("Resolved figure tags")
   content
 }
